@@ -38,6 +38,13 @@
     .nav-cta::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: #D4622A; transition: width 0.2s ease; }
     .nav-cta:hover::after { width: 100%; }
 
+    /* Clients scrubber */
+    .clients-scrubber { -webkit-appearance:none; appearance:none; height:3px; background:#E5E2DC; border-radius:2px; outline:none; cursor:pointer; }
+    .clients-scrubber::-webkit-slider-thumb { -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:#111110; cursor:pointer; transition:transform 0.15s; }
+    .clients-scrubber::-moz-range-thumb { width:16px; height:16px; border-radius:50%; background:#111110; border:none; cursor:pointer; }
+    .clients-scrubber:hover::-webkit-slider-thumb { transform:scale(1.3); }
+    .clients-scrubber:active::-webkit-slider-thumb { transform:scale(1.5); }
+
     /* ROYGBIV pill button */
     .roygbiv-btn {
       animation: roygbiv-cycle 7s linear infinite;
@@ -1099,9 +1106,20 @@
     </div>
 
     <!-- Scroll strip -->
-    <div x-show="!loading" x-ref="wrapper"
-         style="overflow:hidden;padding:12px 0;user-select:none;cursor:grab;">
-      <div x-ref="track" style="display:flex;align-items:center;width:max-content;will-change:transform;"></div>
+    <div x-show="!loading">
+      <div x-ref="wrapper"
+           style="overflow:hidden;padding:12px 0;user-select:none;cursor:grab;">
+        <div x-ref="track" style="display:flex;align-items:center;width:max-content;will-change:transform;"></div>
+      </div>
+
+      <!-- Full-width scrubber -->
+      <div style="padding:16px 0 0;">
+        <input type="range" min="0" max="10000" value="0" x-ref="slider"
+               @mousedown="_scrubbing = true" @touchstart="_scrubbing = true"
+               @mouseup="_scrubbing = false" @touchend="_scrubbing = false"
+               @input="if (_half > 0) _pos = -($el.value / 10000) * _half"
+               class="clients-scrubber" style="width:100%;display:block;">
+      </div>
     </div>
   </section>
 
@@ -1389,6 +1407,7 @@
       let _dragPos = 0;
       let _half = 0;
       let _cleanups = [];
+      let _scrubbing = false;
 
       // Safe wrap: keep _pos in [-half, 0). Returns _pos unchanged if half is 0.
       function wrap(p, half) {
@@ -1402,6 +1421,8 @@
         mode: 'alpha',
         clients: [],
         loading: true,
+        get _scrubbing() { return _scrubbing; },
+        set _scrubbing(v) { _scrubbing = v; },
 
         async init() {
           try {
@@ -1443,16 +1464,18 @@
           requestAnimationFrame(() => {
             _half = track.scrollWidth / 2;
             this.attachDrag(wrapper, track);
-            this.startAnim(track);
+            this.startAnim(track, this.$refs.slider);
           });
         },
 
         alphaHTML() {
           return [...this.clients]
             .sort((a, b) => a.name.localeCompare(b.name))
-            .map(c =>
-              `<span style="font-family:'Inter',sans-serif;font-size:0.95rem;font-weight:500;color:#111110;padding:0 8px;white-space:nowrap;">${c.name}</span>` +
-              `<span style="color:#D4D0C8;padding:0 4px;font-size:0.85rem;">·</span>`)
+            .map(c => {
+              const color = COLORS[c.cat] || '#111110';
+              return `<span style="font-family:'Inter',sans-serif;font-size:0.95rem;font-weight:500;color:${color};padding:0 8px;white-space:nowrap;">${c.name}</span>` +
+                     `<span style="color:#D4D0C8;padding:0 4px;font-size:0.85rem;">·</span>`;
+            })
             .join('');
         },
 
@@ -1477,14 +1500,17 @@
           }).join(`<span style="color:#E5E2DC;padding:0 20px;font-size:1.2rem;">|</span>`);
         },
 
-        startAnim(track) {
+        startAnim(track, slider) {
           if (_animId) cancelAnimationFrame(_animId);
           const step = () => {
-            if (!_drag && _half > 0) {
+            if (!_drag && !_scrubbing && _half > 0) {
               _pos -= 0.65;
               if (_pos <= -_half) _pos += _half;
             }
             track.style.transform = `translateX(${_pos}px)`;
+            if (slider && _half > 0 && !_scrubbing) {
+              slider.value = Math.round((Math.abs(_pos) / _half) * 10000);
+            }
             _animId = requestAnimationFrame(step);
           };
           _animId = requestAnimationFrame(step);
