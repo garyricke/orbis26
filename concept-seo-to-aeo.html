@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEO Is Fading. AEO & GEO Are Taking Over. — Orbis Marketing</title>
+  <meta name="description" content="Answer Engine Optimization and Generative Engine Optimization are rewriting how brands get found online. Learn what changed and what to do about it.">
+  <link rel="canonical" href="https://orbismarketing.com/seo-to-aeo">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" href="/favicon-orbis2026.png">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'warm':        '#F8F6F3',
+            'near-black':  '#111110',
+            'muted':       '#6B6960',
+            'border-warm': '#E5E2DC',
+            'ember':       '#D4622A',
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    * { -webkit-font-smoothing: antialiased; }
+    body { font-family: 'Inter', sans-serif; background: #FFFFFF; color: #111110; }
+    .instrument { font-family: 'Instrument Serif', serif; }
+
+    .roygbiv-btn { animation: roygbiv-cycle 7s linear infinite; border-radius: 9999px; border: none; cursor: pointer; }
+    .roygbiv-btn:hover { animation-play-state: paused; }
+    @keyframes roygbiv-cycle {
+      0%    { background-color: #EF4444; }
+      14.3% { background-color: #F97316; }
+      28.6% { background-color: #EAB308; }
+      42.9% { background-color: #22C55E; }
+      57.1% { background-color: #06B6D4; }
+      71.4% { background-color: #3B82F6; }
+      85.7% { background-color: #8B5CF6; }
+      100%  { background-color: #EF4444; }
+    }
+
+    .wbar { animation: wbar-anim 1.2s ease-in-out infinite; }
+    .wbar:nth-child(5n+1) { animation-delay: 0s; }
+    .wbar:nth-child(5n+2) { animation-delay: 0.15s; }
+    .wbar:nth-child(5n+3) { animation-delay: 0.3s; }
+    .wbar:nth-child(5n+4) { animation-delay: 0.45s; }
+    .wbar:nth-child(5n+5) { animation-delay: 0.6s; }
+    @keyframes wbar-anim { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+
+    /* Inquiry modal */
+    .roygbiv-btn-inquiry {
+      animation: roygbiv-cycle 7s linear infinite;
+      border-radius: 9999px; border: none; cursor: pointer;
+    }
+    .clients-scrubber { -webkit-appearance:none; appearance:none; height:3px; background:#E5E2DC; border-radius:2px; outline:none; cursor:pointer; }
+    .clients-scrubber::-webkit-slider-thumb { -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:#111110; cursor:pointer; }
+  </style>
+</head>
+<body x-data="{ mobileOpen: false }">
+
+  <!-- NAV -->
+  <nav class="fixed top-0 left-0 right-0 z-50 h-14 bg-white/95 backdrop-blur-sm border-b border-border-warm flex items-center">
+    <div class="w-full max-w-6xl mx-auto px-6 flex items-center justify-between h-full">
+      <a href="/concept-home-3.html" class="font-sans text-lg text-near-black tracking-tight flex items-baseline gap-1.5">
+        <span class="font-bold">Orbis</span><span class="font-light text-muted">Marketing</span>
+      </a>
+      <div class="hidden md:flex items-center gap-7">
+        <a href="#taxonomy"   class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">SEO vs AEO</a>
+        <a href="#decoupling" class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Decoupling</a>
+        <a href="#technical"  class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Technical</a>
+        <a href="#faq"        class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">FAQ</a>
+        <a href="#glossary"   class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Glossary</a>
+        <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}}))"
+                class="roygbiv-btn font-sans font-semibold text-sm text-white px-5 py-1.5">Let's Talk</button>
+      </div>
+      <button class="md:hidden flex flex-col gap-1.5 p-1" @click="mobileOpen = !mobileOpen" aria-label="Menu">
+        <span class="block w-5 h-px bg-near-black transition-all" :class="mobileOpen ? 'rotate-45 translate-y-2' : ''"></span>
+        <span class="block w-5 h-px bg-near-black transition-all" :class="mobileOpen ? 'opacity-0' : ''"></span>
+        <span class="block w-5 h-px bg-near-black transition-all" :class="mobileOpen ? '-rotate-45 -translate-y-2' : ''"></span>
+      </button>
+    </div>
+    <div x-show="mobileOpen" x-cloak style="display:none"
+         class="absolute top-14 left-0 right-0 bg-warm border-b border-border-warm px-6 py-5 flex flex-col gap-4 md:hidden">
+      <a href="#taxonomy"   class="font-sans text-sm text-muted" @click="mobileOpen=false">SEO vs AEO</a>
+      <a href="#decoupling" class="font-sans text-sm text-muted" @click="mobileOpen=false">Decoupling</a>
+      <a href="#technical"  class="font-sans text-sm text-muted" @click="mobileOpen=false">Technical</a>
+      <a href="#faq"        class="font-sans text-sm text-muted" @click="mobileOpen=false">FAQ</a>
+      <a href="#glossary"   class="font-sans text-sm text-muted" @click="mobileOpen=false">Glossary</a>
+      <button class="roygbiv-btn font-sans font-semibold text-sm text-white px-5 py-1.5 self-start"
+              @click="mobileOpen=false; $nextTick(()=>window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}})))">Let's Talk</button>
+    </div>
+  </nav>
+  <div class="h-14"></div>
+
+  <!-- HERO -->
+  <section class="bg-warm border-b border-border-warm">
+    <div class="max-w-3xl mx-auto px-6 py-16 md:py-20">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 font-sans text-xs text-muted mb-6">
+        <a href="/concept-home-3.html" class="hover:text-near-black transition-colors">Home</a>
+        <span>›</span><span>Insights</span><span>›</span>
+        <span class="text-near-black">SEO → AEO</span>
+      </nav>
+      <!-- Badge -->
+      <div class="flex items-center gap-2 mb-5">
+        <span class="font-sans text-xs font-semibold uppercase tracking-widest text-ember" style="letter-spacing:0.15em;">2026 Strategy Guide</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-ember animate-pulse"></span>
+        <span class="font-sans text-xs text-muted">AI Search Visibility</span>
+      </div>
+      <!-- H1 -->
+      <h1 class="instrument font-normal text-near-black mb-5" style="font-size:clamp(2.4rem,5vw,3.75rem);line-height:1.08;">
+        SEO Is Fading.<br>AEO &amp; GEO Are<br>Taking Over.
+      </h1>
+      <p class="font-sans text-muted leading-relaxed mb-8" style="font-size:1.05rem;">
+        Answer Engine Optimization and Generative Engine Optimization are rewriting how brands get found online — and most businesses have no idea it's happening.
+      </p>
+      <!-- Author -->
+      <div class="flex items-center gap-3 pb-8 mb-8 border-b border-border-warm">
+        <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_96/v1772897787/profile-gary-ricke-bw-black-bkgrd-29aug2025_cw61aw.jpg"
+             alt="Gary Ricke" style="width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:center top;">
+        <div>
+          <p class="font-sans font-semibold text-sm text-near-black leading-none">Gary Ricke</p>
+          <p class="font-sans text-xs text-muted mt-0.5">Founder &amp; Digital Strategist · <time datetime="2026-03">March 2026</time></p>
+        </div>
+        <span class="ml-auto font-sans text-xs text-muted">12 min read</span>
+      </div>
+      <!-- Quick Answer Capsule -->
+      <div style="border-left:3px solid #D4622A;background:#FFF8F5;padding:20px 24px;margin-bottom:28px;">
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-2" style="letter-spacing:0.12em;">Quick Answer</p>
+        <p class="font-sans text-sm leading-relaxed text-near-black">
+          <strong>Answer Engine Optimization (AEO)</strong> is the practice of structuring content so AI systems — Google AI Overviews, Perplexity, ChatGPT — extract and cite it directly. Unlike SEO, which optimizes for clicks, AEO optimizes for <em>brand presence without requiring a click</em>. With 60% of searches now ending without a visit, AEO is no longer optional.
+        </p>
+      </div>
+      <!-- Stats -->
+      <div class="flex flex-wrap gap-3">
+        <span class="font-sans text-xs font-semibold text-white rounded-full px-3 py-1.5" style="background:#D4622A;">25% search decline by 2026</span>
+        <span class="font-sans text-xs font-semibold text-white rounded-full px-3 py-1.5 bg-near-black">8% CTR when AI answered</span>
+        <span class="font-sans text-xs font-semibold text-white rounded-full px-3 py-1.5" style="background:#D4622A;">12% AI–Google URL overlap</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- JUMP NAV (sticky) -->
+  <div class="bg-white border-b border-border-warm sticky top-14 z-40">
+    <div class="max-w-3xl mx-auto px-6 py-3 flex items-center gap-2 overflow-x-auto" style="scrollbar-width:none;">
+      <a href="#audio-overview" class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Listen</a>
+      <a href="#taxonomy"       class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">SEO vs AEO vs GEO</a>
+      <a href="#decoupling"     class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">The Decoupling</a>
+      <a href="#technical"      class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Technical</a>
+      <a href="#content"        class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Content</a>
+      <a href="#faq"            class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">FAQ</a>
+      <a href="#glossary"       class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Glossary</a>
+      <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}}))"
+              class="ml-auto flex-shrink-0 font-sans text-xs font-semibold text-white whitespace-nowrap px-3 py-1.5 rounded-full"
+              style="background:#D4622A;">Get Orbis to Do This →</button>
+    </div>
+  </div>
+
+  <!-- AUDIO PLAYER -->
+  <section id="audio-overview" class="bg-warm border-b border-border-warm py-12 reveal" x-data="audioPlayer()">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-muted mb-2" style="letter-spacing:0.15em;">Audio Overview</p>
+      <h2 class="instrument font-normal text-near-black mb-6" style="font-size:1.6rem;">How to Win AI Search Citations</h2>
+      <div class="bg-white border border-border-warm p-6" style="border-radius:2px;">
+        <!-- Waveform -->
+        <div class="relative flex items-center gap-px cursor-pointer mb-5" style="height:52px;" @click="seek($event)">
+          <div class="absolute inset-0 pointer-events-none overflow-hidden" :style="{ clipPath: `inset(0 ${100-progress}% 0 0)` }">
+            <div class="flex items-center gap-px h-full">
+              <template x-for="(h, i) in bars" :key="'p'+i">
+                <div :class="playing ? 'wbar' : ''" style="flex:1;background:#D4622A;border-radius:1px;transform-origin:bottom;" :style="{ height: h + '%' }"></div>
+              </template>
+            </div>
+          </div>
+          <template x-for="(h, i) in bars" :key="'b'+i">
+            <div style="flex:1;background:#E5E2DC;border-radius:1px;transform-origin:bottom;" :style="{ height: h + '%' }"></div>
+          </template>
+          <div class="absolute top-0 bottom-0 pointer-events-none" style="width:2px;background:#D4622A;border-radius:1px;" :style="{ left: progress + '%' }"></div>
+        </div>
+        <!-- Controls -->
+        <div class="flex items-center gap-3 flex-wrap">
+          <button @click="skip(-15)" class="font-sans text-xs text-muted hover:text-near-black flex items-center gap-1 transition-colors">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>15
+          </button>
+          <button @click="toggle()" class="w-11 h-11 rounded-full bg-near-black text-white flex items-center justify-center flex-shrink-0 relative hover:bg-ember transition-colors">
+            <svg x-show="!playing" class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg x-show="playing"  class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            <span x-show="playing" class="absolute inset-0 rounded-full border border-ember animate-ping opacity-25"></span>
+          </button>
+          <button @click="skip(15)" class="font-sans text-xs text-muted hover:text-near-black flex items-center gap-1 transition-colors">
+            15<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.49-3.5"/></svg>
+          </button>
+          <span class="font-sans text-xs text-muted tabular-nums ml-1">
+            <span x-text="formatTime(currentTime)">0:00</span> / <span x-text="formatTime(duration)">0:00</span>
+          </span>
+          <div class="ml-auto flex items-center gap-1">
+            <template x-for="s in [0.75, 1, 1.25, 1.5, 2]" :key="s">
+              <button @click="setSpeed(s)"
+                      :class="speed===s ? 'bg-near-black text-white' : 'bg-warm text-muted hover:text-near-black'"
+                      class="font-sans text-xs font-semibold px-2 py-1 rounded-full transition-colors"
+                      x-text="s+'x'"></button>
+            </template>
+          </div>
+        </div>
+        <!-- Progress bar -->
+        <div class="mt-4 h-px bg-border-warm relative">
+          <div class="absolute top-0 left-0 h-full bg-ember transition-all" :style="{ width: progress+'%' }"></div>
+        </div>
+        <audio x-ref="audio"
+               src="https://res.cloudinary.com/dsbllwpbh/video/upload/v1772899670/How_to_Win_AI_Search_Citations_avkhoy.mp4"
+               @timeupdate="onTimeUpdate()" @loadedmetadata="onMetadata()" @ended="playing=false"></audio>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAXONOMY -->
+  <section id="taxonomy" class="py-16 bg-white border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">Taxonomy</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">SEO vs AEO vs GEO</h2>
+      <p class="font-sans text-muted leading-relaxed mb-10">Three disciplines. Three goals. One unified strategy.</p>
+      <div class="grid md:grid-cols-3 gap-4 mb-10">
+        <div class="border border-border-warm p-5" style="border-top:3px solid #3B82F6;">
+          <p class="font-sans text-xs font-bold uppercase tracking-widest mb-3" style="color:#3B82F6;letter-spacing:0.12em;">SEO</p>
+          <h3 class="font-sans font-semibold text-near-black mb-2 text-sm">Search Engine Optimization</h3>
+          <p class="font-sans text-xs text-muted leading-relaxed mb-4">Rank pages via authority, links & Core Web Vitals. Still foundational — but losing ground fast.</p>
+          <div class="space-y-1 font-sans text-xs text-muted border-t border-border-warm pt-3">
+            <div><span class="font-semibold text-near-black">Goal:</span> Rank #1</div>
+            <div><span class="font-semibold text-near-black">Metric:</span> CTR</div>
+            <div><span class="font-semibold text-near-black">Content:</span> Long-form prose</div>
+          </div>
+          <div class="mt-4 inline-block font-sans text-xs font-semibold rounded-full px-2.5 py-1 text-near-black" style="background:#EFF6FF;">Declining — still foundational</div>
+        </div>
+        <div class="border border-border-warm p-5" style="border-top:3px solid #D4622A;">
+          <p class="font-sans text-xs font-bold uppercase tracking-widest mb-3" style="color:#D4622A;letter-spacing:0.12em;">AEO</p>
+          <h3 class="font-sans font-semibold text-near-black mb-2 text-sm">Answer Engine Optimization</h3>
+          <p class="font-sans text-xs text-muted leading-relaxed mb-4">Optimize for zero-click surfaces. Brand presence without requiring the click.</p>
+          <div class="space-y-1 font-sans text-xs text-muted border-t border-border-warm pt-3">
+            <div><span class="font-semibold text-near-black">Goal:</span> Position Zero</div>
+            <div><span class="font-semibold text-near-black">Metric:</span> Snippet extraction frequency</div>
+            <div><span class="font-semibold text-near-black">Content:</span> 40–80 word Answer Capsules</div>
+          </div>
+          <div class="mt-4 inline-block font-sans text-xs font-semibold rounded-full px-2.5 py-1 text-white" style="background:#D4622A;">Growing rapidly</div>
+        </div>
+        <div class="border border-border-warm p-5" style="border-top:3px solid #7B2CBF;">
+          <p class="font-sans text-xs font-bold uppercase tracking-widest mb-3" style="color:#7B2CBF;letter-spacing:0.12em;">GEO</p>
+          <h3 class="font-sans font-semibold text-near-black mb-2 text-sm">Generative Engine Optimization</h3>
+          <p class="font-sans text-xs text-muted leading-relaxed mb-4">Get cited by AI chatbots. Optimize for Share of Model — how often AI chooses you.</p>
+          <div class="space-y-1 font-sans text-xs text-muted border-t border-border-warm pt-3">
+            <div><span class="font-semibold text-near-black">Goal:</span> AI citations</div>
+            <div><span class="font-semibold text-near-black">Metric:</span> Citation frequency</div>
+            <div><span class="font-semibold text-near-black">Content:</span> Semantically rich, entity-mapped</div>
+          </div>
+          <div class="mt-4 inline-block font-sans text-xs font-semibold rounded-full px-2.5 py-1 text-white" style="background:#7B2CBF;">The new frontier</div>
+        </div>
+      </div>
+      <div class="border border-border-warm" x-data="{ open: false }">
+        <button @click="open=!open" class="w-full flex items-center justify-between px-6 py-4 text-left">
+          <span class="font-sans font-semibold text-sm text-near-black">How SEO, AEO & GEO work together</span>
+          <svg class="w-4 h-4 text-muted transition-transform" :class="open?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div x-show="open" x-collapse class="border-t border-border-warm px-6 pb-6">
+          <div class="grid md:grid-cols-3 gap-6 pt-5">
+            <div>
+              <p class="font-sans font-semibold text-sm text-near-black mb-2">SEO: The Foundation</p>
+              <p class="font-sans text-xs text-muted leading-relaxed">76% of AI Overview citations come from Google's Top 10. You can't skip SEO — but you can't rely on it alone.</p>
+            </div>
+            <div>
+              <p class="font-sans font-semibold text-sm text-near-black mb-2">AEO: The Hook</p>
+              <p class="font-sans text-xs text-muted leading-relaxed">Answer Capsules and FAQ schema give AI systems the formatted, citable content they need. Most businesses are missing this entirely.</p>
+            </div>
+            <div>
+              <p class="font-sans font-semibold text-sm text-near-black mb-2">GEO: The Authority</p>
+              <p class="font-sans text-xs text-muted leading-relaxed">Entity building, E-E-A-T, and proprietary data create the signals that make AI models choose you over a competitor.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE GREAT DECOUPLING -->
+  <section id="decoupling" class="py-16 bg-warm border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">The Data</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">The Great Decoupling</h2>
+      <p class="font-sans text-muted leading-relaxed mb-10">Google rankings and AI citations have diverged dramatically. Ranking #1 no longer means you exist in AI search.</p>
+      <div class="grid grid-cols-3 gap-3 mb-10">
+        <div class="bg-white border border-border-warm p-5 text-center">
+          <p class="instrument font-normal text-ember" style="font-size:2.5rem;line-height:1;">8%</p>
+          <p class="font-sans text-xs text-muted mt-2 leading-snug">CTR when AI summarized the answer</p>
+        </div>
+        <div class="bg-near-black p-5 text-center">
+          <p class="instrument font-normal text-white" style="font-size:2.5rem;line-height:1;">12%</p>
+          <p class="font-sans text-xs mt-2 leading-snug" style="color:rgba(255,255,255,0.55);">URL overlap: AI citations vs Google Top 10</p>
+        </div>
+        <div class="bg-white border border-border-warm p-5 text-center">
+          <p class="instrument font-normal text-ember" style="font-size:2.5rem;line-height:1;">6%</p>
+          <p class="font-sans text-xs text-muted mt-2 leading-snug">Gemini overlap with Google's own rankings</p>
+        </div>
+      </div>
+      <div class="border border-border-warm overflow-hidden mb-8">
+        <table class="w-full font-sans text-sm" style="border-collapse:collapse;">
+          <thead>
+            <tr class="bg-near-black text-white">
+              <th class="text-left px-5 py-3 font-semibold text-xs uppercase tracking-wide" style="letter-spacing:0.08em;">AI Platform</th>
+              <th class="text-left px-5 py-3 font-semibold text-xs uppercase tracking-wide" style="letter-spacing:0.08em;">URL Overlap</th>
+              <th class="text-left px-5 py-3 font-semibold text-xs uppercase tracking-wide hidden md:table-cell" style="letter-spacing:0.08em;">SEO Relevance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t border-border-warm">
+              <td class="px-5 py-3 font-medium text-near-black text-sm">Google AI Overviews</td>
+              <td class="px-5 py-3 font-semibold text-sm" style="color:#22C55E;">76–94%</td>
+              <td class="px-5 py-3 text-muted text-xs hidden md:table-cell">High — SEO still matters here</td>
+            </tr>
+            <tr class="border-t border-border-warm bg-warm">
+              <td class="px-5 py-3 font-medium text-near-black text-sm">Perplexity</td>
+              <td class="px-5 py-3 font-semibold text-sm" style="color:#EAB308;">28%</td>
+              <td class="px-5 py-3 text-muted text-xs hidden md:table-cell">Moderate — mixed signals</td>
+            </tr>
+            <tr class="border-t border-border-warm">
+              <td class="px-5 py-3 font-medium text-near-black text-sm">ChatGPT</td>
+              <td class="px-5 py-3 font-semibold text-sm" style="color:#EF4444;">8%</td>
+              <td class="px-5 py-3 text-muted text-xs hidden md:table-cell">Low — needs dedicated GEO strategy</td>
+            </tr>
+            <tr class="border-t border-border-warm bg-warm">
+              <td class="px-5 py-3 font-medium text-near-black text-sm">Google Gemini</td>
+              <td class="px-5 py-3 font-semibold text-sm" style="color:#EF4444;">6%</td>
+              <td class="px-5 py-3 text-muted text-xs hidden md:table-cell">Low — even Google's AI ignores Google's rankings</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bg-white border border-border-warm p-6" style="border-left:3px solid #EF4444;">
+        <p class="font-sans font-semibold text-sm text-near-black mb-1">The Critical Vulnerability</p>
+        <p class="font-sans text-sm text-muted leading-relaxed">88% of your competitors are optimizing for a channel driving less than 8% of AI-era conversions. That's your window — if you move now.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECHNICAL INFRASTRUCTURE -->
+  <section id="technical" class="py-16 bg-white border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">Technical</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Infrastructure for AI Visibility</h2>
+      <p class="font-sans text-muted leading-relaxed mb-10">Two files most businesses have never heard of — that AI systems look for first.</p>
+      <div class="grid md:grid-cols-2 gap-10">
+        <div>
+          <p class="font-sans text-xs font-bold uppercase tracking-widest mb-3" style="color:#7B2CBF;letter-spacing:0.12em;">File 1</p>
+          <h3 class="font-sans font-semibold text-near-black mb-3">/llms.txt</h3>
+          <p class="font-sans text-sm text-muted leading-relaxed mb-4">A plain-text file at your domain root that tells AI crawlers what content matters most — in the format they prefer.</p>
+          <div class="rounded p-4 mb-5 font-mono text-xs" style="background:#111110;color:rgba(255,255,255,0.8);">
+            <p style="color:#D4622A;"># Orbis Marketing</p>
+            <p style="color:rgba(255,255,255,0.45);">&gt; AI Marketing Agency</p>
+            <p class="mt-2" style="color:#7B2CBF;">## Key Pages</p>
+            <p>- [Services](/services): Full service list</p>
+            <p>- [FAQ](/faq): Common questions</p>
+            <p>- [About](/about): Team &amp; credentials</p>
+          </div>
+          <div x-data="{ open: false }">
+            <button @click="open=!open" class="font-sans text-xs font-semibold text-ember flex items-center gap-1 hover:underline">
+              How to implement <svg class="w-3 h-3 transition-transform" :class="open?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div x-show="open" x-collapse class="mt-3 space-y-2">
+              <div class="flex gap-2"><span class="font-sans text-xs font-bold text-ember flex-shrink-0">1.</span><p class="font-sans text-xs text-muted">Create <code class="font-mono text-near-black bg-warm px-1">/llms.txt</code> at your domain root</p></div>
+              <div class="flex gap-2"><span class="font-sans text-xs font-bold text-ember flex-shrink-0">2.</span><p class="font-sans text-xs text-muted">List Markdown versions of key pages with brief descriptions</p></div>
+              <div class="flex gap-2"><span class="font-sans text-xs font-bold text-ember flex-shrink-0">3.</span><p class="font-sans text-xs text-muted">Prioritize FAQ, services, and authority pages</p></div>
+              <div class="flex gap-2"><span class="font-sans text-xs font-bold text-ember flex-shrink-0">4.</span><p class="font-sans text-xs text-muted">Update when content changes — AI crawlers check frequently</p></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="font-sans text-xs font-bold uppercase tracking-widest mb-3" style="color:#D4622A;letter-spacing:0.12em;">File 2</p>
+          <h3 class="font-sans font-semibold text-near-black mb-3">Schema.org JSON-LD</h3>
+          <p class="font-sans text-sm text-muted leading-relaxed mb-4">Structured data that tells AI what your content <em>means</em> — not just what it says.</p>
+          <div class="space-y-0 border border-border-warm">
+            <div class="flex items-center justify-between px-4 py-3 border-b border-border-warm">
+              <span class="font-sans text-xs font-semibold text-near-black">FAQPage</span>
+              <span class="font-sans text-xs text-muted">AI extracts Q&amp;A directly</span>
+            </div>
+            <div class="flex items-center justify-between px-4 py-3 border-b border-border-warm bg-warm">
+              <span class="font-sans text-xs font-semibold text-near-black">Organization</span>
+              <span class="font-sans text-xs text-muted">Builds brand entity</span>
+            </div>
+            <div class="flex items-center justify-between px-4 py-3 border-b border-border-warm">
+              <span class="font-sans text-xs font-semibold text-near-black">Article</span>
+              <span class="font-sans text-xs text-muted">Author authority signal</span>
+            </div>
+            <div class="flex items-center justify-between px-4 py-3 border-b border-border-warm bg-warm">
+              <span class="font-sans text-xs font-semibold text-near-black">HowTo</span>
+              <span class="font-sans text-xs text-muted">Step-by-step citation hook</span>
+            </div>
+            <div class="flex items-center justify-between px-4 py-3">
+              <span class="font-sans text-xs font-semibold text-near-black">Person + sameAs</span>
+              <span class="font-sans text-xs text-muted">E-E-A-T verification</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT ARCHITECTURE -->
+  <section id="content" class="py-16 bg-warm border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">Strategy</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Content Architecture for AI</h2>
+      <p class="font-sans text-muted leading-relaxed mb-10">The Answer Capsule Formula — the core unit of AEO content that AI systems are built to extract.</p>
+      <div class="bg-white border border-border-warm p-6 mb-8">
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest text-muted mb-6" style="letter-spacing:0.12em;">The Formula</p>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="border-t-2 pt-4" style="border-color:#D4622A;">
+            <p class="font-sans text-xs font-bold uppercase tracking-wide text-ember mb-1">Part 1</p>
+            <p class="font-sans font-semibold text-sm text-near-black mb-2">The Lead Line</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">1–2 sentence direct conclusion. State the answer before the explanation. No preamble.</p>
+          </div>
+          <div class="border-t-2 pt-4" style="border-color:#7B2CBF;">
+            <p class="font-sans text-xs font-bold uppercase tracking-wide mb-1" style="color:#7B2CBF;">Part 2</p>
+            <p class="font-sans font-semibold text-sm text-near-black mb-2">Structural Support</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">3–5 bullet points with mechanisms or criteria. Parallel structure. Each bullet stands alone.</p>
+          </div>
+          <div class="border-t-2 border-near-black pt-4">
+            <p class="font-sans text-xs font-bold uppercase tracking-wide text-near-black mb-1">Part 3</p>
+            <p class="font-sans font-semibold text-sm text-near-black mb-2">Verifiable Evidence</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">One data point or named source. Makes the capsule citable. Increases citation rate 37%.</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-near-black text-center px-8 py-12 mb-8">
+        <p class="instrument font-normal text-white" style="font-size:4rem;line-height:1;">67%</p>
+        <p class="font-sans text-sm mt-2" style="color:rgba(255,255,255,0.65);">higher AI citation rate for brands publishing weekly vs. monthly</p>
+      </div>
+      <div class="border border-border-warm divide-y divide-border-warm" x-data="{ open: null }">
+        <div>
+          <button @click="open==='semantic'?open=null:open='semantic'" class="w-full flex items-center justify-between px-6 py-4 text-left">
+            <span class="font-sans font-semibold text-sm text-near-black">Semantic Formatting & Token Efficiency</span>
+            <svg class="w-4 h-4 text-muted transition-transform" :class="open==='semantic'?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open==='semantic'" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <p class="font-sans text-sm text-muted leading-relaxed">Use interrogative architecture — structure content around questions AI is likely to ask. Start H2/H3 headers with "What is...", "How does...", "Why does..."</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">Tables outperform paragraphs for data. AI systems extract tabular data at a 2.3× higher rate than equivalent prose.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">Target entity density of 2–3 named entities per 100 words.</p>
+          </div>
+        </div>
+        <div>
+          <button @click="open==='eeat'?open=null:open='eeat'" class="w-full flex items-center justify-between px-6 py-4 text-left">
+            <span class="font-sans font-semibold text-sm text-near-black">E-E-A-T: Experience, Expertise, Authority, Trust</span>
+            <svg class="w-4 h-4 text-muted transition-transform" :class="open==='eeat'?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open==='eeat'" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <p class="font-sans text-sm text-muted leading-relaxed"><strong class="text-near-black">Builds E-E-A-T:</strong> Named authors with credentials and photos, real business address, consistent publication history, sameAs schema linking to authoritative sources.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed"><strong class="text-near-black">Destroys it:</strong> Anonymous content, no author attribution, AI-generated text without human review signal, inconsistent entity data across platforms.</p>
+          </div>
+        </div>
+        <div>
+          <button @click="open==='freshness'?open=null:open='freshness'" class="w-full flex items-center justify-between px-6 py-4 text-left">
+            <span class="font-sans font-semibold text-sm text-near-black">Freshness Bias & the 18-Month Window</span>
+            <svg class="w-4 h-4 text-muted transition-transform" :class="open==='freshness'?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open==='freshness'" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <p class="font-sans text-sm text-muted leading-relaxed">65% of AI citation targets are content revised within the last 12 months. 18 months is the effective cutoff — content older than that needs refreshing, not replacing.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">Weekly publishers receive 67% more citations than monthly publishers. The cadence matters more than the volume.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-16 bg-white border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">FAQ</p>
+      <h2 class="instrument font-normal text-near-black mb-10" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Common Questions</h2>
+      <div class="border border-border-warm divide-y divide-border-warm" x-data="{ open: null }">
+        <div>
+          <button @click="open===1?open=null:open=1" class="w-full flex items-start justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-medium text-sm text-near-black leading-snug">What exactly is a "zero-click" search and why does it matter?</span>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0 mt-0.5" :class="open===1?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open===1" x-collapse class="border-t border-border-warm px-6 py-5 space-y-4">
+            <p class="font-sans text-sm text-muted leading-relaxed">A zero-click search is any query answered directly on the results page — so the user never visits your site.</p>
+            <div class="grid grid-cols-3 gap-3">
+              <div class="bg-warm p-4 text-center"><p class="instrument font-normal text-ember" style="font-size:1.75rem;">60%</p><p class="font-sans text-xs text-muted mt-1">of all searches end without a click</p></div>
+              <div class="bg-warm p-4 text-center"><p class="instrument font-normal text-ember" style="font-size:1.75rem;">77%</p><p class="font-sans text-xs text-muted mt-1">zero-click rate on mobile</p></div>
+              <div class="bg-warm p-4 text-center"><p class="instrument font-normal text-ember" style="font-size:1.75rem;">8%</p><p class="font-sans text-xs text-muted mt-1">CTR when AI summarized the answer</p></div>
+            </div>
+            <p class="font-sans text-sm text-muted leading-relaxed">Users who do click convert at 2–3× the rate of organic traffic — they've already been pre-qualified by the AI response.</p>
+          </div>
+        </div>
+        <div>
+          <button @click="open===2?open=null:open=2" class="w-full flex items-start justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-medium text-sm text-near-black leading-snug">Why do LLMs rarely show their sources — and what can I do about it?</span>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0 mt-0.5" :class="open===2?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open===2" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <p class="font-sans text-sm text-muted leading-relaxed">It's a UX/business design choice — keeping users inside the AI interface drives engagement. Third-party aggregators (Wikipedia, industry publications) are also cited more often than original sources because they're considered more neutral.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">The fix: build your entity on third-party platforms so AI cites the aggregator — which points back to you.</p>
+          </div>
+        </div>
+        <div>
+          <button @click="open===3?open=null:open=3" class="w-full flex items-start justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-medium text-sm text-near-black leading-snug">How do we prove ROI when we can't track AI citations in Google Analytics?</span>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0 mt-0.5" :class="open===3?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open===3" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <p class="font-sans text-sm text-muted leading-relaxed">Use a 4-layer model:</p>
+            <div class="space-y-2">
+              <div class="flex items-start gap-3"><span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5">1. Visibility</span><p class="font-sans text-xs text-muted">Share of Model — track brand mentions in Perplexity, ChatGPT, Gemini manually each week</p></div>
+              <div class="flex items-start gap-3"><span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5">2. Traffic</span><p class="font-sans text-xs text-muted">Monitor referrals from Perplexity.ai, Bing Copilot in GA4</p></div>
+              <div class="flex items-start gap-3"><span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5">3. Quality</span><p class="font-sans text-xs text-muted">Conversion rates of AI-referred traffic — typically 2–3× organic average</p></div>
+              <div class="flex items-start gap-3"><span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5">4. Attribution</span><p class="font-sans text-xs text-muted">Ask new leads "how did you hear about us" and track AI mentions</p></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button @click="open===4?open=null:open=4" class="w-full flex items-start justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-medium text-sm text-near-black leading-snug">Should we pause traditional SEO and shift everything to AEO/GEO?</span>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0 mt-0.5" :class="open===4?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open===4" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <div class="bg-warm border-l-2 border-ember p-4">
+              <p class="font-sans font-semibold text-sm text-near-black">No — AEO and GEO are additions, not replacements.</p>
+            </div>
+            <p class="font-sans text-sm text-muted leading-relaxed">76% of AI Overview citations still come from Google's Top 10. The brands winning AI search are the same brands winning traditional search — with an additional layer of structured, citable content on top.</p>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-ember flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><p class="font-sans text-sm text-muted">Maintain SEO fundamentals — they feed AI Overviews</p></div>
+              <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-ember flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><p class="font-sans text-sm text-muted">Add AEO content layer — Answer Capsules + FAQ schema</p></div>
+              <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-ember flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><p class="font-sans text-sm text-muted">Build GEO entity signals — llms.txt + structured data + author identity</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GLOSSARY -->
+  <section id="glossary" class="py-16 bg-warm border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">Reference</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Abbreviations & Acronyms</h2>
+      <p class="font-sans text-muted leading-relaxed mb-10">A quick-reference guide to the terminology in this article.</p>
+      <div class="mb-8">
+        <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-4" style="letter-spacing:0.12em;">Core Disciplines</p>
+        <div class="grid grid-cols-3 gap-3">
+          <div class="bg-white border border-border-warm p-4" style="border-top:3px solid #3B82F6;">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.5rem;">SEO</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Search Engine Optimization</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Rank in traditional search engines via authority and relevance signals.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4" style="border-top:3px solid #D4622A;">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.5rem;">AEO</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Answer Engine Optimization</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Optimize content for zero-click AI-powered answer surfaces.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4" style="border-top:3px solid #7B2CBF;">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.5rem;">GEO</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Generative Engine Optimization</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Get cited in AI-generated answers from LLMs like ChatGPT and Gemini.</p>
+          </div>
+        </div>
+      </div>
+      <div class="mb-8">
+        <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-4" style="letter-spacing:0.12em;">AI & Technology</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">LLM</p><p class="font-sans text-xs text-muted mt-0.5">Large Language Model</p></div>
+          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">RAG</p><p class="font-sans text-xs text-muted mt-0.5">Retrieval-Augmented Generation</p></div>
+          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">NLP</p><p class="font-sans text-xs text-muted mt-0.5">Natural Language Processing</p></div>
+          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">JSON-LD</p><p class="font-sans text-xs text-muted mt-0.5">Linked Data notation</p></div>
+        </div>
+      </div>
+      <div class="mb-8">
+        <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-4" style="letter-spacing:0.12em;">Search & Visibility</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">SERP</p><p class="font-sans text-xs text-muted mt-0.5">Search Engine Results Page</p></div>
+          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">CTR</p><p class="font-sans text-xs text-muted mt-0.5">Click-Through Rate</p></div>
+          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">PAA</p><p class="font-sans text-xs text-muted mt-0.5">People Also Ask</p></div>
+          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">SoM</p><p class="font-sans text-xs text-muted mt-0.5">Share of Model</p></div>
+        </div>
+      </div>
+      <div>
+        <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-4" style="letter-spacing:0.12em;">Standards & Strategy</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">E-E-A-T</p><p class="font-sans text-xs text-muted mt-0.5">Experience, Expertise, Authority, Trust</p></div>
+          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">KPI</p><p class="font-sans text-xs text-muted mt-0.5">Key Performance Indicator</p></div>
+          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">COI</p><p class="font-sans text-xs text-muted mt-0.5">Conflict of Interest (Wikipedia)</p></div>
+          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">FTC</p><p class="font-sans text-xs text-muted mt-0.5">Federal Trade Commission</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 bg-near-black reveal">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-4" style="color:rgba(255,255,255,0.4);letter-spacing:0.18em;">We Do All of This. For You.</p>
+      <h2 class="instrument font-normal text-white mb-6" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;">
+        Ready to show up<br>in AI search?
+      </h2>
+      <p class="font-sans text-base leading-relaxed mb-10" style="color:rgba(255,255,255,0.6);">
+        Everything in this guide — Answer Capsules, schema markup, llms.txt, freshness systems, entity building — implemented as a done-for-you program.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}}))"
+                class="roygbiv-btn font-sans font-semibold text-sm text-white px-8 py-3">
+          Book a Free Strategy Call →
+        </button>
+        <a href="/concept-home-3.html#pricing"
+           class="font-sans font-semibold text-sm px-8 py-3 border transition-colors"
+           style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.25);">
+          See Our Packages
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-warm py-8 border-t border-border-warm">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+      <a href="/concept-home-3.html" class="font-sans text-sm text-near-black tracking-tight flex items-baseline gap-1.5">
+        <span class="font-bold">Orbis</span><span class="font-light text-muted">Marketing</span>
+      </a>
+      <p class="font-sans font-normal text-xs text-muted">© 2026 Orbis Marketing · Batavia · Geneva · St Charles · Chicago</p>
+    </div>
+  </footer>
+
+  <!-- INQUIRY MODAL -->
+  <div x-data="inquiryModalData()"
+       @open-inquiry.window="openWith($event.detail.package)"
+       @keydown.escape.window="isOpen = false">
+    <div x-show="isOpen"
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[300] flex items-center justify-center p-4"
+         style="background:rgba(0,0,0,0.65);display:none;"
+         @click.self="isOpen = false">
+      <div class="bg-white w-full relative" style="max-width:560px;max-height:92vh;overflow-y:auto;" @click.stop>
+        <button @click="isOpen = false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black z-10">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <div style="padding:40px 36px 36px;">
+          <p class="font-sans text-xs font-semibold uppercase tracking-widest text-muted mb-2" style="letter-spacing:0.15em;">Let's talk</p>
+          <h3 class="instrument font-normal text-near-black leading-tight mb-6" style="font-size:1.75rem;">How can we help you grow your audience?</h3>
+          <form name="inquiry" method="POST" netlify netlify-honeypot="bot-field" @submit.prevent="submit($el)">
+            <input type="hidden" name="form-name" value="inquiry">
+            <p class="hidden"><input name="bot-field"></p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+              <div>
+                <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Name <span style="color:#EF4444;">*</span></label>
+                <input type="text" name="name" required placeholder="Your name" class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none" style="border:1px solid #E5E2DC;padding:10px 12px;">
+              </div>
+              <div>
+                <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Company <span style="color:#EF4444;">*</span></label>
+                <input type="text" name="company" required placeholder="Your company" class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none" style="border:1px solid #E5E2DC;padding:10px 12px;">
+              </div>
+            </div>
+            <div style="margin-bottom:20px;">
+              <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Email <span style="color:#EF4444;">*</span></label>
+              <input type="email" name="email" required placeholder="you@example.com" class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none" style="border:1px solid #E5E2DC;padding:10px 12px;">
+            </div>
+            <div style="margin-bottom:20px;">
+              <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">I'm interested in <span style="color:#EF4444;">*</span></label>
+              <input type="hidden" name="package" :value="selected">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px;">
+                <template x-for="pkg in packages" :key="pkg.name">
+                  <button type="button" @click="selected=pkg.name;pkgError=false"
+                          :class="selected===pkg.name?'text-white':'bg-white text-near-black'"
+                          :style="selected===pkg.name?{backgroundColor:pkg.color,borderColor:pkg.color}:{border:'1px solid #E5E2DC'}"
+                          class="font-sans text-center transition-all duration-200" style="line-height:1.3;padding:8px 4px;border:1px solid #E5E2DC;">
+                    <span x-text="pkg.name" class="block font-semibold" style="font-size:0.72rem;"></span>
+                    <span x-show="pkg.price" x-text="pkg.price" class="block" style="font-size:0.6rem;opacity:0.75;margin-top:2px;"></span>
+                  </button>
+                </template>
+              </div>
+              <p x-show="pkgError" class="font-sans text-xs mt-2" style="color:#EF4444;">Please select a package.</p>
+            </div>
+            <div style="margin-bottom:24px;">
+              <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Message</label>
+              <textarea name="message" rows="4" placeholder="Tell us about your business and what you're hoping to achieve..." class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none resize-none" style="border:1px solid #E5E2DC;padding:10px 12px;"></textarea>
+            </div>
+            <button type="submit" x-show="!submitted"
+                    :style="{backgroundColor:selectedColor(),borderColor:selectedColor()}"
+                    class="w-full text-white font-sans font-semibold text-sm py-3 transition-all duration-300"
+                    style="border:2px solid transparent;">Send Message →</button>
+            <div x-show="submitted" class="text-center py-3">
+              <p class="font-sans font-semibold text-near-black">Got it — we'll be in touch shortly.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Reveal on scroll
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='none'; } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => { io.observe(el); });
+
+    function audioPlayer() {
+      return {
+        playing: false, progress: 0, speed: 1,
+        duration: 0, currentTime: 0,
+        bars: Array.from({ length: 60 }, () => Math.round(20 + Math.random() * 80)),
+        toggle() {
+          const a = this.$refs.audio;
+          this.playing ? a.pause() : a.play();
+          this.playing = !this.playing;
+        },
+        skip(s) { this.$refs.audio.currentTime = Math.max(0, Math.min(this.duration, this.$refs.audio.currentTime + s)); },
+        seek(e) {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const pct = (e.clientX - rect.left) / rect.width;
+          this.$refs.audio.currentTime = pct * this.duration;
+        },
+        setSpeed(s) { this.speed = s; this.$refs.audio.playbackRate = s; },
+        onTimeUpdate() {
+          this.currentTime = this.$refs.audio.currentTime;
+          this.progress = this.duration ? (this.currentTime / this.duration) * 100 : 0;
+        },
+        onMetadata() { this.duration = this.$refs.audio.duration; },
+        formatTime(s) {
+          if (!s || isNaN(s)) return '0:00';
+          const m = Math.floor(s / 60);
+          return m + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+        }
+      };
+    }
+
+    function inquiryModalData() {
+      return {
+        isOpen: false, submitted: false, selected: '', pkgError: false,
+        packages: [
+          { name: 'Bootcamp',      price: '$0–$750/mo',  color: '#EF4444' },
+          { name: 'Local',         price: '$1,500',       color: '#F97316' },
+          { name: 'Blast',         price: '$2,500',       color: '#EAB308' },
+          { name: 'Simple Custom', price: '$5,000',       color: '#22C55E' },
+          { name: 'Premium',       price: '$7,500–$10k',  color: '#06B6D4' },
+          { name: 'Ultimate',      price: '$25,000/yr',   color: '#3B82F6' },
+          { name: 'Not sure',      price: '',             color: '#6366F1' },
+          { name: 'Other',         price: '',             color: '#8B5CF6' },
+        ],
+        selectedColor() { const p = this.packages.find(p => p.name === this.selected); return p ? p.color : '#0F0F11'; },
+        openWith(pkg) { this.selected = pkg || ''; this.submitted = false; this.pkgError = false; this.isOpen = true; },
+        submit(form) {
+          if (!this.selected) { this.pkgError = true; return; }
+          this.pkgError = false;
+          const data = new FormData(form);
+          fetch('/', { method: 'POST', body: data }).then(() => { this.submitted = true; }).catch(() => { this.submitted = true; });
+        }
+      };
+    }
+  </script>
+</body>
+</html>
