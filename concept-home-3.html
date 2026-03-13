@@ -1087,7 +1087,16 @@
   <section id="clients" class="py-24 bg-white" style="overflow:hidden;" x-data="clientsData()">
     <div class="max-w-6xl mx-auto px-6 mb-10">
       <div class="flex items-end justify-between flex-wrap gap-4 reveal">
-        <h2 class="instrument font-normal text-near-black" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;">Clients</h2>
+        <div>
+          <h2 class="instrument font-normal text-near-black" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;">Clients</h2>
+          <p x-show="clients.length" class="font-sans text-muted" style="font-size:0.7rem;margin-top:6px;letter-spacing:0.03em;">
+            <span x-text="clients.length"></span> Clients
+            &nbsp;·&nbsp;
+            <span x-text="new Set(clients.map(c => c.cat)).size"></span> Industries
+            &nbsp;·&nbsp;
+            <span x-text="new Date().getFullYear() - 1998"></span> Years
+          </p>
+        </div>
         <!-- Mode toggle -->
         <div class="flex items-center gap-1 rounded-full p-1" style="background:#F4F1EB;">
           <button @click="setMode('alpha')"
