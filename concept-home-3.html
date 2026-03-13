@@ -1125,12 +1125,17 @@
                class="clients-scrubber" style="width:100%;display:block;">
       </div>
 
-      <!-- View All button -->
-      <div class="text-center" style="padding-top:20px;">
+      <!-- View All + Become One buttons -->
+      <div class="flex items-center justify-center gap-3" style="padding-top:20px;">
         <button @click="allOpen = true"
                 class="font-sans font-semibold text-xs text-muted hover:text-near-black transition-colors"
                 style="letter-spacing:0.08em;text-transform:uppercase;border:1px solid #E5E2DC;padding:7px 20px;border-radius:9999px;">
           View All
+        </button>
+        <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry', {detail:{package:''}}))"
+                class="roygbiv-btn font-sans font-semibold text-xs text-white"
+                style="letter-spacing:0.08em;text-transform:uppercase;padding:7px 20px;">
+          Become One
         </button>
       </div>
     </div>
