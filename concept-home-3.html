@@ -1483,8 +1483,8 @@
             .sort((a, b) => a.name.localeCompare(b.name))
             .map(c => {
               const color = COLORS[c.cat] || '#111110';
-              return `<span style="font-family:'Inter',sans-serif;font-size:0.95rem;font-weight:500;color:${color};padding:0 8px;white-space:nowrap;">${c.name}</span>` +
-                     `<span style="color:#D4D0C8;padding:0 4px;font-size:0.85rem;">·</span>`;
+              return `<span style="font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:500;color:${color};padding:0 8px;white-space:nowrap;">${c.name}</span>` +
+                     `<span style="color:#D4D0C8;padding:0 4px;font-size:0.6rem;">·</span>`;
             })
             .join('');
         },
@@ -1497,16 +1497,14 @@
           });
           return Object.keys(groups).sort().map((cat, idx) => {
             const color = COLORS[cat] || '#111110';
-            const label =
-              `<span data-industry-cat="${cat}" data-industry-color="${color}" style="font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:${color};padding:0 10px 0 ${idx===0?'8px':'28px'};white-space:nowrap;opacity:0.7;">${cat}</span>` +
-              `<span style="color:${color};opacity:0.25;padding:0 4px;font-size:1rem;">|</span>`;
+            const marker = `<span data-industry-cat="${cat}" data-industry-color="${color}" style="font-size:0;width:0;overflow:hidden;display:inline-block;"></span>`;
             const names = groups[cat]
               .sort((a, b) => a.name.localeCompare(b.name))
               .map(c =>
-                `<span style="font-family:'Inter',sans-serif;font-size:0.95rem;font-weight:500;color:${color};padding:0 8px;white-space:nowrap;">${c.name}</span>` +
-                `<span style="color:${color};opacity:0.35;padding:0 4px;font-size:0.85rem;">·</span>`)
+                `<span style="font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:500;color:${color};padding:0 8px;white-space:nowrap;">${c.name}</span>` +
+                `<span style="color:${color};opacity:0.35;padding:0 4px;font-size:0.6rem;">·</span>`)
               .join('');
-            return label + names;
+            return marker + names;
           }).join(`<span style="color:#E5E2DC;padding:0 20px;font-size:1.2rem;">|</span>`);
         },
 
