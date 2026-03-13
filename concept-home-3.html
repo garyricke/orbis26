@@ -1581,7 +1581,7 @@
             .sort((a, b) => a.name.localeCompare(b.name))
             .map(c => {
               const color = COLORS[c.cat] || '#111110';
-              return `<span style="font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:500;color:${color};padding:0 8px;white-space:nowrap;">${c.name}</span>` +
+              return `<span style="font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;color:${color};padding:0 8px;white-space:nowrap;">${c.name}</span>` +
                      `<span style="color:#D4D0C8;padding:0 4px;font-size:0.6rem;">·</span>`;
             })
             .join('');
@@ -1599,8 +1599,8 @@
             const names = groups[cat]
               .sort((a, b) => a.name.localeCompare(b.name))
               .map(c =>
-                `<span style="font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:500;color:${color};padding:0 8px;white-space:nowrap;">${c.name}</span>` +
-                `<span style="color:${color};opacity:0.35;padding:0 4px;font-size:0.6rem;">·</span>`)
+                `<span style="font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;color:${color};padding:0 8px;white-space:nowrap;">${c.name}</span>` +
+                `<span style="color:${color};opacity:0.35;padding:0 4px;font-size:0.8rem;">·</span>`)
               .join('');
             return marker + names;
           }).join(`<span style="color:#E5E2DC;padding:0 20px;font-size:1.2rem;">|</span>`);
