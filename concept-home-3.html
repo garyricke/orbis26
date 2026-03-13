@@ -1124,7 +1124,79 @@
         <input type="range" min="0" max="10000" value="0" x-ref="slider"
                class="clients-scrubber" style="width:100%;display:block;">
       </div>
+
+      <!-- View All button -->
+      <div class="text-center" style="padding-top:20px;">
+        <button @click="allOpen = true"
+                class="font-sans font-semibold text-xs text-muted hover:text-near-black transition-colors"
+                style="letter-spacing:0.08em;text-transform:uppercase;border:1px solid #E5E2DC;padding:7px 20px;border-radius:9999px;">
+          View All
+        </button>
+      </div>
     </div>
+
+    <!-- ── View All Modal ── -->
+    <div x-show="allOpen"
+         class="fixed inset-0 z-[400] flex items-center justify-center p-4"
+         style="background:rgba(0,0,0,0.65);display:none;"
+         @click.self="allOpen = false"
+         @keydown.escape.window="allOpen = false">
+
+      <div class="bg-white relative flex flex-col" style="width:95vw;max-width:1100px;height:90vh;overflow:hidden;">
+
+        <!-- Modal header -->
+        <div class="flex items-center justify-between flex-shrink-0" style="padding:24px 32px 18px;border-bottom:1px solid #E5E2DC;">
+          <h3 class="instrument font-normal text-near-black" style="font-size:1.4rem;">Clients</h3>
+
+          <!-- Toggle -->
+          <div class="flex items-center gap-1 rounded-full p-1" style="background:#F4F1EB;">
+            <button @click="allMode='alpha'"
+                    :class="allMode==='alpha' ? 'bg-white text-near-black' : 'text-muted'"
+                    class="font-sans font-semibold text-xs px-4 py-1.5 rounded-full transition-all">Alpha</button>
+            <button @click="allMode='industry'"
+                    :class="allMode==='industry' ? 'bg-white text-near-black' : 'text-muted'"
+                    class="font-sans font-semibold text-xs px-4 py-1.5 rounded-full transition-all">Industry</button>
+          </div>
+
+          <!-- Close -->
+          <button @click="allOpen = false"
+                  class="w-8 h-8 flex items-center justify-center text-muted hover:text-near-black">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <!-- Modal body -->
+        <div style="overflow-y:auto;padding:28px 32px;flex:1;">
+
+          <!-- Alpha: all clients A–Z, colored by industry -->
+          <div x-show="allMode === 'alpha'" style="columns:5 130px;column-gap:12px;">
+            <template x-for="c in clientsSortedAlpha" :key="c.name">
+              <p :style="{ color: industryColor(c.cat) }"
+                 style="font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:500;margin-bottom:7px;break-inside:avoid;"
+                 x-text="c.name"></p>
+            </template>
+          </div>
+
+          <!-- Industry: grouped by industry in columns -->
+          <div x-show="allMode === 'industry'" style="columns:4 160px;column-gap:20px;">
+            <template x-for="group in clientsByIndustry" :key="group.cat">
+              <div style="break-inside:avoid;margin-bottom:22px;">
+                <p :style="{ color: group.color }"
+                   style="font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:6px;"
+                   x-text="group.cat"></p>
+                <template x-for="c in group.clients" :key="c.name">
+                  <p :style="{ color: group.color }"
+                     style="font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:400;margin-bottom:4px;opacity:0.85;"
+                     x-text="c.name"></p>
+                </template>
+              </div>
+            </template>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <!-- ============================================================
@@ -1426,6 +1498,25 @@
         mode: 'alpha',
         clients: [],
         loading: true,
+        allOpen: false,
+        allMode: 'alpha',
+
+        get clientsSortedAlpha() {
+          return [...this.clients].sort((a, b) => a.name.localeCompare(b.name));
+        },
+        get clientsByIndustry() {
+          const groups = {};
+          this.clients.forEach(c => {
+            if (!groups[c.cat]) groups[c.cat] = [];
+            groups[c.cat].push(c);
+          });
+          return Object.keys(groups).sort().map(cat => ({
+            cat,
+            color: COLORS[cat] || '#111110',
+            clients: groups[cat].sort((a, b) => a.name.localeCompare(b.name))
+          }));
+        },
+        industryColor(cat) { return COLORS[cat] || '#111110'; },
 
         async init() {
           try {
