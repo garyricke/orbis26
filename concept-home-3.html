@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orbis Marketing — Human-Centered Audience Building</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'warm': '#F8F6F3',
+            'near-black': '#111110',
+            'muted': '#6B6960',
+            'border-warm': '#E5E2DC',
+            'ember': '#D4622A',
+          },
+          fontFamily: {
+            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    * { -webkit-font-smoothing: antialiased; }
+    body { font-family: 'Inter', sans-serif; background: #FFFFFF; color: #111110; }
+    .instrument { font-family: 'Instrument Serif', Georgia, serif; }
+
+    /* Nav link hover underline */
+    .nav-cta { position: relative; text-decoration: none; }
+    .nav-cta::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: #D4622A; transition: width 0.2s ease; }
+    .nav-cta:hover::after { width: 100%; }
+
+    /* ROYGBIV pill button */
+    .roygbiv-btn {
+      animation: roygbiv-cycle 7s linear infinite;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+    }
+    .roygbiv-btn:hover { animation-play-state: paused; }
+    @keyframes roygbiv-cycle {
+      0%    { background-color: #EF4444; }
+      14.3% { background-color: #F97316; }
+      28.6% { background-color: #EAB308; }
+      42.9% { background-color: #22C55E; }
+      57.1% { background-color: #06B6D4; }
+      71.4% { background-color: #3B82F6; }
+      85.7% { background-color: #8B5CF6; }
+      100%  { background-color: #EF4444; }
+    }
+
+    /* Grid item hover */
+    .grid-item .overlay { opacity: 0; transition: opacity 0.2s ease; }
+    .grid-item:hover .overlay { opacity: 1; }
+
+    /* Photo mosaic — ensure columns fill height */
+    .mosaic-grid { display: grid; grid-template-columns: 1.2fr 1fr 0.9fr; gap: 3px; }
+    .mosaic-col { display: flex; flex-direction: column; gap: 3px; }
+    .mosaic-img { flex: 1; overflow: hidden; }
+    .mosaic-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    [x-cloak] { display: none !important; }
+
+    /* Hero headline clamp */
+    .hero-headline { font-size: clamp(2.8rem, 5vw, 4.5rem); line-height: 1.1; }
+
+    /* Focus outline ember */
+    .email-input:focus { outline: 2px solid #D4622A; outline-offset: 0; }
+
+    /* Stat number style */
+    .stat-number { font-weight: 800; }
+
+    /* Nav shadow */
+    nav { box-shadow: 0 1px 0 #E5E2DC; }
+
+    @media (max-width: 767px) {
+      .mosaic-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .mosaic-col {
+        flex-direction: row;
+        gap: 3px;
+      }
+      .mosaic-img {
+        height: 240px;
+        flex: 1;
+      }
+      .mosaic-col-single .mosaic-img {
+        height: 240px;
+      }
+    }
+  </style>
+</head>
+<body x-data="{ mobileOpen: false }">
+
+  <!-- ============================================================
+       SECTION 1: NAV
+  ============================================================ -->
+  <nav class="fixed top-0 left-0 right-0 z-50 h-14 bg-white/95 backdrop-blur-sm border-b border-border-warm flex items-center">
+    <div class="w-full max-w-6xl mx-auto px-6 flex items-center justify-between h-full">
+      <!-- Wordmark -->
+      <a href="#" class="font-sans text-lg text-near-black tracking-tight flex items-baseline gap-1.5">
+          <span class="font-bold">Orbis</span><span class="font-light text-muted">Marketing</span>
+        </a>
+
+      <!-- Desktop nav right -->
+      <div class="hidden md:flex items-center gap-7">
+        <a href="#services" class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Services</a>
+        <a href="#stories" class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Stories</a>
+        <a href="#pricing" class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Pricing</a>
+        <a href="#clients" class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Clients</a>
+        <a href="#about" class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">About</a>
+        <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry', {detail:{package:''}}))" class="roygbiv-btn font-sans font-semibold text-sm text-white px-5 py-1.5">Let's Talk</button>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button
+        class="md:hidden flex flex-col gap-1.5 p-1"
+        @click="mobileOpen = !mobileOpen"
+        aria-label="Toggle menu"
+      >
+        <span class="block w-5 h-px bg-near-black transition-all" :class="mobileOpen ? 'rotate-45 translate-y-2' : ''"></span>
+        <span class="block w-5 h-px bg-near-black transition-all" :class="mobileOpen ? 'opacity-0' : ''"></span>
+        <span class="block w-5 h-px bg-near-black transition-all" :class="mobileOpen ? '-rotate-45 -translate-y-2' : ''"></span>
+      </button>
+    </div>
+
+    <!-- Mobile dropdown -->
+    <div
+      x-show="mobileOpen"
+      x-cloak
+      style="display:none"
+      class="absolute top-14 left-0 right-0 bg-warm border-b border-border-warm px-6 py-5 flex flex-col gap-4 md:hidden"
+    >
+      <a href="#services" class="font-sans font-normal text-sm text-muted" @click="mobileOpen = false">Services</a>
+      <a href="#stories" class="font-sans font-normal text-sm text-muted" @click="mobileOpen = false">Stories</a>
+      <a href="#pricing" class="font-sans font-normal text-sm text-muted" @click="mobileOpen = false">Pricing</a>
+      <a href="#clients" class="font-sans font-normal text-sm text-muted" @click="mobileOpen = false">Clients</a>
+      <a href="#about" class="font-sans font-normal text-sm text-muted" @click="mobileOpen = false">About</a>
+      <button class="roygbiv-btn font-sans font-semibold text-sm text-white px-5 py-1.5 self-start" @click="mobileOpen = false; $nextTick(() => window.dispatchEvent(new CustomEvent('open-inquiry', {detail:{package:''}})))">Let's Talk</button>
+    </div>
+  </nav>
+
+  <!-- Spacer for fixed nav -->
+  <div class="h-14"></div>
+
+  <!-- ============================================================
+       SECTION 2: HERO — EDITORIAL PHOTO MOSAIC
+  ============================================================ -->
+  <section>
+    <!-- Mosaic -->
+    <div class="overflow-hidden w-full" style="height: 78vh;">
+      <div class="mosaic-grid h-full">
+        <!-- Col 1: tall single image -->
+        <div class="mosaic-col mosaic-col-single">
+          <div class="mosaic-img">
+            <img
+              src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_900/v1770451696/bpai-art-of-the-fox-mural-1_x9e3xk.jpg"
+              alt="Art of the Fox mural — Batavia, IL"
+              loading="eager"
+            >
+          </div>
+        </div>
+        <!-- Col 2: two stacked images -->
+        <div class="mosaic-col">
+          <div class="mosaic-img">
+            <video
+              src="https://player.vimeo.com/progressive_redirect/playback/1118524755/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=13a3c89ce7b56d3e8539960e50717032862836b9e4094ddfcc372090fa33c7bd"
+              autoplay muted loop playsinline
+              style="width:100%;height:100%;object-fit:cover;display:block;"
+            ></video>
+          </div>
+          <div class="mosaic-img">
+            <img
+              src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_700/v1770840218/incubator-judges-stage_ajozxk.jpg"
+              alt="Incubator judges on stage — community event"
+              loading="eager"
+            >
+          </div>
+        </div>
+        <!-- Col 3: tall single video -->
+        <div class="mosaic-col mosaic-col-single">
+          <div class="mosaic-img">
+            <video
+              src="https://player.vimeo.com/progressive_redirect/playback/1125923234/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=ba9c8d8f4953c1828ccf1b90d43572292cff783d5b5f0cd51b8efae4ea305b27"
+              autoplay muted loop playsinline
+              style="width:100%;height:100%;object-fit:cover;display:block;"
+            ></video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Below mosaic: headline -->
+    <div class="bg-white pt-10 pb-16">
+      <div class="max-w-4xl mx-auto px-6">
+        <h1 class="instrument hero-headline font-normal text-near-black reveal">
+          "Your community is already talking.<br>We make sure they're talking about you."
+        </h1>
+        <p class="font-sans font-normal text-lg text-muted max-w-xl mt-6 leading-relaxed reveal">
+          Orbis builds human-centered audiences for local businesses — then uses AI to amplify those connections far beyond what's manually possible.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-8 reveal">
+          <a href="#cta" class="font-sans font-semibold text-ember hover:underline">Start a conversation →</a>
+          <a href="#work" class="font-sans font-normal text-muted hover:text-near-black transition-colors">See our work ↓</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3: POSITIONING STRIP
+  ============================================================ -->
+  <section class="bg-near-black py-16">
+    <div class="max-w-2xl mx-auto px-6 text-center reveal">
+      <p class="instrument italic text-3xl sm:text-4xl text-white leading-snug">
+        "Human-centered audience building, amplified by AI."
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4: SERVICES
+  ============================================================ -->
+  <section id="services" class="pt-24 pb-24 bg-white"
+           x-data="{ modalOpen: false, modalId: '' }"
+           @keydown.escape.window="modalOpen = false">
+
+    <div class="max-w-6xl mx-auto px-6 mb-8">
+      <h2 class="instrument font-normal text-near-black" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;">Services</h2>
+      <p class="font-sans text-muted mt-2" style="font-size:0.925rem;">Everything you need to show up, get found, and grow.</p>
+    </div>
+
+    <!-- Horizontal scroll strip -->
+    <div class="relative">
+      <!-- Prev arrow -->
+      <button onclick="this.closest('section').querySelector('.services-scroll').scrollBy({left:-580,behavior:'smooth'})"
+              class="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center bg-white shadow-md hover:shadow-lg transition-shadow"
+              style="border:1px solid #E5E2DC;">
+        <svg class="w-4 h-4 text-near-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <!-- Next arrow -->
+      <button onclick="this.closest('section').querySelector('.services-scroll').scrollBy({left:580,behavior:'smooth'})"
+              class="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center bg-white shadow-md hover:shadow-lg transition-shadow"
+              style="border:1px solid #E5E2DC;">
+        <svg class="w-4 h-4 text-near-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    <div class="w-full overflow-x-auto services-scroll" style="scrollbar-width:none;">
+      <div class="flex" style="gap:3px;padding-bottom:0;">
+
+        <!-- Website -->
+        <div class="relative flex-shrink-0 overflow-hidden group cursor-pointer" style="width:280px;height:280px;"
+             @click="modalId='website'; modalOpen=true">
+          <img src="./generated_imgs/generated-2026-03-13T12-22-12-403Z-w796iv.png" alt="Website"
+               class="w-full h-full object-cover object-center block group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0) 55%);"></div>
+          <div class="absolute bottom-0 left-0 right-0 flex items-end justify-between" style="padding:16px 14px;">
+            <div>
+              <p class="font-sans font-black text-white leading-none" style="font-size:1.75rem;">Website</p>
+              <p class="font-sans text-white" style="font-size:0.7rem;opacity:0.8;margin-top:5px;">88% of buyers research online before contacting</p>
+            </div>
+            <button @click.stop="modalId='website'; modalOpen=true"
+                    class="w-8 h-8 rounded-full flex items-center justify-center font-sans text-xs font-bold flex-shrink-0 ml-3"
+                    style="background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.45);">i</button>
+          </div>
+        </div>
+
+        <!-- Video -->
+        <div class="relative flex-shrink-0 overflow-hidden group cursor-pointer" style="width:280px;height:280px;"
+             @click="modalId='video'; modalOpen=true">
+          <img src="./generated_imgs/generated-2026-03-13T12-22-32-006Z-074vf2.png" alt="Video"
+               class="w-full h-full object-cover object-center block group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0) 55%);"></div>
+          <div class="absolute bottom-0 left-0 right-0 flex items-end justify-between" style="padding:16px 14px;">
+            <div>
+              <p class="font-sans font-black text-white leading-none" style="font-size:1.75rem;">Video</p>
+              <p class="font-sans text-white" style="font-size:0.7rem;opacity:0.8;margin-top:5px;">Video gets 3× more engagement than any other format</p>
+            </div>
+            <button @click.stop="modalId='video'; modalOpen=true"
+                    class="w-8 h-8 rounded-full flex items-center justify-center font-sans text-xs font-bold flex-shrink-0 ml-3"
+                    style="background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.45);">i</button>
+          </div>
+        </div>
+
+        <!-- Podcast -->
+        <div class="relative flex-shrink-0 overflow-hidden group cursor-pointer" style="width:280px;height:280px;"
+             @click="modalId='podcast'; modalOpen=true">
+          <img src="./generated_imgs/generated-2026-03-13T12-22-50-169Z-du7tyq.png" alt="Podcast"
+               class="w-full h-full object-cover object-center block group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0) 55%);"></div>
+          <div class="absolute bottom-0 left-0 right-0 flex items-end justify-between" style="padding:16px 14px;">
+            <div>
+              <p class="font-sans font-black text-white leading-none" style="font-size:1.75rem;">Podcast</p>
+              <p class="font-sans text-white" style="font-size:0.7rem;opacity:0.8;margin-top:5px;">Podcast listeners are 45% more likely to act on a recommendation</p>
+            </div>
+            <button @click.stop="modalId='podcast'; modalOpen=true"
+                    class="w-8 h-8 rounded-full flex items-center justify-center font-sans text-xs font-bold flex-shrink-0 ml-3"
+                    style="background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.45);">i</button>
+          </div>
+        </div>
+
+        <!-- Social -->
+        <div class="relative flex-shrink-0 overflow-hidden group cursor-pointer" style="width:280px;height:280px;"
+             @click="modalId='social'; modalOpen=true">
+          <img src="./generated_imgs/generated-2026-03-13T12-23-09-127Z-a439tw.png" alt="Social"
+               class="w-full h-full object-cover object-center block group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0) 55%);"></div>
+          <div class="absolute bottom-0 left-0 right-0 flex items-end justify-between" style="padding:16px 14px;">
+            <div>
+              <p class="font-sans font-black text-white leading-none" style="font-size:1.75rem;">Social</p>
+              <p class="font-sans text-white" style="font-size:0.7rem;opacity:0.8;margin-top:5px;">5B people use social media — local reach is untapped</p>
+            </div>
+            <button @click.stop="modalId='social'; modalOpen=true"
+                    class="w-8 h-8 rounded-full flex items-center justify-center font-sans text-xs font-bold flex-shrink-0 ml-3"
+                    style="background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.45);">i</button>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="relative flex-shrink-0 overflow-hidden group cursor-pointer" style="width:280px;height:280px;"
+             @click="modalId='email'; modalOpen=true">
+          <img src="./generated_imgs/generated-2026-03-13T12-23-27-222Z-qr3vq1.png" alt="Email"
+               class="w-full h-full object-cover object-center block group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0) 55%);"></div>
+          <div class="absolute bottom-0 left-0 right-0 flex items-end justify-between" style="padding:16px 14px;">
+            <div>
+              <p class="font-sans font-black text-white leading-none" style="font-size:1.75rem;">Email</p>
+              <p class="font-sans text-white" style="font-size:0.7rem;opacity:0.8;margin-top:5px;">$42 return for every $1 spent — highest ROI in marketing</p>
+            </div>
+            <button @click.stop="modalId='email'; modalOpen=true"
+                    class="w-8 h-8 rounded-full flex items-center justify-center font-sans text-xs font-bold flex-shrink-0 ml-3"
+                    style="background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.45);">i</button>
+          </div>
+        </div>
+
+        <!-- Print -->
+        <div class="relative flex-shrink-0 overflow-hidden group cursor-pointer" style="width:280px;height:280px;"
+             @click="modalId='print'; modalOpen=true">
+          <img src="./generated_imgs/generated-2026-03-13T12-23-45-337Z-wy5nnk.png" alt="Print"
+               class="w-full h-full object-cover object-center block group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0) 55%);"></div>
+          <div class="absolute bottom-0 left-0 right-0 flex items-end justify-between" style="padding:16px 14px;">
+            <div>
+              <p class="font-sans font-black text-white leading-none" style="font-size:1.75rem;">Print</p>
+              <p class="font-sans text-white" style="font-size:0.7rem;opacity:0.8;margin-top:5px;">82% of consumers trust print more than digital ads</p>
+            </div>
+            <button @click.stop="modalId='print'; modalOpen=true"
+                    class="w-8 h-8 rounded-full flex items-center justify-center font-sans text-xs font-bold flex-shrink-0 ml-3"
+                    style="background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.45);">i</button>
+          </div>
+        </div>
+
+        <!-- Events -->
+        <div class="relative flex-shrink-0 overflow-hidden group cursor-pointer" style="width:280px;height:280px;"
+             @click="modalId='events'; modalOpen=true">
+          <img src="./generated_imgs/generated-2026-03-13T12-24-02-953Z-jfc2et.png" alt="Events"
+               class="w-full h-full object-cover object-center block group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0) 55%);"></div>
+          <div class="absolute bottom-0 left-0 right-0 flex items-end justify-between" style="padding:16px 14px;">
+            <div>
+              <p class="font-sans font-black text-white leading-none" style="font-size:1.75rem;">Events</p>
+              <p class="font-sans text-white" style="font-size:0.7rem;opacity:0.8;margin-top:5px;">95% of marketers say in-person events drive real ROI</p>
+            </div>
+            <button @click.stop="modalId='events'; modalOpen=true"
+                    class="w-8 h-8 rounded-full flex items-center justify-center font-sans text-xs font-bold flex-shrink-0 ml-3"
+                    style="background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.45);">i</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div><!-- end relative wrapper -->
+
+    <!-- Modals overlay -->
+    <div x-show="modalOpen"
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[200] flex items-center justify-center p-4"
+         style="background:rgba(0,0,0,0.6);display:none;"
+         @click.self="modalOpen=false">
+
+      <!-- Website -->
+      <div x-show="modalId==='website'" class="bg-white w-full max-w-sm p-8 relative" style="border-top:3px solid #E53935;">
+        <button @click="modalOpen=false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-1" style="color:#E53935;">Website</p>
+        <h3 class="instrument font-normal text-near-black text-2xl leading-tight mb-3">Your home base online.</h3>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-5">A fast, mobile-first website built to convert visitors into customers. We handle design, copy, SEO foundations, and ongoing updates so you never fall behind.</p>
+        <ul class="space-y-2 mb-6">
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#E53935;">—</span> Custom design, no templates</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#E53935;">—</span> SEO-optimized from day one</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#E53935;">—</span> Integrated with your other channels</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#E53935;">—</span> Ongoing edits included</li>
+        </ul>
+        <button @click="modalOpen=false; $nextTick(() => window.dispatchEvent(new CustomEvent('open-inquiry', {detail:{package:'Website'}})))" class="font-sans font-semibold text-sm" style="color:#E53935;background:none;border:none;cursor:pointer;padding:0;">Get started →</button>
+      </div>
+
+      <!-- Video -->
+      <div x-show="modalId==='video'" class="bg-white w-full max-w-sm p-8 relative" style="border-top:3px solid #DD6B20;">
+        <button @click="modalOpen=false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-1" style="color:#DD6B20;">Video</p>
+        <h3 class="instrument font-normal text-near-black text-2xl leading-tight mb-3">Stories that actually get watched.</h3>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-5">Short-form and long-form video for social, websites, and ads. From drone footage to client testimonials, we produce content that builds trust and drives action.</p>
+        <ul class="space-y-2 mb-6">
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#DD6B20;">—</span> Client story videos</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#DD6B20;">—</span> Drone & cinematic footage</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#DD6B20;">—</span> Short-form social cuts</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#DD6B20;">—</span> Ad-ready edits</li>
+        </ul>
+        <button @click="modalOpen=false; $nextTick(() => window.dispatchEvent(new CustomEvent('open-inquiry', {detail:{package:'Video'}})))" class="font-sans font-semibold text-sm" style="color:#DD6B20;background:none;border:none;cursor:pointer;padding:0;">Get started →</button>
+      </div>
+
+      <!-- Podcast -->
+      <div x-show="modalId==='podcast'" class="bg-white w-full max-w-sm p-8 relative" style="border-top:3px solid #B7791F;">
+        <button @click="modalOpen=false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-1" style="color:#B7791F;">Podcast</p>
+        <h3 class="instrument font-normal text-near-black text-2xl leading-tight mb-3">Your voice, on repeat.</h3>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-5">We produce, edit, and distribute a branded podcast that positions you as the go-to expert in your market. Every episode is repurposed into clips, quotes, and written content.</p>
+        <ul class="space-y-2 mb-6">
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#B7791F;">—</span> Full production & editing</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#B7791F;">—</span> Distributed to all major platforms</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#B7791F;">—</span> Episode repurposing into clips</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#B7791F;">—</span> Show notes & transcripts</li>
+        </ul>
+        <button @click="modalOpen=false; $nextTick(() => window.dispatchEvent(new CustomEvent('open-inquiry', {detail:{package:'Podcast'}})))" class="font-sans font-semibold text-sm" style="color:#B7791F;background:none;border:none;cursor:pointer;padding:0;">Get started →</button>
+      </div>
+
+      <!-- Social -->
+      <div x-show="modalId==='social'" class="bg-white w-full max-w-sm p-8 relative" style="border-top:3px solid #276749;">
+        <button @click="modalOpen=false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-1" style="color:#276749;">Social</p>
+        <h3 class="instrument font-normal text-near-black text-2xl leading-tight mb-3">Show up every single day.</h3>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-5">Consistent, on-brand social content that builds a real local following. We create, schedule, and manage your presence so you never have to think about what to post.</p>
+        <ul class="space-y-2 mb-6">
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#276749;">—</span> Daily/weekly content calendar</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#276749;">—</span> Reels, carousels, and stories</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#276749;">—</span> Community engagement</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#276749;">—</span> Monthly performance reports</li>
+        </ul>
+        <button @click="modalOpen=false; $nextTick(() => window.dispatchEvent(new CustomEvent('open-inquiry', {detail:{package:'Social'}})))" class="font-sans font-semibold text-sm" style="color:#276749;background:none;border:none;cursor:pointer;padding:0;">Get started →</button>
+      </div>
+
+      <!-- Email -->
+      <div x-show="modalId==='email'" class="bg-white w-full max-w-sm p-8 relative" style="border-top:3px solid #2B6CB0;">
+        <button @click="modalOpen=false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-1" style="color:#2B6CB0;">Email</p>
+        <h3 class="instrument font-normal text-near-black text-2xl leading-tight mb-3">The channel you own.</h3>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-5">A well-crafted email list is your most valuable marketing asset. We build, grow, and write your newsletter — driving repeat business and keeping your audience engaged.</p>
+        <ul class="space-y-2 mb-6">
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#2B6CB0;">—</span> List growth strategy</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#2B6CB0;">—</span> Weekly or monthly newsletters</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#2B6CB0;">—</span> Automated welcome sequences</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#2B6CB0;">—</span> Open rate & click tracking</li>
+        </ul>
+        <button @click="modalOpen=false; $nextTick(() => window.dispatchEvent(new CustomEvent('open-inquiry', {detail:{package:'Email'}})))" class="font-sans font-semibold text-sm" style="color:#2B6CB0;background:none;border:none;cursor:pointer;padding:0;">Get started →</button>
+      </div>
+
+      <!-- Print -->
+      <div x-show="modalId==='print'" class="bg-white w-full max-w-sm p-8 relative" style="border-top:3px solid #434190;">
+        <button @click="modalOpen=false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-1" style="color:#434190;">Print</p>
+        <h3 class="instrument font-normal text-near-black text-2xl leading-tight mb-3">Something they can hold.</h3>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-5">In a digital world, print stands out. We design brochures, postcards, flyers, and signage that reinforce your brand wherever your customers go.</p>
+        <ul class="space-y-2 mb-6">
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#434190;">—</span> Brochures & sell sheets</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#434190;">—</span> Direct mail postcards</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#434190;">—</span> Signage & banners</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#434190;">—</span> Print-ready files + vendor coordination</li>
+        </ul>
+        <button @click="modalOpen=false; $nextTick(() => window.dispatchEvent(new CustomEvent('open-inquiry', {detail:{package:'Print'}})))" class="font-sans font-semibold text-sm" style="color:#434190;background:none;border:none;cursor:pointer;padding:0;">Get started →</button>
+      </div>
+
+      <!-- Events -->
+      <div x-show="modalId==='events'" class="bg-white w-full max-w-sm p-8 relative" style="border-top:3px solid #553C9A;">
+        <button @click="modalOpen=false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-1" style="color:#553C9A;">Events</p>
+        <h3 class="instrument font-normal text-near-black text-2xl leading-tight mb-3">Bring the community to you.</h3>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-5">From workshops and grand openings to community gatherings, we handle the marketing that fills the room — and the content that keeps it alive long after the event ends.</p>
+        <ul class="space-y-2 mb-6">
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#553C9A;">—</span> Event promotion & ticketing</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#553C9A;">—</span> On-site photo & video coverage</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#553C9A;">—</span> Post-event content package</li>
+          <li class="font-sans text-sm text-near-black flex items-start gap-2"><span style="color:#553C9A;">—</span> Email & social follow-up</li>
+        </ul>
+        <button @click="modalOpen=false; $nextTick(() => window.dispatchEvent(new CustomEvent('open-inquiry', {detail:{package:'Events'}})))" class="font-sans font-semibold text-sm" style="color:#553C9A;background:none;border:none;cursor:pointer;padding:0;">Get started →</button>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       STORIES
+  ============================================================ -->
+  <section id="stories" class="pt-16 pb-0 bg-white overflow-hidden"
+           x-data="storiesData()" x-init="init()"
+           @mouseenter="stopAuto()" @click.capture="stopAuto()" @touchstart.passive.capture="stopAuto()">
+
+    <!-- Minimal header: label left, tab links right -->
+    <div class="max-w-6xl mx-auto px-6 mb-5 flex items-baseline justify-between">
+      <h2 class="instrument font-normal text-near-black" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;">Stories</h2>
+      <!-- Desktop tabs -->
+      <div class="hidden sm:flex items-center gap-6">
+        <template x-for="(tab, i) in tabs" :key="i">
+          <button @click="selectTab(i)"
+                  class="font-sans text-sm transition-colors whitespace-nowrap pb-0.5"
+                  :class="activeTab === i
+                    ? 'text-ember font-semibold border-b border-ember'
+                    : 'text-muted hover:text-near-black'"
+                  x-text="tab.name">
+          </button>
+        </template>
+      </div>
+    </div>
+
+    <!-- Mobile tab scroll -->
+    <div class="sm:hidden flex gap-6 overflow-x-auto px-6 mb-5" style="scrollbar-width:none;">
+      <template x-for="(tab, i) in tabs" :key="'mob-'+i">
+        <button @click="selectTab(i)"
+                class="flex-shrink-0 font-sans text-sm whitespace-nowrap pb-0.5 transition-colors"
+                :class="activeTab === i
+                  ? 'text-ember font-semibold border-b border-ember'
+                  : 'text-muted'"
+                x-text="tab.name">
+        </button>
+      </template>
+    </div>
+
+    <!-- Thumbnail strip — edge-to-edge, gap:3px like the hero mosaic -->
+    <template x-for="(tab, ti) in tabs" :key="'tab-'+ti">
+      <div x-show="activeTab === ti"
+           x-transition:enter="transition ease-out duration-200"
+           x-transition:enter-start="opacity-0"
+           x-transition:enter-end="opacity-100"
+           class="w-full overflow-x-auto"
+           style="scrollbar-width:none;-ms-overflow-style:none;"
+           @scroll="stopAuto()" @touchstart.passive="stopAuto()">
+        <div class="flex" style="gap:3px;">
+          <template x-for="(vid, vi) in tab.videos" :key="'v-'+ti+'-'+vi">
+            <div class="relative flex-shrink-0 cursor-pointer group overflow-hidden bg-warm"
+                 style="width:300px;height:534px;"
+                 @mouseenter="hoverPlay($el)"
+                 @mouseleave="hoverStop($el)"
+                 @click="openModal(vid)">
+              <!-- Video frame -->
+              <video :src="vid.url" class="absolute inset-0 w-full h-full object-cover"
+                     muted playsinline preload="metadata" loop
+                     @loadedmetadata="$el.currentTime = 2"></video>
+              <!-- Hover overlay -->
+              <div class="absolute inset-0 transition-colors duration-200" style="background:rgba(0,0,0,0);"
+                   :style="'background: rgba(0,0,0,0)'"></div>
+              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/45 transition-colors duration-200"></div>
+              <!-- Play icon — always visible, brightens on hover -->
+              <div class="absolute inset-0 flex items-center justify-center opacity-85 group-hover:opacity-100 transition-opacity duration-200">
+                <div class="w-20 h-20 rounded-full flex items-center justify-center" style="background:rgba(255,255,255,0.45);backdrop-filter:blur(4px);">
+                  <svg class="w-9 h-9 text-white ml-1 drop-shadow" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <!-- Title — slides up on hover -->
+              <div class="absolute bottom-0 left-0 right-0 p-3 translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-200">
+                <p class="font-sans text-white text-xs font-semibold leading-snug line-clamp-2" x-text="vid.title"></p>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
+
+    <!-- Modal -->
+    <div x-show="modal.open"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[200] flex items-center justify-center p-4"
+         style="background:rgba(0,0,0,0.95);display:none;"
+         @click.self="closeModal()"
+         @keydown.escape.window="closeModal()">
+      <div class="relative flex flex-col items-center w-full max-h-full">
+        <button @click="closeModal()"
+                class="absolute top-0 right-0 w-10 h-10 rounded-full flex items-center justify-center transition-all z-10"
+                style="transform:translateY(-3.5rem);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <div class="overflow-hidden bg-black flex-shrink-0"
+             style="height:min(85svh,85vh);aspect-ratio:9/16;max-width:100%;">
+          <video x-ref="modalVideo" class="w-full h-full object-contain" controls autoplay playsinline></video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5: HOW IT WORKS
+  ============================================================ -->
+  <section class="bg-warm py-24">
+    <div class="max-w-4xl mx-auto px-6">
+      <p class="font-sans font-medium text-xs uppercase tracking-widest text-muted">Our approach</p>
+
+      <!-- 01 -->
+      <div class="border-t border-border-warm pt-8 mb-8 reveal">
+        <h3 class="font-sans font-semibold text-xl text-near-black mb-3">We start with your community.</h3>
+        <p class="font-sans font-normal text-base text-muted leading-relaxed max-w-2xl">Before we build anything, we listen. We talk to your customers, your neighbors, your regulars. We find out what they actually say about you when you're not in the room — and we build your marketing around that truth.</p>
+      </div>
+
+      <!-- 02 -->
+      <div class="border-t border-border-warm pt-8 mb-8 reveal">
+        <h3 class="font-sans font-semibold text-xl text-near-black mb-3">We capture and tell their stories.</h3>
+        <p class="font-sans font-normal text-base text-muted leading-relaxed max-w-2xl">Real video. Real voices. Real moments. Our content team documents the authentic relationships between your business and your community. Not testimonials — stories. There's a difference, and audiences feel it immediately.</p>
+      </div>
+
+      <!-- 03 -->
+      <div class="border-t border-border-warm pt-8 reveal">
+        <h3 class="font-sans font-semibold text-xl text-near-black mb-3">AI finds more of them.</h3>
+        <p class="font-sans font-normal text-base text-muted leading-relaxed max-w-2xl">Once we know who your audience is and what resonates with them, we use AI to find thousands more people exactly like them. Across Google, social platforms, and AI search engines. Precision at scale — without losing the human signal that started it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6: SINGLE CLIENT STORY — TOP DRONE
+  ============================================================ -->
+  <section class="relative overflow-hidden" style="height:100vh;"
+           x-data="{ open: false }" @keydown.escape.window="open = false">
+
+    <!-- Background video -->
+    <video
+      src="https://res.cloudinary.com/dsbllwpbh/video/upload/v1772664718/fpv-drone-flying-over-fox-river_hflszw.mp4"
+      autoplay muted loop playsinline
+      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0;"
+    ></video>
+
+    <!-- Dark gradient overlay -->
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.25) 60%,rgba(0,0,0,0.1) 100%);z-index:1;"></div>
+
+    <!-- Centered text overlay -->
+    <div style="position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:80px;text-align:center;padding-left:24px;padding-right:24px;">
+      <p class="font-sans font-normal text-xs uppercase tracking-widest mb-4" style="color:rgba(255,255,255,0.6);letter-spacing:0.18em;">New program</p>
+      <h2 class="instrument font-normal text-white leading-tight" style="font-size:clamp(2.4rem,6vw,4.5rem);margin-bottom:16px;">Introducing Top Drone</h2>
+      <p class="font-sans font-normal text-white" style="font-size:clamp(1rem,2vw,1.25rem);opacity:0.75;margin-bottom:36px;">A new one shot video program</p>
+      <button
+        @click="open = true"
+        class="font-sans font-semibold text-sm uppercase tracking-widest"
+        style="color:white;border:1px solid rgba(255,255,255,0.5);padding:12px 32px;letter-spacing:0.12em;background:rgba(255,255,255,0.08);backdrop-filter:blur(4px);cursor:pointer;transition:background 0.2s;"
+        onmouseover="this.style.background='rgba(255,255,255,0.18)'"
+        onmouseout="this.style.background='rgba(255,255,255,0.08)'"
+      >Learn More</button>
+    </div>
+
+    <!-- Modal -->
+    <div x-show="open" x-transition style="position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:24px;" @click.self="open=false">
+      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.6);"></div>
+      <div style="position:relative;background:white;max-width:640px;width:100%;max-height:88vh;overflow-y:auto;padding:48px 40px 40px;" @click.stop>
+        <!-- Close -->
+        <button @click="open=false" style="position:absolute;top:20px;right:20px;background:none;border:none;cursor:pointer;font-size:22px;color:#888;line-height:1;">&#x2715;</button>
+
+        <!-- Header -->
+        <p class="font-sans font-normal text-xs uppercase tracking-widest text-muted mb-3" style="letter-spacing:0.15em;">New Program · Batavia, IL</p>
+        <h3 class="instrument font-normal text-near-black leading-tight mb-2" style="font-size:2rem;">Top Drone School</h3>
+        <p class="font-sans text-muted mb-8" style="font-size:1.05rem;">Train. Certify. Get Paid.</p>
+
+        <!-- What it is -->
+        <p class="font-sans text-near-black leading-relaxed mb-6">Top Drone School teaches students to execute single-take, high-speed cinematic drone tours called <strong>"One Shots"</strong> — uncut, continuous FPV drone flights that capture a complete location story. No edits. No spliced clips. Just a single, perfectly executed run at up to 97 kph.</p>
+
+        <!-- Steps -->
+        <h4 class="font-sans font-semibold text-sm uppercase tracking-widest text-near-black mb-4" style="letter-spacing:0.12em;">The Four-Step Path</h4>
+        <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:32px;">
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <span class="font-sans font-semibold text-ember" style="min-width:24px;">01</span>
+            <div>
+              <p class="font-sans font-semibold text-near-black text-sm">Get Certified</p>
+              <p class="font-sans text-muted text-sm">FAA Part 107 Remote Pilot Certification — regulations, airspace, weather, and a full mock exam.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <span class="font-sans font-semibold text-ember" style="min-width:24px;">02</span>
+            <div>
+              <p class="font-sans font-semibold text-near-black text-sm">Know Your Gear</p>
+              <p class="font-sans text-muted text-sm">Master the DJI Avata 2 — FPV Remote Controller 3, Goggles 3, Manual Mode, ND filters, and imaging workflow.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <span class="font-sans font-semibold text-ember" style="min-width:24px;">03</span>
+            <div>
+              <p class="font-sans font-semibold text-near-black text-sm">Complete the Course</p>
+              <p class="font-sans text-muted text-sm">Four-phase indoor FPV training course simulating building and tight-space navigation.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <span class="font-sans font-semibold text-ember" style="min-width:24px;">04</span>
+            <div>
+              <p class="font-sans font-semibold text-near-black text-sm">Get Paid</p>
+              <p class="font-sans text-muted text-sm">Earn <strong>$25/hour</strong> capturing one-shot business video tours for local clients.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <a href="https://topdrone.netlify.app/" target="_blank" rel="noopener"
+           class="font-sans font-semibold text-sm uppercase tracking-widest"
+           style="display:inline-block;background:#C85A38;color:white;padding:14px 32px;text-decoration:none;letter-spacing:0.1em;transition:opacity 0.2s;"
+           onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+          Visit Top Drone School &#x2192;
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       PRICING — HORIZONTAL SCROLL CARDS
+  ============================================================ -->
+  <section id="pricing" class="pt-20 pb-0 bg-white"
+           x-data="{ modalOpen: false, modalId: '' }"
+           @keydown.escape.window="modalOpen = false">
+
+    <!-- Header -->
+    <div class="max-w-6xl mx-auto px-6 mb-6">
+      <h2 class="instrument font-normal text-near-black" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;">Pricing</h2>
+    </div>
+
+    <!-- Full-width card strip — 6 equal columns, gap:3px -->
+    <div class="flex w-full" style="gap:3px;height:420px;">
+
+      <!-- Bootcamp -->
+      <div class="relative overflow-hidden cursor-pointer group" style="flex:1;background-image:linear-gradient(to top,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.1) 100%),url('./generated_imgs/generated-2026-03-12T19-06-50-784Z-bglr1b.png');background-size:cover;background-position:center;">
+        <div class="absolute top-5 left-4 font-sans text-xs font-semibold uppercase tracking-widest text-white/60">Bootcamp</div>
+        <div class="absolute bottom-16 left-4 right-4">
+          <div class="font-sans font-black text-white leading-none" style="font-size:1.6rem;">$0 – $750<span class="text-sm font-normal text-white/50">/mo</span></div>
+          <div class="font-sans text-xs mt-1" style="color:rgba(255,255,255,0.5);">Education as Marketing</div>
+        </div>
+        <div class="absolute bottom-4 left-4 right-4">
+          <button @click.stop="modalId='bootcamp'; modalOpen=true" class="w-8 h-8 rounded-full flex items-center justify-center font-sans text-xs font-bold text-white hover:bg-white/20 transition-colors" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);">i</button>
+        </div>
+      </div>
+
+      <!-- Local -->
+      <div class="relative overflow-hidden cursor-pointer group" style="flex:1;background-image:linear-gradient(to top,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.1) 100%),url('./generated_imgs/generated-2026-03-12T19-07-08-849Z-obzg9h.png');background-size:cover;background-position:center;">
+        <div class="absolute top-5 left-4 font-sans text-xs font-semibold uppercase tracking-widest text-white/60">Local</div>
+        <div class="absolute bottom-16 left-4 right-4">
+          <div class="font-sans font-black text-white leading-none" style="font-size:1.6rem;">$1,500</div>
+          <div class="font-sans text-xs mt-1" style="color:rgba(255,255,255,0.5);">The Entry Point</div>
+        </div>
+        <div class="absolute bottom-4 left-4 right-4">
+          <button @click.stop="modalId='local'; modalOpen=true" class="w-8 h-8 rounded-full flex items-center justify-center font-sans text-xs font-bold text-white hover:bg-white/20 transition-colors" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);">i</button>
+        </div>
+      </div>
+
+      <!-- Blast -->
+      <div class="relative overflow-hidden cursor-pointer group" style="flex:1;background-image:linear-gradient(to top,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.1) 100%),url('./generated_imgs/generated-2026-03-12T19-07-26-809Z-vswwdk.png');background-size:cover;background-position:center;">
+        <div class="absolute top-5 left-4 font-sans text-xs font-semibold uppercase tracking-widest text-white/60">Blast</div>
+        <div class="absolute bottom-16 left-4 right-4">
+          <div class="font-sans font-black text-white leading-none" style="font-size:1.6rem;">$2,500</div>
+          <div class="font-sans text-xs mt-1" style="color:rgba(255,255,255,0.5);">Speed Premium</div>
+        </div>
+        <div class="absolute bottom-4 left-4 right-4">
+          <button @click.stop="modalId='blast'; modalOpen=true" class="w-8 h-8 rounded-full flex items-center justify-center font-sans text-xs font-bold text-white hover:bg-white/20 transition-colors" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);">i</button>
+        </div>
+      </div>
+
+      <!-- Simple Custom -->
+      <div class="relative overflow-hidden cursor-pointer group" style="flex:1;background-image:linear-gradient(to top,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.1) 100%),url('./generated_imgs/generated-2026-03-12T19-07-44-005Z-1icjhw.png');background-size:cover;background-position:center;">
+        <div class="absolute top-5 left-4 font-sans text-xs font-semibold uppercase tracking-widest text-white/60">Simple Custom</div>
+        <div class="absolute bottom-16 left-4 right-4">
+          <div class="font-sans font-black text-white leading-none" style="font-size:1.6rem;">$5,000</div>
+          <div class="font-sans text-xs mt-1" style="color:rgba(255,255,255,0.5);">The Standard SMB Package</div>
+        </div>
+        <div class="absolute bottom-4 left-4 right-4">
+          <button @click.stop="modalId='simple-custom'; modalOpen=true" class="w-8 h-8 rounded-full flex items-center justify-center font-sans text-xs font-bold text-white hover:bg-white/20 transition-colors" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);">i</button>
+        </div>
+      </div>
+
+      <!-- Premium -->
+      <div class="relative overflow-hidden cursor-pointer group" style="flex:1;background-image:linear-gradient(to top,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.1) 100%),url('./generated_imgs/generated-2026-03-12T19-08-04-638Z-0nmjip.png');background-size:cover;background-position:center;">
+        <div class="absolute top-4 right-4 font-sans text-xs font-bold uppercase tracking-wide px-2 py-0.5 rounded-full text-white" style="background:#D4622A;">Popular</div>
+        <div class="absolute top-5 left-4 font-sans text-xs font-semibold uppercase tracking-widest text-white/60">Premium</div>
+        <div class="absolute bottom-16 left-4 right-4">
+          <div class="font-sans font-black text-white leading-none" style="font-size:1.4rem;">$7,500 – $10k</div>
+          <div class="font-sans text-xs mt-1" style="color:rgba(255,255,255,0.5);">The Growth Engine</div>
+        </div>
+        <div class="absolute bottom-4 left-4 right-4">
+          <button @click.stop="modalId='premium'; modalOpen=true" class="w-8 h-8 rounded-full flex items-center justify-center font-sans text-xs font-bold text-white hover:bg-white/20 transition-colors" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);">i</button>
+        </div>
+      </div>
+
+      <!-- Ultimate -->
+      <div class="relative overflow-hidden cursor-pointer group" style="flex:1;background-image:linear-gradient(to top,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.1) 100%),url('./generated_imgs/generated-2026-03-12T19-08-22-792Z-k3gs7m.png');background-size:cover;background-position:center;">
+        <div class="absolute top-5 left-4 font-sans text-xs font-semibold uppercase tracking-widest text-white/60">Ultimate</div>
+        <div class="absolute bottom-16 left-4 right-4">
+          <div class="font-sans font-black text-white leading-none" style="font-size:1.6rem;">$25,000<span class="text-sm font-normal text-white/50">/yr</span></div>
+          <div class="font-sans text-xs mt-1" style="color:rgba(255,255,255,0.5);">Hands-Off Marketing Dept.</div>
+        </div>
+        <div class="absolute bottom-4 left-4 right-4">
+          <button @click.stop="modalId='ultimate'; modalOpen=true" class="w-8 h-8 rounded-full flex items-center justify-center font-sans text-xs font-bold text-white hover:bg-white/20 transition-colors" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);">i</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Modals -->
+    <div x-show="modalOpen"
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[200] flex items-center justify-center p-4"
+         style="background:rgba(0,0,0,0.6);display:none;"
+         @click.self="modalOpen=false">
+
+      <!-- Bootcamp -->
+      <div x-show="modalId==='bootcamp'" class="bg-white rounded-sm w-full max-w-sm p-8 relative">
+        <button @click="modalOpen=false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-1" style="color:#9D4EDD;">Bootcamp</p>
+        <div class="font-sans font-black text-near-black text-3xl leading-none">$0 – $750<span class="text-base font-normal text-muted">/mo</span></div>
+        <p class="font-sans text-sm text-muted mt-1 mb-6">Education as Marketing</p>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#9D4EDD" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Weekly training &amp; templates</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#9D4EDD" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">"Pay what you can" access</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#9D4EDD" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Great for students &amp; startups</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#9D4EDD" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Community funnel builder</span></li>
+        </ul>
+        <a href="#cta" @click="modalOpen=false" class="block w-full text-center font-sans font-semibold text-sm text-white py-3 hover:opacity-80 transition-opacity" style="background:#D4622A;border-radius:4px;">Let's Talk →</a>
+      </div>
+
+      <!-- Local -->
+      <div x-show="modalId==='local'" class="bg-white rounded-sm w-full max-w-sm p-8 relative">
+        <button @click="modalOpen=false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-1" style="color:#D4622A;">Local</p>
+        <div class="font-sans font-black text-near-black text-3xl leading-none">$1,500</div>
+        <p class="font-sans text-sm text-muted mt-1 mb-6">The Entry Point</p>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#D4622A" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">15 conversational videos</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#D4622A" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">1 high-converting landing page</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#D4622A" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Intern-driven, authentic content</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#D4622A" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Low barrier for local shops</span></li>
+        </ul>
+        <a href="#cta" @click="modalOpen=false" class="block w-full text-center font-sans font-semibold text-sm text-white py-3 hover:opacity-80 transition-opacity" style="background:#D4622A;border-radius:4px;">Let's Talk →</a>
+      </div>
+
+      <!-- Blast -->
+      <div x-show="modalId==='blast'" class="bg-white rounded-sm w-full max-w-sm p-8 relative">
+        <button @click="modalOpen=false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-1" style="color:#6B6960;">Blast</p>
+        <div class="font-sans font-black text-near-black text-3xl leading-none">$2,500</div>
+        <p class="font-sans text-sm text-muted mt-1 mb-6">Speed Premium</p>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#6B6960" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">1-day website build OR video package</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#6B6960" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Perfect for event marketing</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#6B6960" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Fast turnaround, zero compromise</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#6B6960" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Fully AI-optimized output</span></li>
+        </ul>
+        <a href="#cta" @click="modalOpen=false" class="block w-full text-center font-sans font-semibold text-sm text-white py-3 hover:opacity-80 transition-opacity" style="background:#D4622A;border-radius:4px;">Let's Talk →</a>
+      </div>
+
+      <!-- Simple Custom -->
+      <div x-show="modalId==='simple-custom'" class="bg-white rounded-sm w-full max-w-sm p-8 relative">
+        <button @click="modalOpen=false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-1" style="color:#6db87a;">Simple Custom</p>
+        <div class="font-sans font-black text-near-black text-3xl leading-none">$5,000</div>
+        <p class="font-sans text-sm text-muted mt-1 mb-6">The Standard SMB Package</p>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#6db87a" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Custom landing page build</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#6db87a" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">15 authentic community videos</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#6db87a" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Print collateral included</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#6db87a" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Built for Fox Valley SMBs</span></li>
+        </ul>
+        <a href="#cta" @click="modalOpen=false" class="block w-full text-center font-sans font-semibold text-sm text-white py-3 hover:opacity-80 transition-opacity" style="background:#D4622A;border-radius:4px;">Let's Talk →</a>
+      </div>
+
+      <!-- Premium -->
+      <div x-show="modalId==='premium'" class="bg-white rounded-sm w-full max-w-sm p-8 relative">
+        <button @click="modalOpen=false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-1" style="color:#D4622A;">Premium — Most Popular</p>
+        <div class="font-sans font-black text-near-black text-3xl leading-none">$7,500 – $10k</div>
+        <p class="font-sans text-sm text-muted mt-1 mb-6">The Growth Engine</p>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#D4622A" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Full custom website</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#D4622A" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">6 months of weekly video</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#D4622A" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Print + email marketing</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#D4622A" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">AI workflow automation</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#D4622A" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Ongoing strategy &amp; reporting</span></li>
+        </ul>
+        <a href="#cta" @click="modalOpen=false" class="block w-full text-center font-sans font-semibold text-sm text-white py-3 hover:opacity-80 transition-opacity" style="background:#D4622A;border-radius:4px;">Let's Talk →</a>
+      </div>
+
+      <!-- Ultimate -->
+      <div x-show="modalId==='ultimate'" class="bg-white rounded-sm w-full max-w-sm p-8 relative">
+        <button @click="modalOpen=false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-1" style="color:#c084fc;">Ultimate</p>
+        <div class="font-sans font-black text-near-black text-3xl leading-none">$25,000<span class="text-base font-normal text-muted">/yr</span></div>
+        <p class="font-sans text-sm text-muted mt-1 mb-6">Hands-Off Marketing Department</p>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#c084fc" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">52 weekly social posts</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#c084fc" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">12 monthly email campaigns</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#c084fc" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">450,000 words of AI transcription</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#c084fc" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Monthly postcards + print</span></li>
+          <li class="flex items-start gap-3"><svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#c084fc" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-sans text-sm text-near-black">Complete done-for-you marketing</span></li>
+        </ul>
+        <a href="#cta" @click="modalOpen=false" class="block w-full text-center font-sans font-semibold text-sm text-white py-3 hover:opacity-80 transition-opacity" style="background:#D4622A;border-radius:4px;">Let's Talk →</a>
+      </div>
+
+    </div><!-- end modal overlay -->
+
+  </section>
+
+  <!-- ============================================================
+       SECTION 7: TESTIMONIALS
+  ============================================================ -->
+  <section class="bg-white py-24"
+           x-data="testimonialsData()"
+           x-init="init()">
+
+    <div class="max-w-3xl mx-auto px-6 text-center">
+
+      <!-- Label -->
+      <p class="font-sans text-xs font-medium uppercase tracking-widest text-muted mb-16">What clients say</p>
+
+      <!-- Slides -->
+      <div class="relative" style="min-height:420px;">
+        <template x-for="(r, i) in reviews" :key="i">
+          <div x-show="active === i"
+               x-transition:enter="transition ease-out duration-500"
+               x-transition:enter-start="opacity-0 translate-y-3"
+               x-transition:enter-end="opacity-100 translate-y-0"
+               x-transition:leave="transition ease-in duration-300"
+               x-transition:leave-start="opacity-100"
+               x-transition:leave-end="opacity-0"
+               class="absolute inset-0 flex flex-col items-center">
+            <!-- Quote -->
+            <p class="instrument italic text-near-black leading-relaxed mb-10"
+               style="font-size:clamp(1.2rem,2.5vw,1.6rem);"
+               x-text="'\u201c' + r.quote + '\u201d'"></p>
+            <!-- Photo -->
+            <img :src="r.img" :alt="r.name"
+                 class="w-28 h-28 rounded-full object-cover mb-4"
+                 style="border:3px solid #F8F6F3;">
+            <!-- Attribution -->
+            <div>
+              <p class="font-sans font-semibold text-sm text-near-black" x-text="r.name"></p>
+              <p x-show="r.role" class="font-sans text-xs text-muted mt-0.5" x-text="r.role"></p>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- Navigation -->
+      <div class="flex items-center justify-center gap-6 mt-12">
+        <button @click="prev()" class="w-9 h-9 rounded-full flex items-center justify-center text-muted hover:text-near-black transition-colors" style="border:1px solid #E5E2DC;">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <!-- Dots -->
+        <div class="flex gap-1.5">
+          <template x-for="(r, i) in reviews" :key="'d'+i">
+            <button @click="go(i)"
+                    class="rounded-full transition-all duration-300"
+                    :class="active === i ? 'w-4 h-1.5 bg-near-black' : 'w-1.5 h-1.5 bg-border-warm hover:bg-muted'">
+            </button>
+          </template>
+        </div>
+        <button @click="next()" class="w-9 h-9 rounded-full flex items-center justify-center text-muted hover:text-near-black transition-colors" style="border:1px solid #E5E2DC;">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 7B: RIVERBANK MARKETING INTERNS
+  ============================================================ -->
+  <section class="bg-white py-20 reveal"
+           x-data="internsData()"
+           @keydown.escape.window="close()">
+
+    <div class="max-w-4xl mx-auto px-6 text-center mb-14">
+      <p class="font-sans font-normal text-xs uppercase tracking-widest text-muted mb-3" style="letter-spacing:0.18em;">Riverbank Marketing</p>
+      <h2 class="instrument font-normal text-near-black leading-tight" style="font-size:clamp(2rem,4vw,3rem);">Meet the interns</h2>
+      <p class="font-sans text-muted mt-4" style="font-size:1rem;max-width:480px;margin-left:auto;margin-right:auto;">Young, creative, and already doing real work. These students are building skills — and businesses — through the Riverbank internship program.</p>
+    </div>
+
+    <!-- Three profiles -->
+    <div class="max-w-4xl mx-auto px-6" style="display:flex;gap:56px;justify-content:center;flex-wrap:wrap;">
+
+      <!-- Tyson -->
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;max-width:240px;">
+        <div style="position:relative;width:200px;height:200px;margin-bottom:28px;">
+          <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/v1773351025/tyson-soccer-field-gemini-improve_n5ncc1.jpg"
+               alt="Tyson Ayaschliman"
+               style="width:200px;height:200px;border-radius:50%;object-fit:cover;object-position:center;display:block;">
+          <button @click="open('tyson')"
+                  style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;"
+                  aria-label="Watch Tyson's video">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="filter:drop-shadow(0 1px 4px rgba(0,0,0,0.3));">
+              <circle cx="20" cy="20" r="20" fill="rgba(255,255,255,0.88)"/>
+              <polygon points="15,11 30,20 15,29" fill="#1A1A18"/>
+            </svg>
+          </button>
+        </div>
+        <p class="font-sans font-semibold text-near-black text-sm">Tyson Ayaschliman</p>
+        <p class="font-sans text-muted mt-2" style="font-size:0.82rem;line-height:1.55;">D1 soccer recruit heading to IU Indianapolis. Led a student team capturing life stories from residents at local retirement homes.</p>
+      </div>
+
+      <!-- Olivia -->
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;max-width:240px;">
+        <div style="position:relative;width:200px;height:200px;margin-bottom:28px;">
+          <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/v1773351020/olivia-fieldhouse-gem-improve_ljyhis.jpg"
+               alt="Olivia McKay"
+               style="width:200px;height:200px;border-radius:50%;object-fit:cover;object-position:center;display:block;">
+          <button @click="open('olivia')"
+                  style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;"
+                  aria-label="Watch Olivia's video">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="filter:drop-shadow(0 1px 4px rgba(0,0,0,0.3));">
+              <circle cx="20" cy="20" r="20" fill="rgba(255,255,255,0.88)"/>
+              <polygon points="15,11 30,20 15,29" fill="#1A1A18"/>
+            </svg>
+          </button>
+        </div>
+        <p class="font-sans font-semibold text-near-black text-sm">Olivia McKay</p>
+        <p class="font-sans text-muted mt-2" style="font-size:0.82rem;line-height:1.55;">Founder of McKay Photography. Shoots community events six days a week while growing her business and building toward her LLC.</p>
+      </div>
+
+      <!-- Micah -->
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;max-width:240px;">
+        <div style="position:relative;width:200px;height:200px;margin-bottom:28px;">
+          <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/v1773351021/micah-penrose-gemini-improve_ppfdrp.jpg"
+               alt="Micah White"
+               style="width:200px;height:200px;border-radius:50%;object-fit:cover;object-position:center;display:block;">
+          <button @click="open('micah')"
+                  style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;"
+                  aria-label="Watch Micah's video">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="filter:drop-shadow(0 1px 4px rgba(0,0,0,0.3));">
+              <circle cx="20" cy="20" r="20" fill="rgba(255,255,255,0.88)"/>
+              <polygon points="15,11 30,20 15,29" fill="#1A1A18"/>
+            </svg>
+          </button>
+        </div>
+        <p class="font-sans font-semibold text-near-black text-sm">Micah White</p>
+        <p class="font-sans text-muted mt-2" style="font-size:0.82rem;line-height:1.55;">Golfer, pianist, and AI believer. Passionate about community, connections, and how emerging technology will reshape local business.</p>
+      </div>
+
+    </div>
+
+    <!-- Video modal — one video rendered at a time via x-if -->
+    <div x-show="modal !== null"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[200] flex items-center justify-center p-4"
+         style="background:rgba(0,0,0,0.85);display:none;"
+         @click.self="close()">
+      <div style="position:relative;height:90vh;width:calc(90vh * 9/16);max-width:calc(100vw - 32px);" @click.stop>
+        <button @click="close()"
+                class="absolute flex items-center justify-center"
+                style="top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,0.55);border:none;cursor:pointer;color:white;font-size:18px;z-index:10;line-height:1;">&#x2715;</button>
+        <template x-if="modal !== null">
+          <video :src="videos[modal]"
+                 controls autoplay playsinline
+                 style="width:100%;height:100%;display:block;background:#000;"></video>
+        </template>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       CLIENTS SECTION
+  ============================================================ -->
+  <section id="clients" class="py-24 bg-white" style="overflow:hidden;" x-data="clientsData()">
+    <div class="max-w-6xl mx-auto px-6 mb-10">
+      <div class="flex items-end justify-between flex-wrap gap-4 reveal">
+        <h2 class="instrument font-normal text-near-black" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;">Clients</h2>
+        <!-- Mode toggle -->
+        <div class="flex items-center gap-1 rounded-full p-1" style="background:#F4F1EB;">
+          <button @click="setMode('alpha')"
+                  :class="mode==='alpha' ? 'bg-white text-near-black' : 'text-muted'"
+                  class="font-sans font-semibold text-xs px-4 py-1.5 rounded-full transition-all">Alpha</button>
+          <button @click="setMode('industry')"
+                  :class="mode==='industry' ? 'bg-white text-near-black' : 'text-muted'"
+                  class="font-sans font-semibold text-xs px-4 py-1.5 rounded-full transition-all">Industry</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div x-show="loading" class="text-center py-8">
+      <p class="font-sans text-sm text-muted">Loading clients…</p>
+    </div>
+
+    <!-- Scroll strip -->
+    <div x-show="!loading" x-ref="wrapper"
+         style="overflow:hidden;padding:12px 0;user-select:none;cursor:grab;">
+      <div x-ref="track" style="display:flex;align-items:center;width:max-content;will-change:transform;"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT SECTION
+  ============================================================ -->
+  <section id="about" class="bg-warm py-24 reveal"
+    x-data="{
+      yrs: 0, mos: 0, days: 0, hrs: 0, mins: 0, secs: 0,
+      init() {
+        const tick = () => {
+          const start = new Date('1998-08-08T00:00:00');
+          const now = new Date();
+          let y = now.getFullYear() - start.getFullYear();
+          let m = now.getMonth() - start.getMonth();
+          let d = now.getDate() - start.getDate();
+          if (d < 0) { m--; const prev = new Date(now.getFullYear(), now.getMonth(), 0); d += prev.getDate(); }
+          if (m < 0) { y--; m += 12; }
+          const msLeft = now - new Date(now.getFullYear(), now.getMonth(), now.getDate());
+          const h = Math.floor(msLeft / 3600000);
+          const mn = Math.floor((msLeft % 3600000) / 60000);
+          const s = Math.floor((msLeft % 60000) / 1000);
+          this.yrs = y; this.mos = m; this.days = d;
+          this.hrs = String(h).padStart(2,'0');
+          this.mins = String(mn).padStart(2,'0');
+          this.secs = String(s).padStart(2,'0');
+        };
+        tick();
+        setInterval(tick, 1000);
+      }
+    }">
+    <div class="max-w-5xl mx-auto px-6">
+
+      <!-- Header -->
+      <div class="mb-14 text-center">
+        <h2 class="instrument font-normal text-near-black" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;">About</h2>
+      </div>
+
+      <!-- Two-column layout -->
+      <div class="flex flex-col md:flex-row gap-16 items-start">
+
+        <!-- Left: photo + clock -->
+        <div class="flex flex-col items-center md:items-start gap-8 md:w-80 flex-shrink-0">
+          <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_320/v1772897787/profile-gary-ricke-bw-black-bkgrd-29aug2025_cw61aw.jpg"
+               alt="Gary Ricke"
+               style="width:180px;height:180px;border-radius:50%;object-fit:cover;object-position:center top;">
+
+          <!-- In business since ticker -->
+          <div class="w-full">
+            <p class="font-sans text-xs font-semibold uppercase tracking-widest text-muted mb-3 text-center md:text-left" style="letter-spacing:0.15em;">In business for</p>
+            <!-- Years / Months / Days -->
+            <div class="flex gap-3 justify-center md:justify-start mb-3">
+              <div class="text-center">
+                <span class="instrument font-normal text-near-black block" style="font-size:2rem;line-height:1;" x-text="yrs"></span>
+                <span class="font-sans text-xs text-muted">yrs</span>
+              </div>
+              <span class="instrument text-muted self-start" style="font-size:1.75rem;line-height:1.1;">·</span>
+              <div class="text-center">
+                <span class="instrument font-normal text-near-black block" style="font-size:2rem;line-height:1;" x-text="mos"></span>
+                <span class="font-sans text-xs text-muted">mos</span>
+              </div>
+              <span class="instrument text-muted self-start" style="font-size:1.75rem;line-height:1.1;">·</span>
+              <div class="text-center">
+                <span class="instrument font-normal text-near-black block" style="font-size:2rem;line-height:1;" x-text="days"></span>
+                <span class="font-sans text-xs text-muted">days</span>
+              </div>
+            </div>
+            <!-- HH:MM:SS -->
+            <div class="flex justify-center md:justify-start">
+              <span class="font-sans font-semibold text-near-black tabular-nums" style="font-size:1.4rem;letter-spacing:0.05em;">
+                <span x-text="hrs"></span>:<span x-text="mins"></span>:<span x-text="secs"></span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: bio -->
+        <div class="flex-1">
+          <p class="font-sans text-xs font-semibold uppercase tracking-widest text-muted mb-1" style="letter-spacing:0.15em;">Gary Ricke</p>
+          <p class="instrument font-normal text-near-black mb-6" style="font-size:1.25rem;">Founder &amp; Digital Strategist</p>
+
+          <p class="font-sans font-normal text-base text-near-black leading-relaxed mb-5">
+            I started Orbis Marketing in 1998 with a simple belief — that small and mid-sized businesses deserve the same caliber of marketing strategy as the big players. More than two decades later, that hasn't changed.
+          </p>
+          <p class="font-sans font-normal text-base text-near-black leading-relaxed mb-5">
+            Orbis works with businesses in Batavia, Geneva, St. Charles, and the greater Chicago area to build audiences, drive revenue, and tell stories worth sharing. We specialize in video, web, podcast, and digital strategy — combining creative craft with measurable results.
+          </p>
+          <p class="font-sans font-normal text-base text-near-black leading-relaxed mb-8">
+            Today, with AI reshaping how people find and trust information, we help clients lead in that shift — not get left behind by it.
+          </p>
+
+          <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry', {detail:{package:''}}))"
+                  class="roygbiv-btn font-sans font-semibold text-sm text-white px-6 py-2">
+            Let's Talk
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 8: CTA
+  ============================================================ -->
+  <section id="cta" class="bg-white py-24">
+    <div class="max-w-xl mx-auto px-6 text-center reveal">
+      <h2 class="instrument font-normal text-4xl text-near-black">Ready?</h2>
+      <p class="font-sans font-normal text-base text-muted mt-4">Tell us about your business. We'll respond within one business day.</p>
+      <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry', {detail:{package:''}}))"
+              class="mt-8 inline-block bg-near-black text-white font-sans font-semibold text-sm py-3 px-10 hover:bg-black transition-colors">
+        Get in touch →
+      </button>
+      <p class="mt-6 font-sans font-normal text-xs text-muted">Or reach us directly: hello@orbismarketing.com · Batavia, IL</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GLOBAL INQUIRY MODAL
+  ============================================================ -->
+  <div x-data="inquiryModalData()"
+       @open-inquiry.window="openWith($event.detail.package)"
+       @keydown.escape.window="isOpen = false">
+
+    <div x-show="isOpen"
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[300] flex items-center justify-center p-4"
+         style="background:rgba(0,0,0,0.65);display:none;"
+         @click.self="isOpen = false">
+
+      <div class="bg-white w-full relative" style="max-width:560px;max-height:92vh;overflow-y:auto;" @click.stop>
+
+        <!-- Close -->
+        <button @click="isOpen = false"
+                class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black z-10">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+
+        <div style="padding:40px 36px 36px;">
+          <p class="font-sans text-xs font-semibold uppercase tracking-widest text-muted mb-2" style="letter-spacing:0.15em;">Let's talk</p>
+          <h3 class="instrument font-normal text-near-black leading-tight mb-6" style="font-size:1.75rem;">How can we help you grow your audience?</h3>
+
+          <form name="inquiry" method="POST" netlify netlify-honeypot="bot-field"
+                @submit.prevent="submit($el)">
+            <input type="hidden" name="form-name" value="inquiry">
+            <p class="hidden"><input name="bot-field"></p>
+
+            <!-- Name + Company -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+              <div>
+                <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Name <span style="color:#EF4444;">*</span></label>
+                <input type="text" name="name" required placeholder="Your name"
+                       class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none"
+                       style="border:1px solid #E5E2DC;padding:10px 12px;">
+              </div>
+              <div>
+                <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Company <span style="color:#EF4444;">*</span></label>
+                <input type="text" name="company" required placeholder="Your company"
+                       class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none"
+                       style="border:1px solid #E5E2DC;padding:10px 12px;">
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div style="margin-bottom:20px;">
+              <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Email <span style="color:#EF4444;">*</span></label>
+              <input type="email" name="email" required placeholder="you@example.com"
+                     class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none"
+                     style="border:1px solid #E5E2DC;padding:10px 12px;">
+            </div>
+
+            <!-- Price interest -->
+            <div style="margin-bottom:20px;">
+              <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">I'm interested in <span style="color:#EF4444;">*</span></label>
+              <input type="hidden" name="package" :value="selected">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px;">
+                <template x-for="pkg in packages" :key="pkg.name">
+                  <button type="button"
+                          @click="selected = pkg.name; pkgError = false"
+                          :class="selected === pkg.name ? 'text-white' : 'bg-white text-near-black'"
+                          :style="selected === pkg.name ? { backgroundColor: pkg.color, borderColor: pkg.color } : { border: '1px solid #E5E2DC' }"
+                          class="font-sans text-center transition-all duration-200"
+                          style="line-height:1.3;padding:8px 4px;border:1px solid #E5E2DC;">
+                    <span x-text="pkg.name" class="block font-semibold" style="font-size:0.72rem;"></span>
+                    <span x-show="pkg.price" x-text="pkg.price" class="block" style="font-size:0.6rem;opacity:0.75;margin-top:2px;"></span>
+                  </button>
+                </template>
+              </div>
+              <p x-show="pkgError" class="font-sans text-xs mt-2" style="color:#EF4444;">Please select a package.</p>
+            </div>
+
+            <!-- Message -->
+            <div style="margin-bottom:24px;">
+              <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Message</label>
+              <textarea name="message" rows="4" placeholder="Tell us about your business and what you're hoping to achieve..."
+                        class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none resize-none"
+                        style="border:1px solid #E5E2DC;padding:10px 12px;"></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" x-show="!submitted"
+                    :style="{ backgroundColor: selectedColor(), borderColor: selectedColor() }"
+                    class="w-full text-white font-sans font-semibold text-sm py-3 transition-all duration-300"
+                    style="border:2px solid transparent;">
+              Send Message →
+            </button>
+            <div x-show="submitted" class="text-center py-3">
+              <p class="font-sans font-semibold text-near-black">Got it — we'll be in touch shortly.</p>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 9: FOOTER
+  ============================================================ -->
+  <footer class="bg-warm py-8 border-t border-border-warm">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+      <p class="font-sans text-sm text-near-black">
+        <span class="font-bold">Orbis</span><span class="font-light text-muted ml-1.5">Marketing</span>
+        <span class="font-normal text-muted"> · Batavia · Geneva · St Charles · Chicago</span>
+      </p>
+      <p class="font-sans font-normal text-xs text-muted">© 2026 Orbis Marketing</p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       INTERSECTION OBSERVER
+  ============================================================ -->
+  <script>
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'none';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+      io.observe(el);
+    });
+
+    function clientsData() {
+      const COLORS = {
+        'Advocacy':          '#16A34A',
+        'Airline':           '#0EA5E9',
+        'Arts':              '#EC4899',
+        'Association':       '#8B5CF6',
+        'Banking':           '#1D4ED8',
+        'Community Service': '#06B6D4',
+        'Consultancy':       '#7C3AED',
+        'Construction':      '#B45309',
+        'Distribution':      '#0891B2',
+        'Education':         '#F59E0B',
+        'Energy':            '#CA8A04',
+        'Entertainment':     '#F43F5E',
+        'Fitness':           '#10B981',
+        'Food':              '#EA580C',
+        'Healthcare':        '#EF4444',
+        'IT':                '#3B82F6',
+        'Landscaping':       '#22C55E',
+        'Legal':             '#6D28D9',
+        'Manufacturing':     '#F97316',
+        'Marketing':         '#A855F7',
+        'Municipal':         '#0D9488',
+        'Nonprofit':         '#DB2777',
+        'Packaging':         '#65A30D',
+        'Publication':       '#C026D3',
+        'Realty':            '#DC2626',
+        'Religion':          '#D97706',
+        'Retail':            '#84CC16',
+        'Service':           '#64748B',
+      };
+
+      let _animId = null;
+      let _pos = 0;
+      let _drag = false;
+      let _dragX = 0;
+      let _dragPos = 0;
+      let _half = 0;
+      let _cleanups = [];
+
+      // Safe wrap: keep _pos in [-half, 0). Returns _pos unchanged if half is 0.
+      function wrap(p, half) {
+        if (half <= 0) return p;
+        p = p % half;
+        if (p > 0) p -= half;
+        return p;
+      }
+
+      return {
+        mode: 'alpha',
+        clients: [],
+        loading: true,
+
+        async init() {
+          try {
+            const res = await fetch('/.netlify/functions/clients');
+            const text = await res.text();
+            this.clients = text.trim().split('\n').slice(1)
+              .filter(l => l.trim())
+              .map(line => {
+                const i = line.indexOf(',');
+                return {
+                  name: line.substring(0, i).trim().replace(/^"|"$/g, ''),
+                  cat:  line.substring(i + 1).trim().replace(/^"|"$/g, '')
+                };
+              });
+          } catch(e) {}
+          this.loading = false;
+          this.$nextTick(() => this.buildTrack());
+        },
+
+        setMode(m) {
+          this.mode = m;
+          this.$nextTick(() => this.buildTrack());
+        },
+
+        buildTrack() {
+          const track = this.$refs.track;
+          const wrapper = this.$refs.wrapper;
+          if (!track || !wrapper) return;
+
+          if (_animId) { cancelAnimationFrame(_animId); _animId = null; }
+
+          const html = this.mode === 'alpha' ? this.alphaHTML() : this.industryHTML();
+          track.innerHTML = html + html;
+          _pos = 0;
+          _half = 0;
+          track.style.transform = 'translateX(0px)';
+
+          // Measure after paint so scrollWidth is accurate
+          requestAnimationFrame(() => {
+            _half = track.scrollWidth / 2;
+            this.attachDrag(wrapper, track);
+            this.startAnim(track);
+          });
+        },
+
+        alphaHTML() {
+          return [...this.clients]
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map(c =>
+              `<span style="font-family:'Inter',sans-serif;font-size:0.95rem;font-weight:500;color:#111110;padding:0 8px;white-space:nowrap;">${c.name}</span>` +
+              `<span style="color:#D4D0C8;padding:0 4px;font-size:0.85rem;">·</span>`)
+            .join('');
+        },
+
+        industryHTML() {
+          const groups = {};
+          this.clients.forEach(c => {
+            if (!groups[c.cat]) groups[c.cat] = [];
+            groups[c.cat].push(c);
+          });
+          return Object.keys(groups).sort().map((cat, idx) => {
+            const color = COLORS[cat] || '#111110';
+            const label =
+              `<span style="font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:${color};padding:0 10px 0 ${idx===0?'8px':'28px'};white-space:nowrap;opacity:0.7;">${cat}</span>` +
+              `<span style="color:${color};opacity:0.25;padding:0 4px;font-size:1rem;">|</span>`;
+            const names = groups[cat]
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map(c =>
+                `<span style="font-family:'Inter',sans-serif;font-size:0.95rem;font-weight:500;color:${color};padding:0 8px;white-space:nowrap;">${c.name}</span>` +
+                `<span style="color:${color};opacity:0.35;padding:0 4px;font-size:0.85rem;">·</span>`)
+              .join('');
+            return label + names;
+          }).join(`<span style="color:#E5E2DC;padding:0 20px;font-size:1.2rem;">|</span>`);
+        },
+
+        startAnim(track) {
+          if (_animId) cancelAnimationFrame(_animId);
+          const step = () => {
+            if (!_drag && _half > 0) {
+              _pos -= 0.65;
+              if (_pos <= -_half) _pos += _half;
+            }
+            track.style.transform = `translateX(${_pos}px)`;
+            _animId = requestAnimationFrame(step);
+          };
+          _animId = requestAnimationFrame(step);
+        },
+
+        attachDrag(wrapper, track) {
+          _cleanups.forEach(fn => fn());
+          _cleanups = [];
+
+          const getX = e => e.touches ? e.touches[0].clientX : e.clientX;
+
+          const onDown = (e) => {
+            _drag = true;
+            _dragX = getX(e);
+            _dragPos = _pos;
+            wrapper.style.cursor = 'grabbing';
+          };
+          const onMove = (e) => {
+            if (!_drag || _half <= 0) return;
+            _pos = wrap(_dragPos + (getX(e) - _dragX), _half);
+          };
+          const onUp = () => {
+            _drag = false;
+            wrapper.style.cursor = 'grab';
+          };
+
+          wrapper.addEventListener('mousedown', onDown);
+          wrapper.addEventListener('touchstart', onDown, { passive: true });
+          window.addEventListener('mousemove', onMove);
+          window.addEventListener('touchmove', onMove, { passive: true });
+          window.addEventListener('mouseup', onUp);
+          window.addEventListener('touchend', onUp);
+
+          _cleanups = [
+            () => wrapper.removeEventListener('mousedown', onDown),
+            () => wrapper.removeEventListener('touchstart', onDown),
+            () => window.removeEventListener('mousemove', onMove),
+            () => window.removeEventListener('touchmove', onMove),
+            () => window.removeEventListener('mouseup', onUp),
+            () => window.removeEventListener('touchend', onUp),
+          ];
+        }
+      };
+    }
+
+    function inquiryModalData() {
+      return {
+        isOpen: false,
+        submitted: false,
+        selected: '',
+        packages: [
+          { name: 'Bootcamp',      price: '$0–$750/mo',   color: '#EF4444' },
+          { name: 'Local',         price: '$1,500',        color: '#F97316' },
+          { name: 'Blast',         price: '$2,500',        color: '#EAB308' },
+          { name: 'Simple Custom', price: '$5,000',        color: '#22C55E' },
+          { name: 'Premium',       price: '$7,500–$10k',   color: '#06B6D4' },
+          { name: 'Ultimate',      price: '$25,000/yr',    color: '#3B82F6' },
+          { name: 'Not sure',      price: '',              color: '#6366F1' },
+          { name: 'Other',         price: '',              color: '#8B5CF6' },
+        ],
+        pkgError: false,
+        selectedColor() {
+          const pkg = this.packages.find(p => p.name === this.selected);
+          return pkg ? pkg.color : '#0F0F11';
+        },
+        openWith(pkg) {
+          this.selected = pkg || '';
+          this.submitted = false;
+          this.pkgError = false;
+          this.isOpen = true;
+        },
+        submit(form) {
+          if (!this.selected) { this.pkgError = true; return; }
+          this.pkgError = false;
+          const data = new FormData(form);
+          fetch('/', { method: 'POST', body: data })
+            .then(() => { this.submitted = true; })
+            .catch(() => { this.submitted = true; });
+        }
+      };
+    }
+
+    function testimonialsData() {
+      let _timer = null;
+      return {
+        active: 0,
+        total: 18,
+        reviews: [
+          { name: 'Bob Patnaude', role: '', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/08b9f3d5-c93c-41ad-8665-8c4247a929b9/Bob-Patnaude-enhance-4x-faceai-ps-expand.jpg?format=300w', quote: 'I gotta tell you, your marketing is incredibly good all around: the concepts, the creative, the writing, the production — everything about it. I love receiving your stuff.' },
+          { name: 'Mark Frith', role: 'Lutheran Center for Religious Liberty', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/678c5a59-9326-4d93-ad8c-9a5273150620/reviews-people-mark-frith-.jpeg?format=300w', quote: 'Gary and Orbis has taken us from identity, purpose, mission, and strategy to rendering a fabulous looking and dynamically interactive web design that will provide the end user with an ability to navigate the site easily and a desire to return frequently, and share with others.' },
+          { name: 'Dennis Piron', role: 'Batavia High School', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/b322e218-bc32-4daf-9a5f-221abd4bf512/dennis-piron-headshot.jpg?format=300w', quote: 'I have had the opportunity to work with Gary through our entrepreneurship program at Batavia HS and he has taught our students AMAZING concepts in digital marketing! Gary is truly one of the best partners we have ever had at Batavia HS and his kindness, generosity, time and connections he has made with students has been a special addition for all our students.' },
+          { name: 'Emma Harrison', role: '', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/9854e0f4-7208-4384-a597-c687ef704b54/emma-harrison-profie.jpg?format=300w', quote: 'Gary is simply the best. He goes above and beyond to bring clients creative solutions and goes the extra mile to troubleshoot when things aren\'t working perfectly. That\'s been such a joy working with and learning from him over the past five years. He always inspires me and teaches me something new.' },
+          { name: 'Richard DeVeau', role: '', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/0719ddf6-c1e1-4f11-89f7-ab20776cf593/richard-deveau-2-denoise-enhance-faceai-liminar.jpeg?format=300w', quote: 'Gary is truly the Magellan of digital marketing. In the last decade that I\'ve worked with him, he is constantly exploring new marketing terrain — unearthing new, uncharted passageways that lead to enabling his clients to communicate better, smarter, and more efficiently. You won\'t find a better digital marketing partner anywhere on this big blue marble.' },
+          { name: 'Joseph Shansky', role: '', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/e715129b-222a-4468-b623-cb8f3cde7d58/joe-shansky-luminar.jpeg?format=300w', quote: 'Gary\'s enthusiasm and expertise in the world of marketing, messaging, and technology is unrivaled! He will often introduce new concepts or tools into a conversation which end up vastly improving the project. Gary stays on the cutting edge of tech because he has so much fun with it.' },
+          { name: 'Robert Hiebeler', role: 'Link The Dots', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/4d336b0e-5938-40c6-b386-8184bb91e214/bob-heibeler-denoise-enhance-faceai-luminar.jpeg?format=300w', quote: 'After we launched our new website and podcasts, I received very positive feedback from many people that I had not been in contact with for over 20 years. And these are people from my career that I really respected for their views and outlook. So, to hear from so many of them in this way was very special.' },
+          { name: 'Keith Battaglia', role: '', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/f2815363-3979-43f2-b1c5-7196fd9d3668/reviews-keith-battaglia--enhance-1500w-faceai-ps-background-cropped.jpg?format=300w', quote: 'Gary took the time to truly understand our business goals and target audience, resulting in a website that not only looks stunning but also drives significant traffic and conversions.' },
+          { name: 'Joe Hamstra', role: '', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/c0999ddd-944b-4f95-990d-28b31ec5eb81/joe-hamstra.jpg?format=300w', quote: 'It\'s not every day when you meet someone that is working for a living doing exactly what they are supposed to be doing. Gary is that guy. His passion for storytelling in marketing is what sets him apart from all the other self-proclaimed gurus out there. Pleasure to work with.' },
+          { name: 'Brian Check', role: '', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/1657544612091-EYLHD9N3BIMPILGZ08S9/testimonial-brian-check.JPG?format=300w', quote: 'It has always meant a lot to me how much care you put into helping people succeed and that you genuinely care about them. Keep rocking it and making the world a better place!' },
+          { name: 'Carla Lyons', role: 'Marketing Guru', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/1634029871597-7676FZSUMD59USZOA0SH/carla-lyons-art.JPG?format=300w', quote: 'I have worked with Orbis Design for many years. Gary is truly an innovator! I rely on him to provide creative digital solutions that are time and cost effective. Most of all, he delivers — I know I can trust him to get the job done. Gary is one of the finest people I know.' },
+          { name: 'Kacie Smith', role: 'Arts Alliance Illinois', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/1627992459941-FQLTKI7YPJXTBX282CV2/IMG_3381.JPG?format=300w', quote: 'I worked with Gary on a website for arts relief during the COVID-19 crisis. There was an incredible amount of pressure, a very short timeline, and high stakes. Gary was incredibly generous and a calming presence for the entire team!' },
+          { name: 'Rick Hernandez', role: 'Olsson Roofing', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/1628509908937-VYKQU4Z3TLR36X8UIZ0M/rickHernandez.JPG?format=300w', quote: 'Gary was a great find a few years ago! So likeable, creative and easy to work with, he helped us take our existing website from Star Trek to Star Wars in warp speed!' },
+          { name: 'Kristine Scott', role: 'Community Renewal Society', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/1627992484681-CAB67VYVRHZTNC7AL8B3/IMG_3396.JPG?format=300w', quote: 'Gary is such a great designer and just a great person! Our experience was fabulous. I would recommend him to anyone! He helped us create a website that has changed the organization\'s digital presence for the better. We receive daily compliments!' },
+          { name: 'Keith Boatner', role: 'Abbott Molecular', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/1627992516921-KP865JFMOSAQTIH0ZGDA/IMG_3397.JPG?format=300w', quote: 'I worked with Gary for over 10 years on the Abbott Molecular websites where he provided several excellent websites for our organization. His involvement outlasted three significant leadership changes within our Marketing departments and was consistently meeting our ever changing demands!' },
+          { name: 'Jenny Conviser, Psy.D.', role: 'Ascend CHC', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/1627992586852-EHGK5A5D6KCEGKPGIDJF/IMG_3406.JPG?format=300w', quote: 'Amazing...the work you do. You all are true artists. I am so pleased that you were able to capture so much of what we originally talked about. You were masterful and kept it simple on our end.' },
+          { name: 'Patrick Frisbie', role: 'Flying Aces', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/1627992695120-FSGKZZCT7GKF4QTVTV44/IMG_3386.JPG?format=300w', quote: 'Orbis helped lay the groundwork for the initial version of an online prize redemption system that has since redeemed over 100 million dollars worth of prizes, in seven countries and in five languages.' },
+          { name: 'John Segvich', role: 'Broadwind Energy', img: 'https://images.squarespace-cdn.com/content/v1/60d517d1a31d901cdef08b00/1627992788049-GLCAN7JHYBZOBKBH9F0E/IMG_3405.JPG?format=300w', quote: 'Our CEO said the website looks 100x better than before. Customers, media and employees have all commented on how easy it is to use and how well the story is told. Thanks for your hard work!' }
+        ],
+        init() {
+          if (_timer) return;
+          _timer = setInterval(() => { this.active = (this.active + 1) % this.total; }, 6000);
+        },
+        go(i) {
+          this.active = i;
+          clearInterval(_timer);
+          _timer = setInterval(() => { this.active = (this.active + 1) % this.total; }, 6000);
+        },
+        prev() { this.go((this.active - 1 + this.total) % this.total); },
+        next() { this.go((this.active + 1) % this.total); }
+      };
+    }
+
+    function internsData() {
+      return {
+        modal: null,
+        videos: {
+          tyson: 'https://player.vimeo.com/progressive_redirect/playback/941447328/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=78a16fd2e73cb393951233c0b9ef049bae64f367d1cd7abdd37588f264f1560b',
+          olivia: 'https://player.vimeo.com/progressive_redirect/playback/1173074323/rendition/720p/file.mp4%20%28720p%29.mp4?loc=external&log_user=0&signature=bd7b0988891a18ce8008e55a080cfe9407e7ba5cc40b6a118b96a17d115b6a09',
+          micah:  'https://player.vimeo.com/progressive_redirect/playback/941430290/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=a493a9f3c6c827a3d64a19198a31bf1d56b357021b46ff836170809a54c01d11'
+        },
+        open(id) { this.modal = id; },
+        close() { this.modal = null; }
+      };
+    }
+
+    function storiesData() {
+      let _timer = null; // plain variable — not reactive, so clearInterval gets the raw ID
+      return {
+        activeTab: 0,
+        stopped: false,
+        modal: { open: false, url: '', title: '', desc: '' },
+        tabs: [
+          {
+            name: 'Featured',
+            videos: [
+              {
+                title: 'AI-Enhanced, Authentic Storytelling for Native Americans',
+                desc: 'Real images and voices from Lutheran Indian Ministries were transformed through AI-powered tools into a groundbreaking 5-minute documentary — animating still photos, distilling 4 hours of interviews into a powerful script, and weaving in an authentic Native American score — creating an emotionally resonant, unprecedentedly authentic portrait of life-changing ministry.',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1125923234/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=ba9c8d8f4953c1828ccf1b90d43572292cff783d5b5f0cd51b8efae4ea305b27'
+              },
+              {
+                title: 'Making Friends for Life at The Chicago Academy for the Arts',
+                desc: '',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/986414133/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=b50c75dff87b04bded0c866344f758474a1087678a16f2436210075726cb6f97'
+              },
+              {
+                title: '110 Year Old Business',
+                desc: '',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1036705588/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=d9e177527118f4722ae3ac76c99b71b72b74332795abc3fc09f73f6a984223b2'
+              },
+              {
+                title: 'Making Possibility Real',
+                desc: '',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1147760452/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=40a46c91190804ef36dab9fb70851672b7658642428eabcbeb28d323dd360144'
+              },
+              {
+                title: 'These videos of my kids never happened',
+                desc: '',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1099639381/rendition/1440p/file.mp4%20%281440p%29.mp4?loc=external&log_user=0&signature=cf9076cf6423c8cfe6291ec811882c5630e071788d74a9c678cdefcd2ee74a96'
+              }
+            ]
+          },
+          {
+            name: 'Interns',
+            videos: [
+              {
+                title: 'Meet Tyson — athlete, entrepreneur, and community storyteller',
+                desc: 'Tyson — a D1 soccer recruit headed to Indiana University Indianapolis — chose to spend his INCubator time visiting retirement homes to interview residents and preserve their stories, proving that the program meets every student where their passions truly lie.',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/941447328/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=78a16fd2e73cb393951233c0b9ef049bae64f367d1cd7abdd37588f264f1560b'
+              },
+              {
+                title: 'Forever Faithful',
+                desc: '',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/941440841/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=317a0fa574d119c1943b031294009aaba5fed1acd1beaa0dc7fa4dfa282ff057'
+              }
+            ]
+          },
+          {
+            name: 'Customer Stories',
+            videos: [
+              {
+                title: 'A new foundation for this steeple.',
+                desc: '',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1136402029/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=a31129ec751929001f8cc4ed8cda4ef54e57659e6d5458f50ed1eac128d348d1'
+              },
+              {
+                title: 'Could You Be Loved',
+                desc: '',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1022424512/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=47fab0861ac765415d2518dd13837ea8c3ddf1f5176defa68744b7aa13ce0fa5'
+              },
+              {
+                title: 'Arts for Everybody',
+                desc: '',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/968245171/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=539825c2eaec2acd552f11f62aaedd72167dbcc6e52f303c01e58ecb244a3f5b'
+              },
+              {
+                title: '110 Year Old Business',
+                desc: '',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1036705588/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=d9e177527118f4722ae3ac76c99b71b72b74332795abc3fc09f73f6a984223b2'
+              },
+              {
+                title: "A roofer's love language",
+                desc: '',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1029401922/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=0fdefaff227c4e2cef25c76dd8b0039be167d573e80009ab6bc177a64c1eb4cf'
+              },
+              {
+                title: 'Homegrown Utica',
+                desc: '',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/964503442/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=9699a60c710f6c9709be2bc855d0ac0c536a6aa6045eb2c9c8ed3886b1bf1d68'
+              }
+            ]
+          },
+          {
+            name: 'Fun',
+            videos: [
+              {
+                title: 'The First Christmas',
+                desc: '',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1146436573/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=8f4daf2472e6dadcd497b3efbfe5d949d18c364085098863ccb85a0ebf56514e'
+              },
+              {
+                title: 'Basted In Blood',
+                desc: 'In just a few hours, I recreated the classic 1997 SNL sketch where folk singer "Cinder Calhoun" brings out Sarah McLachlan to perform a holiday anthem protesting the so-called Turkey Holocaust of Thanksgiving.',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1141140675/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=aa51866cac2f58f898503ea5151720678f0fe5bde666f397cd068b08c8d6bce1'
+              },
+              {
+                title: "Gar's Halloween",
+                desc: 'Inserting myself into classic halloween movies and scenes',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1130246132/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=4e13941202ece6662d545afae670d4257e67c54c2adea8136136ec6d8a2875c5'
+              }
+            ]
+          },
+          {
+            name: 'Marketing Tips',
+            videos: [
+              {
+                title: 'Photoshop Killer',
+                desc: "Google's Nano Banana is unbelievable.",
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1171237038/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=638d3d364acb20d5a412e8a40d50210ce7613e0b7dac1414dcb6157008033d1e'
+              },
+              {
+                title: 'How Much Should You Spend on Your Marketing?',
+                desc: 'I created a calculator',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1171237370/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=83e56de4c1c6939b70654bd529d40aa9c802e86a24102303c40888df95cb6033'
+              }
+            ]
+          },
+          {
+            name: 'Local',
+            videos: [
+              {
+                title: 'Batavia Girls Football',
+                desc: 'The first ever',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1165470829/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=a8181e843f3a05b7b2e7896f70fb2de941af36eb0a040cd43e2b9e456592a467'
+              },
+              {
+                title: 'Boardwalk Shops',
+                desc: 'Social sparks interview',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/951889932/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=a12a3d8dc995131208e49ec836d5113f96ec0edce30eb80c0d0c9b5fbab268f7'
+              },
+              {
+                title: 'Road Diet Kills Jobs',
+                desc: '',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1017159243/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=5021cd86ddf68a294c77a556b885193825a4648560d06f7e05246e7cbd908d58'
+              },
+              {
+                title: 'What good people children are when given an opportunity.',
+                desc: '',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1120934383/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=c155acb4446cfdd391abc251faf3560b19b1f748e8baff78e9e7d51a5b455676'
+              },
+              {
+                title: "Why She's the Best",
+                desc: '',
+                url: 'https://player.vimeo.com/progressive_redirect/playback/1118098378/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&log_user=0&signature=366a345b7cd36e06f60ec28a0de33ec99d09969644840ae19bbed3de693be65f'
+              }
+            ]
+          }
+        ],
+
+        init() {
+          if (_timer) return; // guard against Alpine calling x-init more than once
+          _timer = setInterval(() => {
+            if (this.stopped) return;
+            this.activeTab = (this.activeTab + 1) % this.tabs.length;
+          }, 5000);
+        },
+
+        stopAuto() {
+          this.stopped = true;
+          if (_timer) { clearInterval(_timer); _timer = null; }
+        },
+
+        selectTab(i) {
+          this.stopAuto();
+          this.activeTab = i;
+        },
+
+        hoverPlay(el) {
+          const v = el.querySelector('video');
+          if (v) v.play().catch(() => {});
+        },
+
+        hoverStop(el) {
+          const v = el.querySelector('video');
+          if (v) { v.pause(); v.currentTime = 0; }
+        },
+
+        openModal(vid) {
+          this.stopAuto();
+          this.modal = { open: true, url: vid.url, title: vid.title, desc: vid.desc || '' };
+          this.$nextTick(() => {
+            const v = this.$refs.modalVideo;
+            if (v) { v.src = vid.url; v.play().catch(() => {}); }
+          });
+        },
+
+        closeModal() {
+          const v = this.$refs.modalVideo;
+          if (v) { v.pause(); v.removeAttribute('src'); v.load(); }
+          this.modal.open = false;
+        }
+      };
+    }
+  </script>
+
+</body>
+</html>
