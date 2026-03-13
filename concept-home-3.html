@@ -1112,8 +1112,13 @@
         <div x-ref="track" style="display:flex;align-items:center;width:max-content;will-change:transform;"></div>
       </div>
 
+      <!-- Industry label -->
+      <div x-show="mode === 'industry'" style="text-align:center;height:28px;display:flex;align-items:center;justify-content:center;margin-top:10px;">
+        <span x-ref="industryLabel" style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;transition:opacity 0.3s;"></span>
+      </div>
+
       <!-- Full-width scrubber -->
-      <div style="padding:16px 0 0;">
+      <div style="padding:10px 0 0;">
         <input type="range" min="0" max="10000" value="0" x-ref="slider"
                class="clients-scrubber" style="width:100%;display:block;">
       </div>
@@ -1405,6 +1410,7 @@
       let _half = 0;
       let _cleanups = [];
       let _scrubbing = false;
+      let _markers = [];
 
       // Safe wrap: keep _pos in [-half, 0). Returns _pos unchanged if half is 0.
       function wrap(p, half) {
@@ -1458,8 +1464,17 @@
           // Measure after paint so scrollWidth is accurate
           requestAnimationFrame(() => {
             _half = track.scrollWidth / 2;
+            // Collect industry group positions (first half only, track is doubled)
+            _markers = [];
+            if (this.mode === 'industry') {
+              track.querySelectorAll('[data-industry-cat]').forEach(el => {
+                if (el.offsetLeft < _half) {
+                  _markers.push({ cat: el.dataset.industryCat, color: el.dataset.industryColor, x: el.offsetLeft });
+                }
+              });
+            }
             this.attachDrag(wrapper, track);
-            this.startAnim(track, this.$refs.slider);
+            this.startAnim(track, this.$refs.slider, this.$refs.industryLabel);
           });
         },
 
@@ -1483,7 +1498,7 @@
           return Object.keys(groups).sort().map((cat, idx) => {
             const color = COLORS[cat] || '#111110';
             const label =
-              `<span style="font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:${color};padding:0 10px 0 ${idx===0?'8px':'28px'};white-space:nowrap;opacity:0.7;">${cat}</span>` +
+              `<span data-industry-cat="${cat}" data-industry-color="${color}" style="font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:${color};padding:0 10px 0 ${idx===0?'8px':'28px'};white-space:nowrap;opacity:0.7;">${cat}</span>` +
               `<span style="color:${color};opacity:0.25;padding:0 4px;font-size:1rem;">|</span>`;
             const names = groups[cat]
               .sort((a, b) => a.name.localeCompare(b.name))
@@ -1495,8 +1510,9 @@
           }).join(`<span style="color:#E5E2DC;padding:0 20px;font-size:1.2rem;">|</span>`);
         },
 
-        startAnim(track, slider) {
+        startAnim(track, slider, label) {
           if (_animId) cancelAnimationFrame(_animId);
+          let _lastCat = '';
           const step = () => {
             if (!_drag && !_scrubbing && _half > 0) {
               _pos -= 0.65;
@@ -1505,6 +1521,18 @@
             track.style.transform = `translateX(${_pos}px)`;
             if (slider && _half > 0 && !_scrubbing) {
               slider.value = Math.round((Math.abs(_pos) / _half) * 10000);
+            }
+            // Update industry label based on which group is at screen center
+            if (label && _markers.length > 0 && _half > 0) {
+              const center = -_pos + window.innerWidth / 2;
+              const norm = ((center % _half) + _half) % _half;
+              let current = _markers[0];
+              for (const m of _markers) { if (norm >= m.x) current = m; }
+              if (current.cat !== _lastCat) {
+                _lastCat = current.cat;
+                label.textContent = current.cat;
+                label.style.color = current.color;
+              }
             }
             _animId = requestAnimationFrame(step);
           };
