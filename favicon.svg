@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="16" fill="#0F0F11"/>
+  <!-- Outer orbit ring -->
+  <circle cx="16" cy="16" r="11" fill="none" stroke="#7B2CBF" stroke-width="2"/>
+  <!-- Inner filled circle -->
+  <circle cx="16" cy="16" r="5.5" fill="#7B2CBF"/>
+  <!-- Orbit accent dot (spark orange) -->
+  <circle cx="27" cy="16" r="2.5" fill="#F97316"/>
+</svg>
