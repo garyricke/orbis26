@@ -1115,9 +1115,6 @@
       <!-- Full-width scrubber -->
       <div style="padding:16px 0 0;">
         <input type="range" min="0" max="10000" value="0" x-ref="slider"
-               @mousedown="_scrubbing = true" @touchstart="_scrubbing = true"
-               @mouseup="_scrubbing = false" @touchend="_scrubbing = false"
-               @input="if (_half > 0) _pos = -($el.value / 10000) * _half"
                class="clients-scrubber" style="width:100%;display:block;">
       </div>
     </div>
@@ -1421,8 +1418,6 @@
         mode: 'alpha',
         clients: [],
         loading: true,
-        get _scrubbing() { return _scrubbing; },
-        set _scrubbing(v) { _scrubbing = v; },
 
         async init() {
           try {
@@ -1520,8 +1515,10 @@
           _cleanups.forEach(fn => fn());
           _cleanups = [];
 
+          const slider = this.$refs.slider;
           const getX = e => e.touches ? e.touches[0].clientX : e.clientX;
 
+          // Strip drag
           const onDown = (e) => {
             _drag = true;
             _dragX = getX(e);
@@ -1537,12 +1534,27 @@
             wrapper.style.cursor = 'grab';
           };
 
+          // Slider scrub
+          const onSliderDown = () => { _scrubbing = true; };
+          const onSliderUp   = () => { _scrubbing = false; };
+          const onSliderInput = () => {
+            if (_half > 0) _pos = -(slider.value / 10000) * _half;
+          };
+
           wrapper.addEventListener('mousedown', onDown);
           wrapper.addEventListener('touchstart', onDown, { passive: true });
           window.addEventListener('mousemove', onMove);
           window.addEventListener('touchmove', onMove, { passive: true });
           window.addEventListener('mouseup', onUp);
           window.addEventListener('touchend', onUp);
+
+          if (slider) {
+            slider.addEventListener('mousedown',  onSliderDown);
+            slider.addEventListener('touchstart', onSliderDown, { passive: true });
+            slider.addEventListener('mouseup',    onSliderUp);
+            slider.addEventListener('touchend',   onSliderUp);
+            slider.addEventListener('input',      onSliderInput);
+          }
 
           _cleanups = [
             () => wrapper.removeEventListener('mousedown', onDown),
@@ -1551,6 +1563,11 @@
             () => window.removeEventListener('touchmove', onMove),
             () => window.removeEventListener('mouseup', onUp),
             () => window.removeEventListener('touchend', onUp),
+            () => slider && slider.removeEventListener('mousedown',  onSliderDown),
+            () => slider && slider.removeEventListener('touchstart', onSliderDown),
+            () => slider && slider.removeEventListener('mouseup',    onSliderUp),
+            () => slider && slider.removeEventListener('touchend',   onSliderUp),
+            () => slider && slider.removeEventListener('input',      onSliderInput),
           ];
         }
       };
