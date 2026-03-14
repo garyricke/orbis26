@@ -56,6 +56,24 @@
 
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
 
+    @keyframes bounceDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+    .scroll-arrow-bounce { animation: bounceDown 1.4s ease-in-out infinite; }
+
+    /* Modal prose styles */
+    .modal-content p { color: #6B6960; line-height: 1.75; margin-bottom: 0.75rem; }
+    .modal-content strong { color: #111110; }
+    .modal-content h4 { color: #111110; font-weight: 600; font-size: 0.9rem; margin: 1.25rem 0 0.4rem; }
+    .modal-content ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 0.75rem; }
+    .modal-content ul li { margin-bottom: 0.3rem; }
+    .modal-content code { background: #F8F6F3; padding: 0.1rem 0.35rem; border-radius: 3px; font-size: 0.8rem; font-family: monospace; color: #111110; }
+    .modal-content table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 1rem; }
+    .modal-content th { background: #111110; color: rgba(255,255,255,0.85); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.6rem 0.75rem; text-align: left; }
+    .modal-content td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #E5E2DC; }
+    .modal-content tr:nth-child(even) td { background: #F8F6F3; }
+    .modal-content .note { color: #6B6960; font-size: 0.75rem; margin-top: 0.75rem; font-style: italic; }
+    .modal-content .good-box { border-left: 3px solid #22C55E; background: #F0FDF4; padding: 1rem; margin: 0.75rem 0; border-radius: 2px; }
+    .modal-content .bad-box  { border-left: 3px solid #EF4444; background: #FEF2F2; padding: 1rem; margin: 0.75rem 0; border-radius: 2px; }
+
     /* Inquiry modal */
     .roygbiv-btn-inquiry {
       animation: roygbiv-cycle 7s linear infinite;
@@ -65,7 +83,7 @@
     .clients-scrubber::-webkit-slider-thumb { -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:#111110; cursor:pointer; }
   </style>
 </head>
-<body x-data="{ mobileOpen: false }">
+<body x-data="pageData()" @keydown.escape.window="closeModal()">
 
   <!-- NAV -->
   <nav class="fixed top-0 left-0 right-0 z-50 h-14 bg-white/95 backdrop-blur-sm border-b border-border-warm flex items-center">
@@ -79,6 +97,13 @@
         <a href="#technical"  class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Technical</a>
         <a href="#faq"        class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">FAQ</a>
         <a href="#glossary"   class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Glossary</a>
+        <button id="slow-scroll-btn" onclick="toggleSlowScroll()" title="Slow-read: scrolls the full page in 60 seconds"
+                class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border-warm text-muted hover:border-near-black hover:text-near-black transition-all">
+          <span id="scroll-icon" class="scroll-arrow-bounce flex items-center">
+            <svg id="scroll-svg" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </span>
+          <span id="scroll-label" class="font-sans font-bold text-[10px] uppercase tracking-widest">Read</span>
+        </button>
         <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}}))"
                 class="roygbiv-btn font-sans font-semibold text-sm text-white px-5 py-1.5">Let's Talk</button>
       </div>
@@ -156,7 +181,9 @@
       <a href="#taxonomy"       class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">SEO vs AEO vs GEO</a>
       <a href="#decoupling"     class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">The Decoupling</a>
       <a href="#technical"      class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Technical</a>
+      <a href="#dangers"        class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Danger Zones</a>
       <a href="#content"        class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Content</a>
+      <a href="#analytics"      class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Analytics</a>
       <a href="#faq"            class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">FAQ</a>
       <a href="#glossary"       class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Glossary</a>
       <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}}))"
@@ -238,6 +265,7 @@
             <div><span class="font-semibold text-near-black">Content:</span> Long-form prose</div>
           </div>
           <div class="mt-4 inline-block font-sans text-xs font-semibold rounded-full px-2.5 py-1 text-near-black" style="background:#EFF6FF;">Declining — still foundational</div>
+          <button @click="openModal('SEO in 2026: Still Relevant, No Longer Enough', modals.seo)" class="mt-3 w-full font-sans text-xs font-semibold text-muted hover:text-near-black border border-border-warm py-2 transition-colors">Deep Dive →</button>
         </div>
         <div class="border border-border-warm p-5" style="border-top:3px solid #D4622A;">
           <p class="font-sans text-xs font-bold uppercase tracking-widest mb-3" style="color:#D4622A;letter-spacing:0.12em;">AEO</p>
@@ -249,6 +277,7 @@
             <div><span class="font-semibold text-near-black">Content:</span> 40–80 word Answer Capsules</div>
           </div>
           <div class="mt-4 inline-block font-sans text-xs font-semibold rounded-full px-2.5 py-1 text-white" style="background:#D4622A;">Growing rapidly</div>
+          <button @click="openModal('AEO: Winning Zero-Click Visibility', modals.aeo)" class="mt-3 w-full font-sans text-xs font-semibold text-ember hover:underline border border-border-warm py-2 transition-colors">Deep Dive →</button>
         </div>
         <div class="border border-border-warm p-5" style="border-top:3px solid #7B2CBF;">
           <p class="font-sans text-xs font-bold uppercase tracking-widest mb-3" style="color:#7B2CBF;letter-spacing:0.12em;">GEO</p>
@@ -260,6 +289,7 @@
             <div><span class="font-semibold text-near-black">Content:</span> Semantically rich, entity-mapped</div>
           </div>
           <div class="mt-4 inline-block font-sans text-xs font-semibold rounded-full px-2.5 py-1 text-white" style="background:#7B2CBF;">The new frontier</div>
+          <button @click="openModal('GEO: Getting Cited by AI Chatbots', modals.geo)" class="mt-3 w-full font-sans text-xs font-semibold text-muted hover:text-near-black border border-border-warm py-2 transition-colors" style="color:#7B2CBF;">Deep Dive →</button>
         </div>
       </div>
       <div class="border border-border-warm" x-data="{ open: false }">
@@ -307,7 +337,18 @@
           <p class="font-sans text-xs text-muted mt-2 leading-snug">Gemini overlap with Google's own rankings</p>
         </div>
       </div>
-      <div class="border border-border-warm overflow-hidden mb-8">
+      <!-- Decoupling image -->
+      <div class="mb-8 overflow-hidden border border-border-warm">
+        <img src="generated_imgs/generated-2026-03-07T14-27-38-211Z-3bhs5b.png"
+             alt="The Great Decoupling — Google rankings vs AI citations diverge dramatically"
+             class="w-full" loading="lazy" decoding="async" />
+      </div>
+
+      <div class="border border-border-warm overflow-hidden mb-6">
+        <div class="flex items-center justify-between px-5 py-3 border-b border-border-warm bg-white">
+          <p class="font-sans text-xs font-semibold text-muted">AI Platform Citation Overlap with Google Top 10 · Search Atlas, 2025</p>
+          <button @click="openModal('Why the Decoupling Happens', modals.decoupleWhy)" class="font-sans text-xs font-semibold text-ember hover:underline flex-shrink-0 ml-4">Why does this happen? →</button>
+        </div>
         <table class="w-full font-sans text-sm" style="border-collapse:collapse;">
           <thead>
             <tr class="bg-near-black text-white">
@@ -340,9 +381,24 @@
           </tbody>
         </table>
       </div>
-      <div class="bg-white border border-border-warm p-6" style="border-left:3px solid #EF4444;">
+      <div class="bg-white border border-border-warm p-6 mb-6" style="border-left:3px solid #EF4444;">
         <p class="font-sans font-semibold text-sm text-near-black mb-1">The Critical Vulnerability</p>
         <p class="font-sans text-sm text-muted leading-relaxed">88% of your competitors are optimizing for a channel driving less than 8% of AI-era conversions. That's your window — if you move now.</p>
+      </div>
+      <!-- Accordion: Why ranking #1 makes you invisible to AI -->
+      <div class="border border-border-warm" x-data="{ open: false }">
+        <button @click="open=!open" class="w-full flex items-center justify-between px-6 py-4 text-left">
+          <span class="font-sans font-semibold text-sm text-near-black">Why your #1 Google ranking might make you invisible to AI</span>
+          <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0" :class="open?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div x-show="open" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+          <p class="font-sans text-sm text-muted leading-relaxed">LLMs operate within a limited <strong class="text-near-black">context window</strong> — a computational budget for how much text they can analyze. A page ranking #1 via massive backlink authority often features long-form, keyword-dense prose. To extract one fact, the AI burns enormous resources.</p>
+          <p class="font-sans text-sm text-muted leading-relaxed">So the AI skips it. Instead, it selects a page from position 7 or 8 with <strong class="text-near-black">clean information architecture, explicit schema markup, and facts in tables and bullet lists</strong> — content designed for machine inference, not human reading.</p>
+          <div class="bg-warm border-l-2 border-ember p-4">
+            <p class="font-sans font-semibold text-sm text-near-black mb-1">The implication</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">Dominating Google while remaining invisible to ChatGPT, Gemini, and Perplexity is not just possible — it's the norm. Ranking #1 and being cited by AI require entirely different content strategies.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -406,6 +462,132 @@
           </div>
         </div>
       </div>
+      <div class="mt-8 text-center">
+        <button @click="openModal('robots.txt vs sitemap.xml vs llms.txt — What Each Does', modals.files)" class="font-sans text-xs font-semibold text-ember hover:underline border border-border-warm px-6 py-3 transition-colors">View: The Three Files Compared →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- DANGER ZONES -->
+  <section id="dangers" class="py-16 bg-warm border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-3" style="color:#EF4444;letter-spacing:0.15em;">Danger Zone</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Third-Party Citations:<br>What Works &amp; What Will Destroy You</h2>
+      <p class="font-sans text-muted leading-relaxed mb-8">Trying to game Wikipedia, Reddit, or UGC platforms is not just ineffective — it triggers permanent brand damage, domain blacklisting, and FTC-level legal exposure.</p>
+
+      <div class="mb-8 overflow-hidden border border-border-warm">
+        <img src="generated_imgs/generated-2026-03-07T14-28-44-751Z-7z72t6.png"
+             alt="The dangers of manipulating Wikipedia and Reddit for AI citations"
+             class="w-full" loading="lazy" decoding="async" />
+      </div>
+
+      <div class="space-y-3">
+
+        <!-- Wikipedia danger -->
+        <div class="border border-border-warm overflow-hidden" x-data="{ open: false }">
+          <button @click="open=!open" class="w-full flex items-center justify-between px-6 py-4 text-left">
+            <div class="flex items-center gap-3">
+              <span class="text-xl flex-shrink-0">⚠️</span>
+              <div>
+                <p class="font-sans font-semibold text-sm text-near-black">Wikipedia: Forbidden Fruit</p>
+                <p class="font-sans text-xs mt-0.5" style="color:#EF4444;">Permanent consequences · FTC violations · Domain blacklisting</p>
+              </div>
+            </div>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0" :class="open?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open" x-collapse class="border-t border-border-warm px-6 py-5 space-y-4">
+            <p class="font-sans text-sm text-muted leading-relaxed">Wikipedia serves as a foundational layer for Google's Knowledge Graph and is heavily weighted in AI training data. Paying for "high-reputation contributor accounts" to inject brand citations is classified as <strong class="text-near-black">covert advertising</strong> under FTC Endorsement Guidelines.</p>
+            <div class="grid md:grid-cols-3 gap-3">
+              <div class="bg-white border border-border-warm p-4" style="border-left:3px solid #EF4444;">
+                <p class="font-sans font-semibold text-sm text-near-black mb-1">Consequence 1</p>
+                <p class="font-sans text-xs text-muted leading-relaxed">Editors flag compromised articles with permanent manipulation warning banners — ingested by AI crawlers analyzing brand sentiment.</p>
+              </div>
+              <div class="bg-white border border-border-warm p-4" style="border-left:3px solid #EF4444;">
+                <p class="font-sans font-semibold text-sm text-near-black mb-1">Consequence 2</p>
+                <p class="font-sans text-xs text-muted leading-relaxed">Repeated attempts get your domain added to Wikipedia's global spam blacklist — permanently. No one can ever link to you from Wikipedia again.</p>
+              </div>
+              <div class="bg-white border border-border-warm p-4" style="border-left:3px solid #EF4444;">
+                <p class="font-sans font-semibold text-sm text-near-black mb-1">Consequence 3</p>
+                <p class="font-sans text-xs text-muted leading-relaxed">Even successful placements carry <code class="font-mono text-xs bg-warm px-1">rel="nofollow"</code> — zero PageRank passes. Maximum risk, zero SEO benefit.</p>
+              </div>
+            </div>
+            <div class="bg-white border border-border-warm p-4" style="border-left:3px solid #22C55E;">
+              <p class="font-sans font-semibold text-sm text-near-black mb-1">The Only Safe Path</p>
+              <p class="font-sans text-sm text-muted leading-relaxed">Propose verifiable, neutral changes on the article's Talk page using the <code class="font-mono text-xs bg-warm px-1">{{edit COI}}</code> template. Slow — but legitimate.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reddit & UGC -->
+        <div class="border border-border-warm overflow-hidden" x-data="{ open: false }">
+          <button @click="open=!open" class="w-full flex items-center justify-between px-6 py-4 text-left">
+            <div class="flex items-center gap-3">
+              <span class="text-xl flex-shrink-0">📉</span>
+              <div>
+                <p class="font-sans font-semibold text-sm text-near-black">Reddit &amp; UGC Platforms: Volatile Ground</p>
+                <p class="font-sans text-xs text-muted mt-0.5">60% citation share collapsed to 10% overnight · Manipulation detection increasing</p>
+              </div>
+            </div>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0" :class="open?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open" x-collapse class="border-t border-border-warm px-6 py-5 space-y-4">
+            <p class="font-sans text-sm text-muted leading-relaxed">Before September 2025, Reddit was cited in nearly <strong class="text-near-black">60% of all ChatGPT responses</strong>. Then in a single algorithmic shift, citations <strong class="text-near-black">plummeted from 60% to 10%</strong>. Wikipedia simultaneously dropped from 55% to under 20%. LLM providers deliberately throttled UGC reliance to dismantle the manipulation strategies they observed.</p>
+            <div class="bg-white border border-border-warm p-5">
+              <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-4" style="letter-spacing:0.1em;">ChatGPT Citation Shift (Sept 2025)</p>
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between font-sans text-xs mb-1.5"><span class="text-muted">Reddit</span><span class="font-semibold" style="color:#EF4444;">60% → 10%</span></div>
+                  <div class="h-1.5 bg-border-warm rounded-full overflow-hidden"><div class="h-1.5 rounded-full" style="background:#EF4444;width:10%"></div></div>
+                </div>
+                <div>
+                  <div class="flex justify-between font-sans text-xs mb-1.5"><span class="text-muted">Wikipedia</span><span class="font-semibold" style="color:#EF4444;">55% → 18%</span></div>
+                  <div class="h-1.5 bg-border-warm rounded-full overflow-hidden"><div class="h-1.5 rounded-full" style="background:#EF4444;width:18%"></div></div>
+                </div>
+                <div>
+                  <div class="flex justify-between font-sans text-xs mb-1.5"><span class="text-muted">PRNewswire &amp; Forbes</span><span class="font-semibold text-ember">↑ Rising</span></div>
+                  <div class="h-1.5 bg-border-warm rounded-full overflow-hidden"><div class="h-1.5 rounded-full" style="background:#D4622A;width:55%"></div></div>
+                </div>
+                <div>
+                  <div class="flex justify-between font-sans text-xs mb-1.5"><span class="text-muted">Medium</span><span class="font-semibold text-ember">Growing</span></div>
+                  <div class="h-1.5 bg-border-warm rounded-full overflow-hidden"><div class="h-1.5 rounded-full" style="background:#D4622A;width:40%"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Legitimate strategies -->
+        <div class="border border-border-warm overflow-hidden" x-data="{ open: false }">
+          <button @click="open=!open" class="w-full flex items-center justify-between px-6 py-4 text-left">
+            <div class="flex items-center gap-3">
+              <span class="text-xl flex-shrink-0">✅</span>
+              <div>
+                <p class="font-sans font-semibold text-sm text-near-black">Legitimate Third-Party Strategies That Actually Work</p>
+                <p class="font-sans text-xs text-muted mt-0.5">Sustainable · AI-verifiable · Builds real authority</p>
+              </div>
+            </div>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0" :class="open?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open" x-collapse class="border-t border-border-warm px-6 py-5 space-y-4">
+            <p class="font-sans text-sm text-muted leading-relaxed">In the GEO era, third-party outreach shifts from acquiring backlinks to injecting verifiable entities and unique data into the AI knowledge ecosystem. AI models cite the originators of specific, non-reproducible claims.</p>
+            <div class="grid md:grid-cols-3 gap-3">
+              <div class="bg-white border border-border-warm p-4" style="border-left:3px solid #22C55E;">
+                <p class="font-sans font-semibold text-sm text-near-black mb-1">Proprietary Statistics</p>
+                <p class="font-sans text-xs text-muted leading-relaxed">Original research improves generative engine visibility by <strong class="text-near-black">+22%</strong>. AI models are compelled to cite the originator of unique, non-reproducible data.</p>
+              </div>
+              <div class="bg-white border border-border-warm p-4" style="border-left:3px solid #22C55E;">
+                <p class="font-sans font-semibold text-sm text-near-black mb-1">Expert Quotations</p>
+                <p class="font-sans text-xs text-muted leading-relaxed">Direct quotes from named experts improve AI visibility by <strong class="text-near-black">+37%</strong>. Named credentials and sameAs schema build identity graphs AI trusts.</p>
+              </div>
+              <div class="bg-white border border-border-warm p-4" style="border-left:3px solid #22C55E;">
+                <p class="font-sans font-semibold text-sm text-near-black mb-1">Editorial Outreach</p>
+                <p class="font-sans text-xs text-muted leading-relaxed">Target PRNewswire, Forbes, and trade publications. Aim for coverage of unique milestones and original research — content that creates new, citable facts.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
@@ -414,7 +596,15 @@
     <div class="max-w-3xl mx-auto px-6">
       <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">Strategy</p>
       <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Content Architecture for AI</h2>
-      <p class="font-sans text-muted leading-relaxed mb-10">The Answer Capsule Formula — the core unit of AEO content that AI systems are built to extract.</p>
+      <p class="font-sans text-muted leading-relaxed mb-8">The Answer Capsule Formula — the core unit of AEO content that AI systems are built to extract.</p>
+
+      <!-- Content architecture image -->
+      <div class="mb-8 overflow-hidden border border-border-warm">
+        <img src="generated_imgs/generated-2026-03-07T14-28-02-399Z-5ljh1q.png"
+             alt="Content atomization: structuring documents into AI-extractable blocks"
+             class="w-full" loading="lazy" decoding="async" />
+      </div>
+
       <div class="bg-white border border-border-warm p-6 mb-8">
         <p class="font-sans text-xs font-semibold uppercase tracking-widest text-muted mb-6" style="letter-spacing:0.12em;">The Formula</p>
         <div class="grid md:grid-cols-3 gap-6">
@@ -435,9 +625,12 @@
           </div>
         </div>
       </div>
-      <div class="bg-near-black text-center px-8 py-12 mb-8">
+      <div class="bg-near-black text-center px-8 py-12 mb-4">
         <p class="instrument font-normal text-white" style="font-size:4rem;line-height:1;">67%</p>
         <p class="font-sans text-sm mt-2" style="color:rgba(255,255,255,0.65);">higher AI citation rate for brands publishing weekly vs. monthly</p>
+      </div>
+      <div class="text-center mb-8">
+        <button @click="openModal('Answer Capsule Examples: Good vs. Bad', modals.capsuleEx)" class="font-sans text-xs font-semibold text-ember hover:underline border border-border-warm px-6 py-3 transition-colors">See real examples →</button>
       </div>
       <div class="border border-border-warm divide-y divide-border-warm" x-data="{ open: null }">
         <div>
@@ -469,6 +662,93 @@
           <div x-show="open==='freshness'" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
             <p class="font-sans text-sm text-muted leading-relaxed">65% of AI citation targets are content revised within the last 12 months. 18 months is the effective cutoff — content older than that needs refreshing, not replacing.</p>
             <p class="font-sans text-sm text-muted leading-relaxed">Weekly publishers receive 67% more citations than monthly publishers. The cadence matters more than the volume.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANALYTICS & MEASUREMENT -->
+  <section id="analytics" class="py-16 bg-white border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">Measuring What Matters</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">New KPIs for a New Era</h2>
+      <p class="font-sans text-muted leading-relaxed mb-8">Your existing analytics dashboard is measuring the wrong game. Here is what AI visibility looks like — and how to track it.</p>
+
+      <div class="border border-border-warm overflow-hidden mb-6">
+        <div class="px-5 py-3 border-b border-border-warm bg-warm">
+          <p class="font-sans font-semibold text-sm text-near-black">Old Metrics vs. New Metrics</p>
+          <p class="font-sans text-xs text-muted mt-0.5">What you're measuring now vs. what actually predicts AI visibility</p>
+        </div>
+        <table class="w-full font-sans text-sm" style="border-collapse:collapse;">
+          <thead>
+            <tr class="bg-near-black text-white">
+              <th class="text-left px-5 py-3 font-semibold text-xs uppercase tracking-wide" style="letter-spacing:0.08em;">Old SEO World</th>
+              <th class="text-left px-5 py-3 font-semibold text-xs uppercase tracking-wide" style="letter-spacing:0.08em;">AI World</th>
+              <th class="text-left px-5 py-3 font-semibold text-xs uppercase tracking-wide hidden md:table-cell" style="letter-spacing:0.08em;">Why It Changed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t border-border-warm">
+              <td class="px-5 py-3 text-muted text-sm line-through">Keyword rank position</td>
+              <td class="px-5 py-3 font-semibold text-sm text-ember">Share of Model (SoM)</td>
+              <td class="px-5 py-3 text-muted text-xs hidden md:table-cell">AI cites by inference quality, not rank</td>
+            </tr>
+            <tr class="border-t border-border-warm bg-warm">
+              <td class="px-5 py-3 text-muted text-sm line-through">Organic search volume</td>
+              <td class="px-5 py-3 font-semibold text-sm text-ember">Query cluster coverage</td>
+              <td class="px-5 py-3 text-muted text-xs hidden md:table-cell">Zero-click = no visits, but real brand exposure</td>
+            </tr>
+            <tr class="border-t border-border-warm">
+              <td class="px-5 py-3 text-muted text-sm line-through">Click-through rate</td>
+              <td class="px-5 py-3 font-semibold text-sm text-ember">Citation velocity &amp; context quality</td>
+              <td class="px-5 py-3 text-muted text-xs hidden md:table-cell">Being cited first vs. 8th are vastly different</td>
+            </tr>
+            <tr class="border-t border-border-warm bg-warm">
+              <td class="px-5 py-3 text-muted text-sm line-through">Bounce rate / Dwell time</td>
+              <td class="px-5 py-3 font-semibold text-sm text-ember">Sentiment indexing in AI output</td>
+              <td class="px-5 py-3 text-muted text-xs hidden md:table-cell">LLMs synthesize opinions, not just navigate links</td>
+            </tr>
+            <tr class="border-t border-border-warm">
+              <td class="px-5 py-3 text-muted text-sm line-through">Domain Authority score</td>
+              <td class="px-5 py-3 font-semibold text-sm text-ember">E-E-A-T compliance level</td>
+              <td class="px-5 py-3 text-muted text-xs hidden md:table-cell">AI trusts credentials, not backlinks</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SMB quick-start accordion -->
+      <div class="border border-border-warm" x-data="{ open: false }">
+        <button @click="open=!open" class="w-full flex items-center justify-between px-6 py-4 text-left">
+          <div>
+            <p class="font-sans font-semibold text-sm text-near-black">The SMB AEO/GEO Quick-Start Workflow</p>
+            <p class="font-sans text-xs text-muted mt-0.5">For small businesses without dedicated technical teams — exactly where to start</p>
+          </div>
+          <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0" :class="open?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div x-show="open" x-collapse class="border-t border-border-warm px-6 py-5">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="bg-warm p-5">
+              <div class="w-8 h-8 rounded-full bg-ember text-white font-bold text-sm flex items-center justify-center mb-3">1</div>
+              <p class="font-sans font-semibold text-sm text-near-black mb-2">Implement Core Schema</p>
+              <p class="font-sans text-xs text-muted leading-relaxed">Add Organization, FAQPage, and Article schema to your top pages. Dramatically improves AI extraction accuracy with no new content required.</p>
+            </div>
+            <div class="bg-warm p-5">
+              <div class="w-8 h-8 rounded-full bg-near-black text-white font-bold text-sm flex items-center justify-center mb-3">2</div>
+              <p class="font-sans font-semibold text-sm text-near-black mb-2">Atomize Existing Content</p>
+              <p class="font-sans text-xs text-muted leading-relaxed">Add a 40–80 word Answer Capsule beneath each H2 heading on your best pages. Restructure what you have — no new content required.</p>
+            </div>
+            <div class="bg-warm p-5">
+              <div class="w-8 h-8 rounded-full bg-near-black text-white font-bold text-sm flex items-center justify-center mb-3">3</div>
+              <p class="font-sans font-semibold text-sm text-near-black mb-2">Build Author Identity</p>
+              <p class="font-sans text-xs text-muted leading-relaxed">Create real author profiles with photos, credentials, and sameAs links to LinkedIn. AI models need a credentialed human to assign authority.</p>
+            </div>
+            <div class="bg-warm p-5">
+              <div class="w-8 h-8 rounded-full bg-ember text-white font-bold text-sm flex items-center justify-center mb-3">4</div>
+              <p class="font-sans font-semibold text-sm text-near-black mb-2">Publish Weekly</p>
+              <p class="font-sans text-xs text-muted leading-relaxed">A 400-word, highly-structured FAQ post beats a 2,000-word unfocused essay. Short, structured, weekly beats long, sprawling, monthly — every time.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -570,29 +850,97 @@
       </div>
       <div class="mb-8">
         <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-4" style="letter-spacing:0.12em;">AI & Technology</p>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">LLM</p><p class="font-sans text-xs text-muted mt-0.5">Large Language Model</p></div>
-          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">RAG</p><p class="font-sans text-xs text-muted mt-0.5">Retrieval-Augmented Generation</p></div>
-          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">NLP</p><p class="font-sans text-xs text-muted mt-0.5">Natural Language Processing</p></div>
-          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">JSON-LD</p><p class="font-sans text-xs text-muted mt-0.5">Linked Data notation</p></div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">LLM</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Large Language Model</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">An AI model trained on massive text datasets to generate and reason about language. Examples: GPT-4o, Claude, Gemini.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">RAG</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Retrieval-Augmented Generation</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">An AI architecture that retrieves external data at inference time to ground responses in current facts. Powers Perplexity and AI Overviews.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">NLP</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Natural Language Processing</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">A branch of AI concerned with enabling machines to understand and generate human language.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">DOM</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Document Object Model</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">The programmatic tree structure of an HTML page. Dense DOMs loaded with JavaScript and ads waste AI crawler context window budget.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">JSON-LD</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Linked Data notation</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">The recommended format for Schema.org structured data — placed in a &lt;script&gt; tag, invisible to users but machine-readable.</p>
+          </div>
         </div>
       </div>
       <div class="mb-8">
         <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-4" style="letter-spacing:0.12em;">Search & Visibility</p>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">SERP</p><p class="font-sans text-xs text-muted mt-0.5">Search Engine Results Page</p></div>
-          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">CTR</p><p class="font-sans text-xs text-muted mt-0.5">Click-Through Rate</p></div>
-          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">PAA</p><p class="font-sans text-xs text-muted mt-0.5">People Also Ask</p></div>
-          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">SoM</p><p class="font-sans text-xs text-muted mt-0.5">Share of Model</p></div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">SERP</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Search Engine Results Page</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">The page returned by a search engine. AEO targets "Position Zero" — above the traditional organic #1 result.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">CTR</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Click-Through Rate</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">The percentage of users who click a result. Drops to ~8% when an AI Overview is present on the SERP.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">PAA</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">People Also Ask</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Google's expandable question boxes on the SERP. Highest AEO capture rate for content structured as explicit Q&amp;A pairs.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">SoM</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Share of Model</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">A GEO metric measuring how frequently a brand is cited across 50–100 semantic query variations within a specific LLM. The AI-era keyword rank.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">UGC</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">User-Generated Content</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Content created on platforms like Reddit and Quora. Historically over-cited by LLMs (~60% of ChatGPT responses), but subject to sudden de-prioritization.</p>
+          </div>
         </div>
       </div>
       <div>
-        <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-4" style="letter-spacing:0.12em;">Standards & Strategy</p>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">E-E-A-T</p><p class="font-sans text-xs text-muted mt-0.5">Experience, Expertise, Authority, Trust</p></div>
-          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">KPI</p><p class="font-sans text-xs text-muted mt-0.5">Key Performance Indicator</p></div>
-          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">COI</p><p class="font-sans text-xs text-muted mt-0.5">Conflict of Interest (Wikipedia)</p></div>
-          <div class="bg-white border border-border-warm p-3"><p class="font-sans font-bold text-near-black text-sm">FTC</p><p class="font-sans text-xs text-muted mt-0.5">Federal Trade Commission</p></div>
+        <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-4" style="letter-spacing:0.12em;">Standards, Strategy & Compliance</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">E-E-A-T</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Experience, Expertise, Authority, Trust</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Google's quality evaluator framework. LLMs use E-E-A-T signals to decide which sources are credible enough to cite.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">KPI</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Key Performance Indicator</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">GEO requires new KPIs — Share of Model, citation velocity, and sentiment indexing — beyond traditional rank and traffic.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">SMB</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Small &amp; Medium-sized Business</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Organizations without large technical teams. SMB GEO workflows prioritize core structured data and Answer Capsule creation.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">COI</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Conflict of Interest</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Wikipedia's policy requiring editors to disclose ties to topics they edit. Violating COI through paid editing risks domain blacklisting and FTC action.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">FTC</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Federal Trade Commission</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">The U.S. regulatory body whose Endorsement Guidelines classify undisclosed paid content placement — including covert Wikipedia edits — as illegal advertising.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">UX</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">User Experience</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">AI platforms deliberately optimize UX to keep users inside their own chat interfaces, reducing click-outs to source websites.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -631,6 +979,27 @@
       <p class="font-sans font-normal text-xs text-muted">© 2026 Orbis Marketing · Batavia · Geneva · St Charles · Chicago</p>
     </div>
   </footer>
+
+  <!-- CONTENT MODAL (Deep Dives) -->
+  <div x-show="modal.open"
+       x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+       class="fixed inset-0 z-[200] flex items-center justify-center p-4"
+       style="background:rgba(0,0,0,0.6);display:none;"
+       @click.self="closeModal()">
+    <div class="bg-white w-full relative" style="max-width:620px;max-height:90vh;overflow-y:auto;border-radius:2px;"
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+         @click.stop>
+      <div class="sticky top-0 bg-white border-b border-border-warm px-7 py-5 flex items-center justify-between z-10">
+        <h3 class="instrument font-normal text-near-black leading-tight pr-4" style="font-size:1.25rem;" x-text="modal.title"></h3>
+        <button @click="closeModal()" class="flex-shrink-0 w-8 h-8 border border-border-warm flex items-center justify-center text-muted hover:text-near-black transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="px-7 py-6 modal-content font-sans text-sm text-muted leading-relaxed space-y-3" x-html="modal.body"></div>
+    </div>
+  </div>
 
   <!-- INQUIRY MODAL -->
   <div x-data="inquiryModalData()"
@@ -707,32 +1076,204 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => { io.observe(el); });
 
+    /* ── Page-level data (modal system + mobile nav) ── */
+    function pageData() {
+      return {
+        mobileOpen: false,
+        modal: { open: false, title: '', body: '' },
+        openModal(title, body) { this.modal = { open: true, title, body }; document.body.style.overflow = 'hidden'; },
+        closeModal() { this.modal.open = false; document.body.style.overflow = ''; },
+        modals: {
+          seo: `<p>Search Engine Optimization remains the <strong>technical foundation</strong> of web discoverability. At its core, SEO is a retrieval and ranking paradigm — a search engine evaluates a query, scans an indexed database, and presents ranked links based on domain authority, Core Web Vitals, and user behavioral signals.</p>
+<h4>Why SEO Still Matters in 2026</h4>
+<p>Without solid crawlability, clean site architecture, and fast load times, AI crawlers cannot discover, access, or trust your content. SEO is infrastructure — AEO and GEO are what you build on top of it. Eliminate SEO and the entire system collapses.</p>
+<h4>Where Traditional SEO Falls Short</h4>
+<ul>
+<li>Optimizes for clicks — but only 8% of users click when AI already answered</li>
+<li>Keyword density is meaningless to LLMs processing semantic meaning</li>
+<li>Backlink authority doesn't translate to AI citation authority</li>
+<li>Google Page 1 rankings correlate to just 6–8% of ChatGPT and Gemini citations</li>
+<li>Long-form, keyword-dense prose burns the AI's context window — it gets skipped</li>
+</ul>
+<h4>The Right SEO Mindset for 2026</h4>
+<p>Treat SEO as hygiene, not strategy. Clean technical architecture, fast Core Web Vitals, a valid sitemap, and a well-configured robots.txt are table stakes. Once the foundation is solid, layer AEO and GEO on top for actual AI visibility.</p>`,
+
+          aeo: `<p>Answer Engine Optimization (AEO) operates at the micro-level of snippet extraction and direct-answer formatting. It is the practice of optimizing content specifically for <strong>zero-click interfaces</strong> — surfaces where users receive their answer without visiting your site.</p>
+<h4>Zero-Click Surfaces AEO Targets</h4>
+<ul>
+<li>Google AI Overviews (synthesized summaries at the top of search results)</li>
+<li>Featured Snippets ("Position Zero" — the boxed answer above all organic results)</li>
+<li>"People Also Ask" (PAA) expandable question boxes</li>
+<li>Voice assistants (Alexa, Siri, Google Assistant direct-read responses)</li>
+<li>Knowledge Panel information cards</li>
+</ul>
+<h4>The Success Metric Shift</h4>
+<p>AEO success is <strong>not measured in traffic</strong>. It is measured in brand visibility and topical authority. A company cited in 40 AI Overviews per day may generate zero direct clicks — but has 40 high-quality brand impressions with qualified users at the exact moment of intent. The click is no longer the goal.</p>
+<h4>AEO Content Requirements</h4>
+<ul>
+<li>40–80 word Answer Capsules positioned immediately beneath interrogative H2 headings</li>
+<li>FAQPage schema declaring explicit question-and-answer pairs in JSON-LD</li>
+<li>Comparative tables and numbered sequential step lists</li>
+<li>Plain-language definitions for every key term on the page</li>
+<li>No ambiguous pronouns — every entity must be named explicitly</li>
+</ul>`,
+
+          geo: `<p>Generative Engine Optimization (GEO) is the macro-level strategy for being cited by conversational AI systems — ChatGPT, Claude, Gemini, and Perplexity — as they synthesize multi-turn responses to user queries.</p>
+<h4>How RAG Systems Work (The Technical Reality)</h4>
+<p>These AI systems use <strong>Retrieval-Augmented Generation (RAG)</strong>: at the moment a user asks a question, the AI retrieves relevant external documents, grounds its response in those documents, and synthesizes an answer. GEO is the discipline of being the content that gets retrieved and cited during that process.</p>
+<h4>GEO vs. AEO: The Key Difference</h4>
+<p>AEO optimizes for a single extracted snippet on a SERP. GEO optimizes for holistic synthesis across <em>multi-turn, dynamic dialogues</em> — being the brand that an AI model consistently references when discussing an entire topic area across hundreds of different user prompts.</p>
+<h4>GEO Success Metrics</h4>
+<ul>
+<li><strong>Share of Model (SoM):</strong> How frequently your brand is cited across 50–100 semantic query variations on a topic within target LLMs</li>
+<li><strong>Citation sentiment:</strong> Whether the AI positions your brand as the primary authority, a secondary reference, or merely a comparison point</li>
+<li><strong>Topic cluster coverage:</strong> The breadth of questions in your domain where you appear as a cited source</li>
+<li><strong>Citation context quality:</strong> Being cited in the opening synthesis vs. buried in a footnote are fundamentally different visibility outcomes</li>
+</ul>`,
+
+          decoupleWhy: `<p>The divergence between Google rankings and AI citations is an <strong>architectural necessity</strong>, not a flaw. It stems from the fundamentally different goals of a traditional search engine vs. a generative AI inference system.</p>
+<h4>How Google Ranks Pages</h4>
+<p>Google's algorithm evaluates pages based on historical authority signals — PageRank (backlinks), domain history, and user behavioral metrics accumulated over years. A page can rank #1 primarily because thousands of other sites link to it.</p>
+<h4>How LLMs Select Content for Citations</h4>
+<p>When a RAG system retrieves documents to synthesize an answer, it must parse that content within a limited computational context window. A page ranking #1 on Google due to backlink authority, but featuring unstructured, keyword-dense prose, forces the LLM to burn enormous computational resources extracting a single fact.</p>
+<p>So the LLM skips it — and instead selects a page from position 7 or 8 that features clean tables, bullet lists, explicit schema markup, and structured Answer Capsules. <strong>The LLM optimizes for token efficiency; Google optimizes for authority signals.</strong> These are different objectives producing different results.</p>
+<h4>The Practical Implication</h4>
+<p>Dominating Google and being cited by AI require entirely different content strategies. A single architecture that serves both requires deliberate design — content that satisfies traditional SEO signals while being structured for machine inference extraction.</p>`,
+
+          files: `<p>Three file protocols govern how bots — including AI crawlers — interact with your domain. Understanding the precise role of each is foundational to both technical SEO and GEO strategy.</p>
+<table>
+<thead><tr><th>File</th><th>Primary Function</th><th>Use Case</th></tr></thead>
+<tbody>
+<tr><td><strong>robots.txt</strong></td><td>Controls bot access to specific directories</td><td>Blocking specific AI crawlers (GPTBot, Google-Extended)</td></tr>
+<tr><td><strong>sitemap.xml</strong></td><td>Enumerates all available URLs for discovery</td><td>Crawl prioritization, content hierarchy, freshness signals</td></tr>
+<tr><td><strong>llms.txt</strong></td><td>Identifies high-density plain-text content versions</td><td>Inference-time RAG guidance and context window optimization</td></tr>
+</tbody>
+</table>
+<p class="note">Note: robots.txt remains the definitive access-control protocol. llms.txt is a community-proposed standard — valuable to implement now, but not yet universally adopted by GPTBot, Google-Extended, or PerplexityBot as of early 2026.</p>
+<h4>Which AI Crawlers to Know</h4>
+<ul>
+<li><strong>GPTBot</strong> — OpenAI's primary crawler for ChatGPT training and retrieval</li>
+<li><strong>Google-Extended</strong> — Google's AI training crawler (separate from Googlebot)</li>
+<li><strong>PerplexityBot</strong> — Perplexity AI's real-time web retrieval crawler</li>
+<li><strong>ClaudeBot</strong> — Anthropic's content crawler for Claude's knowledge base</li>
+</ul>`,
+
+          capsuleEx: `<p>The difference between a page AI will cite and one it ignores often comes down to a single paragraph. Here are real-world examples of the Answer Capsule in practice.</p>
+<h4>Bad: The Traditional SEO Paragraph</h4>
+<div class="bad-box"><p>"When it comes to the complex and multifaceted world of digital marketing, there are many different strategies and approaches that businesses of all sizes can consider when trying to improve their online visibility and reach more potential customers through various channels and platforms..."</p></div>
+<p>This consumes an AI's context window with filler while providing zero extractable answer. The LLM moves on.</p>
+<h4>Good: The Answer Capsule</h4>
+<div class="good-box"><p><strong>Answer Engine Optimization (AEO)</strong> is the practice of structuring web content specifically for extraction by AI answer engines, voice assistants, and zero-click SERP features. It differs from SEO in that success is measured by citation frequency, not click-through rate.</p>
+<p>Key requirements:</p>
+<ul>
+<li>40–80 word direct answer beneath each interrogative heading</li>
+<li>FAQPage JSON-LD schema declaring explicit Q&amp;A pairs</li>
+<li>Named entities with credentials (no anonymous authorship)</li>
+</ul></div>
+<p>This is immediately extractable. The AI can cite the first sentence verbatim, use the bullet points as supporting structure, and move on — rewarding you with the citation.</p>`
+        }
+      };
+    }
+
+    /* ── Slow scroll (60s read mode) ── */
+    let _scrollRaf = null;
+    let _scrolling = false;
+
+    function toggleSlowScroll() { _scrolling ? stopSlowScroll() : startSlowScroll(); }
+
+    function startSlowScroll() {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      _scrolling = true;
+      updateScrollBtn(true);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        const totalPx = document.documentElement.scrollHeight - window.innerHeight;
+        const pxPerMs = totalPx / 60000;
+        let lastTime  = performance.now();
+        function step(now) {
+          if (!_scrolling) return;
+          const delta = now - lastTime;
+          lastTime    = now;
+          const nextY = window.scrollY + pxPerMs * delta;
+          const maxY  = document.documentElement.scrollHeight - window.innerHeight;
+          if (nextY >= maxY) { window.scrollTo({ top: maxY, behavior: 'instant' }); _scrolling = false; updateScrollBtn(false); return; }
+          window.scrollTo({ top: nextY, behavior: 'instant' });
+          _scrollRaf = requestAnimationFrame(step);
+        }
+        _scrollRaf = requestAnimationFrame(step);
+      }));
+    }
+
+    function stopSlowScroll() {
+      _scrolling = false;
+      if (_scrollRaf) { cancelAnimationFrame(_scrollRaf); _scrollRaf = null; }
+      updateScrollBtn(false);
+    }
+
+    function updateScrollBtn(active) {
+      const btn = document.getElementById('slow-scroll-btn');
+      const icon = document.getElementById('scroll-icon');
+      const svg = document.getElementById('scroll-svg');
+      const label = document.getElementById('scroll-label');
+      if (!btn) return;
+      if (active) {
+        btn.style.cssText = 'border-color:#D4622A;color:#D4622A;';
+        icon.classList.remove('scroll-arrow-bounce');
+        svg.setAttribute('fill', 'currentColor'); svg.setAttribute('stroke', 'none');
+        svg.innerHTML = '<rect x="7" y="7" width="10" height="10" rx="2"/>';
+        label.textContent = 'Stop';
+      } else {
+        btn.style.cssText = '';
+        icon.classList.add('scroll-arrow-bounce');
+        svg.setAttribute('fill', 'none'); svg.setAttribute('stroke', 'currentColor');
+        svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>';
+        label.textContent = 'Read';
+      }
+    }
+
+    window.addEventListener('wheel',     () => { if (_scrolling) stopSlowScroll(); }, { passive: true });
+    window.addEventListener('touchmove', () => { if (_scrolling) stopSlowScroll(); }, { passive: true });
+    window.addEventListener('keydown',   (e) => { if (_scrolling && ['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(e.key)) stopSlowScroll(); });
+
+    /* ── Audio Player ── */
     function audioPlayer() {
       return {
-        playing: false, progress: 0, speed: 1,
-        duration: 0, currentTime: 0,
-        bars: Array.from({ length: 60 }, () => Math.round(20 + Math.random() * 80)),
+        playing: false,
+        progress: 0,
+        currentTime: '0:00',
+        duration: '--:--',
+        bars: [12,20,16,30,24,42,34,50,44,58,52,66,60,72,68,76,82,80,86,84,90,88,94,92,90,95,92,88,90,86,88,82,86,80,82,74,78,68,72,62,66,56,60,48,52,40,44,32,36,24,28,20,24,16,20,12,16,10,14,8],
+        speed: 1,
+        speeds: [0.75, 1, 1.25, 1.5, 1.75, 2],
+        init() {
+          const a = this.$refs.audio;
+          a.addEventListener('timeupdate', () => {
+            this.progress = (a.currentTime / a.duration) * 100 || 0;
+            this.currentTime = this.fmt(a.currentTime);
+          });
+          a.addEventListener('loadedmetadata', () => { this.duration = this.fmt(a.duration); });
+          a.addEventListener('ended', () => { this.playing = false; this.progress = 0; this.currentTime = '0:00'; });
+        },
         toggle() {
           const a = this.$refs.audio;
-          this.playing ? a.pause() : a.play();
+          if (this.playing) { a.pause(); } else { a.play().catch(() => {}); }
           this.playing = !this.playing;
         },
-        skip(s) { this.$refs.audio.currentTime = Math.max(0, Math.min(this.duration, this.$refs.audio.currentTime + s)); },
         seek(e) {
+          const a = this.$refs.audio;
+          if (!a.duration) return;
           const rect = e.currentTarget.getBoundingClientRect();
-          const pct = (e.clientX - rect.left) / rect.width;
-          this.$refs.audio.currentTime = pct * this.duration;
+          const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+          a.currentTime = pct * a.duration;
         },
-        setSpeed(s) { this.speed = s; this.$refs.audio.playbackRate = s; },
-        onTimeUpdate() {
-          this.currentTime = this.$refs.audio.currentTime;
-          this.progress = this.duration ? (this.currentTime / this.duration) * 100 : 0;
+        skip(sec) {
+          const a = this.$refs.audio;
+          a.currentTime = Math.max(0, Math.min(a.duration || 0, a.currentTime + sec));
         },
-        onMetadata() { this.duration = this.$refs.audio.duration; },
-        formatTime(s) {
+        setSpeed(rate) { this.speed = rate; this.$refs.audio.playbackRate = rate; },
+        fmt(s) {
           if (!s || isNaN(s)) return '0:00';
           const m = Math.floor(s / 60);
-          return m + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+          return `${m}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
         }
       };
     }
