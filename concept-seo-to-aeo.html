@@ -82,6 +82,8 @@
     }
     .clients-scrubber { -webkit-appearance:none; appearance:none; height:3px; background:#E5E2DC; border-radius:2px; outline:none; cursor:pointer; }
     .clients-scrubber::-webkit-slider-thumb { -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:#111110; cursor:pointer; }
+    /* Softened corners — panels, cards, accordions, table wrappers */
+    .border.border-border-warm { border-radius: 8px; }
   </style>
 </head>
 <body x-data="pageData()" @keydown.escape.window="closeModal()">
@@ -208,7 +210,7 @@
       <div x-data="audioPlayer()" x-init="init()"
            class="relative bg-white border overflow-hidden transition-all duration-700"
            :class="playing ? 'border-ember' : 'border-border-warm'"
-           style="border-radius:2px;">
+           style="border-radius:12px;">
 
         <!-- Header row -->
         <div class="relative flex items-start gap-4 p-6 pb-4">

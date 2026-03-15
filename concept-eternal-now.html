@@ -129,6 +129,8 @@
       animation: roygbiv-cycle 7s linear infinite;
       border: none; cursor: pointer;
     }
+    /* Softened corners — panels, cards, accordions, table wrappers */
+    .border.border-border-warm { border-radius: 8px; }
   </style>
 </head>
 <body x-data="pageData()" @keydown.escape.window="closeModal()">
@@ -258,7 +260,7 @@
       <div x-data="audioPlayer()" x-init="init()"
            class="relative bg-white border overflow-hidden transition-all duration-700"
            :class="playing ? 'border-ember' : 'border-border-warm'"
-           style="border-radius:2px;">
+           style="border-radius:12px;">
 
         <!-- Pulse rings -->
         <div x-show="playing" class="absolute top-7 left-7 pointer-events-none" style="width:40px;height:40px;">
