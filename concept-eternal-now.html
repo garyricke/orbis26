@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stop Flying the Plane. Your Audience Is Already Here. — Orbis Marketing</title>
+  <meta name="description" content="The Default Mode Network is biologically wiring you to treat your audience as an abstraction. Here's how to escape the future-anxiety trap and build irrational loyalty through the eternal now.">
+  <link rel="canonical" href="https://orbismarketing.com/eternal-now-audience-building">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" href="/favicon-orbis2026.png">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- JSON-LD: Article + FAQPage + BreadcrumbList + Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Stop Flying the Plane. Your Audience Is Already Here.",
+        "description": "How the Default Mode Network wires marketers for future anxiety — and the neuroscience of presence that builds irrational community loyalty.",
+        "author": { "@type": "Person", "name": "Gary Ricke", "url": "https://orbismarketing.com/about" },
+        "publisher": { "@type": "Organization", "name": "Orbis Marketing", "url": "https://orbismarketing.com" },
+        "datePublished": "2026-03",
+        "url": "https://orbismarketing.com/eternal-now-audience-building"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "What does 'the eternal now' mean for marketers?", "acceptedAnswer": { "@type": "Answer", "text": "The eternal now is the neuroscientific and philosophical insight that the present moment is the only coordinate where reality is unmediated. For marketers, it means creating content from a state of genuine sensory presence rather than future-anxiety about metrics and quarterly targets." } },
+          { "@type": "Question", "name": "Does presence actually drive ROI?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. When you operate from radical listening and first principles, you remove the friction that future-anxious marketing creates. Communities built on genuine presence stop acting like skeptical consumer bases and start acting like armies of advocates — hitting growth targets not by squeezing the audience harder, but by removing resistance." } },
+          { "@type": "Question", "name": "How is this different from just being 'authentic'?", "acceptedAnswer": { "@type": "Answer", "text": "Authenticity is an outcome, not a technique. Micro presence is a specific neurobiological mechanism: using sensory-grounded language to bypass the Default Mode Network's abstract filters and hit the brain's sensory processing areas directly. It's the mechanism behind what we label 'authentic.'" } }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://orbismarketing.com" },
+          { "@type": "ListItem", "position": 2, "name": "Insights", "item": "https://orbismarketing.com/insights" },
+          { "@type": "ListItem", "position": 3, "name": "The Eternal Now", "item": "https://orbismarketing.com/eternal-now-audience-building" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'warm':        '#F8F6F3',
+            'near-black':  '#111110',
+            'muted':       '#6B6960',
+            'border-warm': '#E5E2DC',
+            'ember':       '#D4622A',
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    * { -webkit-font-smoothing: antialiased; }
+    body { font-family: 'Inter', sans-serif; background: #FFFFFF; color: #111110; }
+    .instrument { font-family: 'Instrument Serif', serif; }
+
+    .roygbiv-btn { animation: roygbiv-cycle 7s linear infinite; border-radius: 9999px; border: none; cursor: pointer; }
+    .roygbiv-btn:hover { animation-play-state: paused; }
+    @keyframes roygbiv-cycle {
+      0%    { background-color: #EF4444; }
+      14.3% { background-color: #F97316; }
+      28.6% { background-color: #EAB308; }
+      42.9% { background-color: #22C55E; }
+      57.1% { background-color: #06B6D4; }
+      71.4% { background-color: #3B82F6; }
+      85.7% { background-color: #8B5CF6; }
+      100%  { background-color: #EF4444; }
+    }
+
+    .wbar { animation: wbar-anim 1.2s ease-in-out infinite; }
+    .wbar:nth-child(5n+1) { animation-delay: 0s; }
+    .wbar:nth-child(5n+2) { animation-delay: 0.15s; }
+    .wbar:nth-child(5n+3) { animation-delay: 0.3s; }
+    .wbar:nth-child(5n+4) { animation-delay: 0.45s; }
+    .wbar:nth-child(5n+5) { animation-delay: 0.6s; }
+    @keyframes wbar-anim { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
+    @keyframes pulseRing { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(2.4); opacity: 0; } }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+
+    @keyframes bounceDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+    .scroll-arrow-bounce { animation: bounceDown 1.4s ease-in-out infinite; }
+
+    /* Modal prose styles */
+    .modal-content p { color: #6B6960; line-height: 1.75; margin-bottom: 0.75rem; }
+    .modal-content strong { color: #111110; }
+    .modal-content h4 { color: #111110; font-weight: 600; font-size: 0.9rem; margin: 1.25rem 0 0.4rem; }
+    .modal-content ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 0.75rem; }
+    .modal-content ul li { margin-bottom: 0.3rem; }
+    .modal-content code { background: #F8F6F3; padding: 0.1rem 0.35rem; border-radius: 3px; font-size: 0.8rem; font-family: monospace; color: #111110; }
+    .modal-content table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 1rem; }
+    .modal-content th { background: #111110; color: rgba(255,255,255,0.85); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.6rem 0.75rem; text-align: left; }
+    .modal-content td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #E5E2DC; }
+    .modal-content tr:nth-child(even) td { background: #F8F6F3; }
+    .modal-content .note { color: #6B6960; font-size: 0.75rem; margin-top: 0.75rem; font-style: italic; }
+    .modal-content .good-box { border-left: 3px solid #22C55E; background: #F0FDF4; padding: 1rem; margin: 0.75rem 0; border-radius: 2px; }
+    .modal-content .bad-box  { border-left: 3px solid #EF4444; background: #FEF2F2; padding: 1rem; margin: 0.75rem 0; border-radius: 2px; }
+
+    /* Inquiry modal */
+    .roygbiv-btn-inquiry {
+      animation: roygbiv-cycle 7s linear infinite;
+      border: none; cursor: pointer;
+    }
+  </style>
+</head>
+<body x-data="pageData()" @keydown.escape.window="closeModal()">
+
+  <!-- NAV -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-border-warm">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between gap-6">
+      <a href="/concept-home-3.html" class="font-sans text-sm text-near-black tracking-tight flex items-baseline gap-1.5 flex-shrink-0">
+        <span class="font-bold">Orbis</span><span class="font-light text-muted">Marketing</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="/concept-home-3.html#services" class="font-sans text-sm text-muted hover:text-near-black transition-colors">Services</a>
+        <a href="/concept-home-3.html#work"     class="font-sans text-sm text-muted hover:text-near-black transition-colors">Work</a>
+        <a href="/concept-home-3.html#pricing"  class="font-sans text-sm text-muted hover:text-near-black transition-colors">Pricing</a>
+        <a href="/concept-seo-to-aeo.html"      class="font-sans text-sm text-muted hover:text-near-black transition-colors">SEO→AEO</a>
+      </div>
+      <div class="flex items-center gap-3 ml-auto">
+        <!-- Slow scroll button -->
+        <button id="slow-scroll-btn" onclick="toggleSlowScroll()" title="Slow-read: scrolls the full page in 60 seconds"
+                class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border-warm text-muted hover:border-near-black hover:text-near-black transition-all">
+          <span id="scroll-icon" class="scroll-arrow-bounce flex items-center">
+            <svg id="scroll-svg" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </span>
+          <span id="scroll-label" class="font-sans font-bold text-[10px] uppercase tracking-widest">Read</span>
+        </button>
+        <button class="roygbiv-btn font-sans font-semibold text-sm text-white px-5 py-1.5 flex-shrink-0 hidden sm:block"
+                onclick="window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}}))">Let's Talk</button>
+        <button @click="mobileOpen=!mobileOpen" class="md:hidden w-8 h-8 flex items-center justify-center text-muted">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path x-show="!mobileOpen" stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+            <path x-show="mobileOpen"  stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile nav -->
+    <div x-show="mobileOpen" x-collapse class="md:hidden border-t border-border-warm bg-white px-6 py-4 flex flex-col gap-4">
+      <a href="/concept-home-3.html#services" class="font-sans text-sm text-muted" @click="mobileOpen=false">Services</a>
+      <a href="/concept-home-3.html#work"     class="font-sans text-sm text-muted" @click="mobileOpen=false">Work</a>
+      <a href="/concept-home-3.html#pricing"  class="font-sans text-sm text-muted" @click="mobileOpen=false">Pricing</a>
+      <a href="/concept-seo-to-aeo.html"      class="font-sans text-sm text-muted" @click="mobileOpen=false">SEO→AEO</a>
+      <button class="roygbiv-btn font-sans font-semibold text-sm text-white px-5 py-1.5 self-start"
+              @click="mobileOpen=false; $nextTick(()=>window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}})))">Let's Talk</button>
+    </div>
+  </nav>
+  <div class="h-14"></div>
+
+  <!-- HERO -->
+  <section class="bg-warm border-b border-border-warm">
+    <div class="max-w-3xl mx-auto px-6 py-16 md:py-20">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 font-sans text-xs text-muted mb-6">
+        <a href="/concept-home-3.html" class="hover:text-near-black transition-colors">Home</a>
+        <span>›</span><span>Insights</span><span>›</span>
+        <span class="text-near-black">The Eternal Now</span>
+      </nav>
+      <!-- Badge -->
+      <div class="flex items-center gap-2 mb-5">
+        <span class="font-sans text-xs font-semibold uppercase tracking-widest text-ember" style="letter-spacing:0.15em;">2026 Strategy Guide</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-ember animate-pulse"></span>
+        <span class="font-sans text-xs text-muted">Community &amp; Audience Building</span>
+      </div>
+      <!-- H1 -->
+      <h1 class="instrument font-normal text-near-black mb-5" style="font-size:clamp(2.4rem,5vw,3.75rem);line-height:1.08;">
+        Stop Flying<br>the Plane.<br><em>Your Audience<br>Is Already Here.</em>
+      </h1>
+      <p class="font-sans text-muted leading-relaxed mb-8" style="font-size:1.05rem;">
+        The Default Mode Network is biologically wiring you to treat your audience as an abstraction. Here's the neuroscience of presence — and how to build irrational loyalty through the eternal now.
+      </p>
+      <!-- Author -->
+      <div class="flex items-center gap-3 pb-8 mb-8 border-b border-border-warm">
+        <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_96/v1772897787/profile-gary-ricke-bw-black-bkgrd-29aug2025_cw61aw.jpg"
+             alt="Gary Ricke" style="width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:center top;">
+        <div>
+          <p class="font-sans font-semibold text-sm text-near-black leading-none">Gary Ricke</p>
+          <p class="font-sans text-xs text-muted mt-0.5">Founder &amp; Digital Strategist · <time datetime="2026-03">March 2026</time></p>
+        </div>
+        <span class="ml-auto font-sans text-xs text-muted">14 min read</span>
+      </div>
+      <!-- Quick Answer Capsule -->
+      <div style="border-left:3px solid #D4622A;background:#FFF8F5;padding:20px 24px;margin-bottom:28px;">
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-2" style="letter-spacing:0.12em;">Quick Answer</p>
+        <p class="font-sans text-sm leading-relaxed text-near-black">
+          <strong>Presence-based audience building</strong> is the practice of creating content and community from the <em>eternal now</em> — sensory-grounded, human-first communication that bypasses the brain's abstract rumination engine. Your Default Mode Network, optimized by years of delayed-return knowledge work, traps you in future simulations and metric obsession. The fix isn't a new tool. It's learning to meet your audience in the only moment that actually exists: right now.
+        </p>
+      </div>
+      <!-- Stats -->
+      <div class="flex flex-wrap gap-3 mb-10">
+        <span class="font-sans text-xs font-semibold text-white rounded-full px-3 py-1.5" style="background:#D4622A;">3 brain conditions trap you in the future</span>
+        <span class="font-sans text-xs font-semibold text-white rounded-full px-3 py-1.5 bg-near-black">3 pillars of non-dual community</span>
+        <span class="font-sans text-xs font-semibold text-white rounded-full px-3 py-1.5" style="background:#D4622A;">3-second habit before every post</span>
+      </div>
+      <!-- Hero image -->
+      <div class="overflow-hidden border border-border-warm">
+        <img src="generated_imgs/generated-2026-03-15T15-28-59-376Z-cvy8ce.png"
+             alt="Future anxiety vs the eternal now — metrics without connection vs presence that creates loyalty"
+             class="w-full" loading="eager" decoding="async" />
+      </div>
+    </div>
+  </section>
+
+  <!-- JUMP NAV (sticky) -->
+  <div class="bg-white border-b border-border-warm sticky top-14 z-40">
+    <div class="max-w-3xl mx-auto px-6 py-3 flex items-center gap-2 overflow-x-auto" style="scrollbar-width:none;">
+      <a href="#audio-overview" class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Listen</a>
+      <a href="#the-trap"       class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">The Trap</a>
+      <a href="#the-now"        class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">The Now</a>
+      <a href="#listening"      class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Radical Listening</a>
+      <a href="#pillars"        class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Three Pillars</a>
+      <a href="#practice"       class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Practice</a>
+      <a href="#faq"            class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">FAQ</a>
+      <a href="#glossary"       class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Glossary</a>
+      <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}}))"
+              class="ml-auto flex-shrink-0 font-sans text-xs font-semibold text-white whitespace-nowrap px-3 py-1.5 rounded-full"
+              style="background:#D4622A;">Build With Orbis →</button>
+    </div>
+  </div>
+
+  <!-- AUDIO PLAYER -->
+  <section id="audio-overview" class="bg-warm border-b border-border-warm py-12 reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-muted mb-2" style="letter-spacing:0.15em;">Audio Overview</p>
+      <h2 class="instrument font-normal text-near-black mb-6" style="font-size:1.6rem;">Build Your Audience in the Eternal Now</h2>
+
+      <div x-data="audioPlayer()" x-init="init()"
+           class="relative bg-white border overflow-hidden transition-all duration-700"
+           :class="playing ? 'border-ember' : 'border-border-warm'"
+           style="border-radius:2px;">
+
+        <!-- Pulse rings -->
+        <div x-show="playing" class="absolute top-7 left-7 pointer-events-none" style="width:40px;height:40px;">
+          <span class="absolute inset-0 rounded-full border-2 border-ember" style="animation:pulseRing 1.6s ease-out infinite;"></span>
+          <span class="absolute inset-0 rounded-full border-2 border-ember" style="animation:pulseRing 1.6s ease-out 0.8s infinite;"></span>
+        </div>
+
+        <div class="flex items-start gap-5 p-6 pb-4">
+          <!-- Play button -->
+          <button @click="toggle()" class="relative flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+                  :style="playing ? {background:'#D4622A'} : {background:'#111110'}">
+            <svg x-show="!playing" class="w-4 h-4 text-white" style="margin-left:2px;" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg x-show="playing"  class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+
+          <!-- Info -->
+          <div class="flex-1 min-w-0">
+            <p class="font-sans font-semibold text-near-black text-sm leading-none">Build Your Audience in the Eternal Now</p>
+            <p class="font-sans text-xs text-muted mt-1">Deep Dive · Neuroscience of Presence · Orbis Marketing</p>
+          </div>
+
+          <!-- Time -->
+          <div class="flex-shrink-0 text-right">
+            <p class="font-sans text-xs font-semibold text-near-black tabular-nums" x-text="currentTime"></p>
+            <p class="font-sans text-xs text-muted tabular-nums" x-text="'/ ' + duration"></p>
+          </div>
+        </div>
+
+        <!-- Waveform -->
+        <div class="relative px-6 mb-2 cursor-pointer" style="height:52px;" @click="seek($event)">
+          <!-- Background bars -->
+          <div class="absolute inset-x-6 bottom-0 flex items-end gap-px" style="height:100%;">
+            <template x-for="(h, i) in bars" :key="i">
+              <div :class="playing ? 'wbar' : ''"
+                   :style="{ flex: '1', height: h+'%', background: '#E5E2DC', borderRadius: '1px', transformOrigin: 'bottom' }"></div>
+            </template>
+          </div>
+          <!-- Ember overlay (progress) -->
+          <div class="absolute bottom-0 flex items-end gap-px overflow-hidden"
+               :style="{ left: '24px', right: '24px', top: '0', clipPath: 'inset(0 ' + (100-progress) + '% 0 0)' }">
+            <template x-for="(h, i) in bars" :key="i">
+              <div :style="{ flex: '1', height: h+'%', background: '#D4622A', borderRadius: '1px', transformOrigin: 'bottom' }"></div>
+            </template>
+          </div>
+          <!-- Playhead -->
+          <div class="absolute bottom-0 top-0 w-px bg-ember pointer-events-none"
+               :style="{ left: 'calc(24px + ' + progress + '% * (100% - 48px) / 100)' }"></div>
+        </div>
+
+        <!-- Controls row -->
+        <div class="flex items-center justify-between px-6 pb-5 pt-1">
+          <!-- Skip back -->
+          <button @click="skip(-15)" class="font-sans text-xs text-muted hover:text-near-black flex items-center gap-1 transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 17l-5-5 5-5M18 17l-5-5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            15s
+          </button>
+          <!-- Speed pills -->
+          <div class="flex items-center gap-1">
+            <template x-for="s in speeds" :key="s">
+              <button @click="setSpeed(s)"
+                      class="font-sans text-[10px] font-semibold px-2 py-0.5 transition-colors"
+                      :class="speed===s ? 'text-white' : 'text-muted hover:text-near-black border border-transparent'"
+                      :style="speed===s ? {background:'#111110',borderRadius:'9999px'} : {}">
+                <span x-text="s + 'x'"></span>
+              </button>
+            </template>
+          </div>
+          <!-- Skip forward -->
+          <button @click="skip(15)" class="font-sans text-xs text-muted hover:text-near-black flex items-center gap-1 transition-colors">
+            15s
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 17l5-5-5-5M6 17l5-5-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <audio x-ref="audio" preload="metadata"
+               src="https://res.cloudinary.com/dsbllwpbh/video/upload/v1773588350/Build_your_audience_in_the_eternal_now_rg64ec.mp4">
+        </audio>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE TRAP: ABSTRACTION HABITUATION -->
+  <section id="the-trap" class="py-16 bg-white border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">The Problem</p>
+      <h2 class="instrument font-normal text-near-black mb-4" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Your Brain Is Physically Wired<br>to Live in the Future</h2>
+      <p class="font-sans text-muted leading-relaxed mb-8">Modern marketing operates inside a <strong class="text-near-black">delayed-return environment</strong> — a structure where effort is radically decoupled from results. For the vast majority of human history, brains evolved in immediate-return environments: you foraged for a berry, you ate the berry. Action, immediate outcome, biological feedback. There was no quarterly berry report.</p>
+
+      <!-- Deep dive button -->
+      <button @click="openModal(modals.abstraction.title, modals.abstraction.body)"
+              class="inline-flex items-center gap-2 font-sans text-xs font-semibold text-ember hover:text-near-black transition-colors mb-10 border-b border-ember hover:border-near-black pb-0.5">
+        What is the Abstraction Habituation Model? →
+      </button>
+
+      <!-- Temporal gap table -->
+      <div class="border border-border-warm overflow-hidden mb-10">
+        <div class="flex items-center justify-between px-5 py-3 border-b border-border-warm bg-warm">
+          <p class="font-sans text-xs font-semibold text-muted">The Temporal Gap: Your Effort vs. Your Feedback</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm font-sans">
+            <thead>
+              <tr class="bg-near-black text-white">
+                <th class="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider" style="letter-spacing:0.08em;">Your Action</th>
+                <th class="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider" style="letter-spacing:0.08em;">The Feedback</th>
+                <th class="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider" style="letter-spacing:0.08em;">Delay</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border-warm">
+              <tr>
+                <td class="px-5 py-3 text-near-black font-medium">Email campaign</td>
+                <td class="px-5 py-3 text-muted">Opens, clicks, unsubscribes</td>
+                <td class="px-5 py-3"><span class="font-sans text-xs font-semibold text-white px-2 py-0.5 rounded" style="background:#22C55E;">24–48 hrs</span></td>
+              </tr>
+              <tr class="bg-warm">
+                <td class="px-5 py-3 text-near-black font-medium">Thought leadership content</td>
+                <td class="px-5 py-3 text-muted">Leads attributed to awareness</td>
+                <td class="px-5 py-3"><span class="font-sans text-xs font-semibold text-white px-2 py-0.5 rounded" style="background:#F97316;">3–6 months</span></td>
+              </tr>
+              <tr>
+                <td class="px-5 py-3 text-near-black font-medium">Community moderation</td>
+                <td class="px-5 py-3 text-muted">Retention impact in cohort data</td>
+                <td class="px-5 py-3"><span class="font-sans text-xs font-semibold text-white px-2 py-0.5 rounded" style="background:#EF4444;">6–12 months</span></td>
+              </tr>
+              <tr class="bg-warm">
+                <td class="px-5 py-3 text-near-black font-medium">Consistent brand voice</td>
+                <td class="px-5 py-3 text-muted">Trust signals &amp; referral velocity</td>
+                <td class="px-5 py-3"><span class="font-sans text-xs font-semibold text-white px-2 py-0.5 rounded" style="background:#8B5CF6;">12–24 months</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3 conditions grid -->
+      <h3 class="instrument font-normal text-near-black mb-4" style="font-size:1.4rem;">The 3 Conditions That Rewire Your Brain</h3>
+      <p class="font-sans text-muted leading-relaxed mb-6">The Abstraction Habituation Model points to three specific conditions created by knowledge work. Together, they cause the brain to hyper-activate the Default Mode Network — turning it into a permanent rumination engine.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-10">
+        <div class="bg-warm border border-border-warm p-5">
+          <div class="w-8 h-8 rounded-full bg-ember text-white font-bold text-sm flex items-center justify-center mb-3">1</div>
+          <p class="font-sans font-semibold text-sm text-near-black mb-2">High Abstraction Load</p>
+          <p class="font-sans text-xs text-muted leading-relaxed">You're manipulating symbols on a screen — code, text, data visualization — with zero immediate physical feedback on your labor. The brain receives no concrete signal that work is happening.</p>
+        </div>
+        <div class="bg-warm border border-border-warm p-5">
+          <div class="w-8 h-8 rounded-full bg-near-black text-white font-bold text-sm flex items-center justify-center mb-3">2</div>
+          <p class="font-sans font-semibold text-sm text-near-black mb-2">Feedback Deprivation</p>
+          <p class="font-sans text-xs text-muted leading-relaxed">You write an email today that might impact a renewal rate six months from now. You're constantly living in T+6 months, stressed over goals that haven't materialized yet.</p>
+        </div>
+        <div class="bg-warm border border-border-warm p-5">
+          <div class="w-8 h-8 rounded-full bg-ember text-white font-bold text-sm flex items-center justify-center mb-3">3</div>
+          <p class="font-sans font-semibold text-sm text-near-black mb-2">Closure Deprivation</p>
+          <p class="font-sans text-xs text-muted leading-relaxed">A community is never truly "done." The brain hates open loops, so it adapts — undergoing neuroplastic changes that entrench abstract processing as the permanent default state.</p>
+        </div>
+      </div>
+
+      <!-- Brain states image -->
+      <div class="mb-8 overflow-hidden border border-border-warm">
+        <img src="generated_imgs/generated-2026-03-15T15-29-38-300Z-k8b4r8.png"
+             alt="Default Mode Network vs Focused Presence — the two brain states that determine your ability to connect with your audience"
+             class="w-full" loading="lazy" decoding="async" />
+      </div>
+
+      <!-- Brain state binary table -->
+      <div class="border border-border-warm overflow-hidden">
+        <div class="px-5 py-3 border-b border-border-warm bg-warm">
+          <p class="font-sans text-xs font-semibold text-muted">The Binary of Brain States · Community Building Impact</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm font-sans">
+            <thead>
+              <tr class="bg-near-black text-white">
+                <th class="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider">Brain State</th>
+                <th class="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider">Temporal Orientation</th>
+                <th class="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider">Community Impact</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border-warm">
+              <tr>
+                <td class="px-5 py-3"><span class="font-sans font-semibold text-near-black">Default Mode (DMN)</span><br><span class="font-sans text-xs text-muted">Mental simulation, self-reflection, rumination</span></td>
+                <td class="px-5 py-3 text-muted text-xs">Past &amp; Future</td>
+                <td class="px-5 py-3 text-muted text-xs">Audience becomes an abstract data set. Analysis paralysis. Treats humans as rows in a dashboard.</td>
+              </tr>
+              <tr class="bg-warm">
+                <td class="px-5 py-3"><span class="font-sans font-semibold text-near-black">Focused Presence (SN Active)</span><br><span class="font-sans text-xs text-muted">Sensory grounding, direct engagement</span></td>
+                <td class="px-5 py-3 text-muted text-xs">Present Moment</td>
+                <td class="px-5 py-3 text-muted text-xs">Authentic real-time connection. Flow state. Capacity to react to community needs <em>right now</em>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YOUR BRAIN ON NOW: THE SPECIOUS PRESENT + MICRO PRESENCE -->
+  <section id="the-now" class="py-16 bg-warm border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">The Mechanism</p>
+      <h2 class="instrument font-normal text-near-black mb-4" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">The Specious Present:<br>Where Reality Actually Lives</h2>
+      <p class="font-sans text-muted leading-relaxed mb-6">There is no internal objective clock ticking away seconds in your head. Neuroscience shows that human consciousness does something remarkable with time: it tracks <em>changes in its own internal states</em>. A boring meeting takes years. A great conversation flies by. The past doesn't exist anywhere — it's a memory your brain is actively simulating right now. The future doesn't exist either. It's an anticipation your DMN is simulating right now.</p>
+      <p class="font-sans text-muted leading-relaxed mb-8">The <strong class="text-near-black">specious present</strong> — sometimes called the extended now — is the only coordinate where reality is unmediated. It's the only place where the wave function has collapsed into actual experience. And it's the only frequency on which you can genuinely reach another human being.</p>
+
+      <!-- Specious present deep dive button -->
+      <button @click="openModal(modals.specious.title, modals.specious.body)"
+              class="inline-flex items-center gap-2 font-sans text-xs font-semibold text-ember hover:text-near-black transition-colors mb-10 border-b border-ember hover:border-near-black pb-0.5">
+        Micro Presence in practice: real examples →
+      </button>
+
+      <!-- Micro presence comparison image -->
+      <div class="mb-10 overflow-hidden border border-border-warm">
+        <img src="generated_imgs/generated-2026-03-15T15-30-24-159Z-peb9r3.png"
+             alt="Future anxious vs micro present messaging — the difference sensory language makes"
+             class="w-full" loading="lazy" decoding="async" />
+      </div>
+
+      <!-- Key insight callout -->
+      <div style="border-left:3px solid #D4622A;background:#FFF8F5;padding:20px 24px;margin-bottom:32px;">
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-2" style="letter-spacing:0.12em;">The Signal Mismatch</p>
+        <p class="font-sans text-sm leading-relaxed text-near-black">
+          The average creator writes for virality — a future state. But the person scrolling their phone is sitting in a very specific, visceral, biological <em>now</em>. <strong>If you're broadcasting from the future and they're sitting in the present, your signals will never cross.</strong>
+        </p>
+      </div>
+
+      <!-- Why timing doesn't matter accordion -->
+      <div class="border border-border-warm divide-y divide-border-warm" x-data="{ open: false }">
+        <div>
+          <button @click="open=!open" class="w-full flex items-start justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-medium text-sm text-near-black leading-snug">"But I write on Tuesday and they read it Friday — how can I be in their present moment?"</span>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0 mt-0.5" :class="open?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <p class="font-sans text-sm text-muted leading-relaxed">The eternal now isn't about synchronizing watches. It's about <strong class="text-near-black">anchoring your message in universal immediate human experience</strong>. When you write from a state of deep presence on Tuesday — focusing on concrete sensory reality rather than abstract metrics — you create a timeless center of shared resonance.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">Human sensory experience doesn't degrade over three days. Being tired at 2am feels the same on Tuesday as it does on Friday. So when they read it Friday morning, your intense presence from Tuesday translates directly into their immediate neurobiological experience. You're meeting them in the human moment — which is always universally happening <em>now</em>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RADICAL LISTENING -->
+  <section id="listening" class="py-16 bg-white border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">The Practice</p>
+      <h2 class="instrument font-normal text-near-black mb-4" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">From Broadcast to Flow:<br>Radical Listening</h2>
+      <p class="font-sans text-muted leading-relaxed mb-6">Micro presence fixes <em>what you say</em>. But if you're blasting perfectly-present newsletters into the void, you're still on a one-way street. The transition from individual presence to a shared flow state requires a fundamentally different listening mechanism.</p>
+      <p class="font-sans text-muted leading-relaxed mb-8">Let's be honest about how future-minded marketers usually "listen." They scan a Reddit thread or comment section looking for a gap where they can safely drop a predetermined promotional link. They aren't listening at all. <strong class="text-near-black">They're waiting for their turn to extract value.</strong></p>
+
+      <!-- Deep dive button -->
+      <button @click="openModal(modals.radical.title, modals.radical.body)"
+              class="inline-flex items-center gap-2 font-sans text-xs font-semibold text-ember hover:text-near-black transition-colors mb-10 border-b border-ember hover:border-near-black pb-0.5">
+        How Radical Listening creates a flow state →
+      </button>
+
+      <!-- Two columns: extraction vs radical listening -->
+      <div class="grid sm:grid-cols-2 gap-4 mb-10">
+        <div class="border border-border-warm p-5">
+          <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-3" style="letter-spacing:0.1em;">Extraction Mode</p>
+          <ul class="font-sans text-sm text-muted space-y-2 leading-relaxed">
+            <li class="flex gap-2"><span class="text-red-400 flex-shrink-0">✕</span>Scans comments for promotional opportunities</li>
+            <li class="flex gap-2"><span class="text-red-400 flex-shrink-0">✕</span>Responds to the text, not the human behind it</li>
+            <li class="flex gap-2"><span class="text-red-400 flex-shrink-0">✕</span>Chases every trending audio clip on TikTok</li>
+            <li class="flex gap-2"><span class="text-red-400 flex-shrink-0">✕</span>Changes brand voice every six months</li>
+            <li class="flex gap-2"><span class="text-red-400 flex-shrink-0">✕</span>Terrified of being irrelevant tomorrow</li>
+          </ul>
+        </div>
+        <div class="border border-ember p-5" style="border-width:1px;">
+          <p class="font-sans text-xs font-bold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.1em;">Radical Listening</p>
+          <ul class="font-sans text-sm text-near-black space-y-2 leading-relaxed">
+            <li class="flex gap-2"><span class="text-emerald-500 flex-shrink-0">✓</span>Feels the <em>subtext</em> of each message</li>
+            <li class="flex gap-2"><span class="text-emerald-500 flex-shrink-0">✓</span>Asks: are they lonely? frustrated? seeking validation?</li>
+            <li class="flex gap-2"><span class="text-emerald-500 flex-shrink-0">✓</span>Responds to the emotion, not just the words</li>
+            <li class="flex gap-2"><span class="text-emerald-500 flex-shrink-0">✓</span>Anchors in timeless first principles</li>
+            <li class="flex gap-2"><span class="text-emerald-500 flex-shrink-0">✓</span>Becomes stable gravity in a frantic world</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- First principles callout -->
+      <div class="bg-near-black p-6 mb-8">
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-4" style="color:rgba(255,255,255,0.4);letter-spacing:0.15em;">First Principles Test</p>
+        <div class="space-y-4">
+          <div class="flex gap-4">
+            <span class="font-sans text-xs text-muted flex-shrink-0 mt-0.5">vs.</span>
+            <div>
+              <p class="font-sans text-sm text-white">Is your software selling <em style="color:rgba(255,255,255,0.5);">productivity</em>?</p>
+              <p class="font-sans text-xs mt-1" style="color:rgba(255,255,255,0.5);">Or is it selling <strong class="text-white">clarity to an overwhelmed manager</strong>?</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <span class="font-sans text-xs text-muted flex-shrink-0 mt-0.5">vs.</span>
+            <div>
+              <p class="font-sans text-sm text-white">Is your community selling <em style="color:rgba(255,255,255,0.5);">networking</em>?</p>
+              <p class="font-sans text-xs mt-1" style="color:rgba(255,255,255,0.5);">Or is it selling <strong class="text-white">belonging to isolated remote workers</strong>?</p>
+            </div>
+          </div>
+        </div>
+        <p class="font-sans text-xs mt-5" style="color:rgba(255,255,255,0.4);">By anchoring in the eternal human need, the brand becomes a stable gravity well in a world that is frantic and distracted.</p>
+      </div>
+
+      <!-- Jazz musician accordion -->
+      <div class="border border-border-warm divide-y divide-border-warm" x-data="{ open: false }">
+        <div>
+          <button @click="open=!open" class="w-full flex items-start justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-medium text-sm text-near-black leading-snug">Does being present actually drive growth — or does it just make me feel good while I miss my targets?</span>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0 mt-0.5" :class="open?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <p class="font-sans text-sm text-muted leading-relaxed">It's the <strong class="text-near-black">ultimate pragmatic strategy</strong> — and it all comes down to friction. When you push an agenda from a place of future anxiety, consumers feel it. Their defenses go up. They know they're being sold to, which decreases conversion and increases churn.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">When you operate from radical listening and first principles, you remove the friction. You build trust at a foundational level. The ROI of deep presence: your community stops acting like a skeptical consumer base and starts acting like an army of advocates. You hit your Q3 targets not by squeezing harder, but by <strong class="text-near-black">removing the resistance to your growth</strong>.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">Like a jazz pianist completely engrossed in a solo — aware of the current note, informed by the melody played three measures ago, but not anxious about the end of the song. Living entirely in the strike of the key.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THREE PILLARS -->
+  <section id="pillars" class="py-16 bg-warm border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">The Framework</p>
+      <h2 class="instrument font-normal text-near-black mb-4" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Three Pillars of Non-Dual<br>Audience Building</h2>
+      <p class="font-sans text-muted leading-relaxed mb-6">Advanced contemplative neuroscience and Zen audience building research converge on three actionable pillars — mapping meditative depth directly onto the marketer's daily reality. Each pillar represents a deeper dissolution of the marketer-audience boundary.</p>
+
+      <button @click="openModal(modals.pillars.title, modals.pillars.body)"
+              class="inline-flex items-center gap-2 font-sans text-xs font-semibold text-ember hover:text-near-black transition-colors mb-10 border-b border-ember hover:border-near-black pb-0.5">
+        Explore the neuroscience behind each pillar →
+      </button>
+
+      <!-- Three pillars image -->
+      <div class="mb-10 overflow-hidden border border-border-warm">
+        <img src="generated_imgs/generated-2026-03-15T15-31-00-785Z-d8g2wx.png"
+             alt="Three pillars of present-state audience building: Resonance, Emergence, Non-Dual"
+             class="w-full" loading="lazy" decoding="async" />
+      </div>
+
+      <!-- Pillar cards -->
+      <div class="space-y-4 mb-10">
+        <div class="bg-white border border-border-warm p-6">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-full bg-ember text-white font-bold text-sm flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
+            <div>
+              <p class="font-sans font-bold text-near-black text-base mb-1">Resonance — Shared Presence</p>
+              <p class="font-sans text-xs font-semibold text-muted uppercase tracking-widest mb-3" style="letter-spacing:0.1em;">Step off the stage. Stand next to your audience.</p>
+              <p class="font-sans text-sm text-muted leading-relaxed">In a traditional marketing dynamic, you're on a stage shouting at an audience — highly dualistic, a strict us vs. them. In the resonance pillar, you step off and stand beside them. You're both looking at the exact same problem, sharing the exact same visceral experience. The marketing disappears and only pure shared value remains.</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white border border-border-warm p-6">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-full bg-near-black text-white font-bold text-sm flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
+            <div>
+              <p class="font-sans font-bold text-near-black text-base mb-1">Emergence — The Living Organism</p>
+              <p class="font-sans text-xs font-semibold text-muted uppercase tracking-widest mb-3" style="letter-spacing:0.1em;">The community starts to sustain itself.</p>
+              <p class="font-sans text-sm text-muted leading-relaxed">Because you were present enough in Pillar 1 to set the cultural DNA correctly — because you didn't force a rigid, future-anxious structure onto the group — the community begins to self-organize like a biological system. Users start moderating each other, answering each other's 2am questions. It becomes a self-healing, self-growing entity that doesn't require you to constantly pull levers in the cockpit.</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white border border-border-warm p-6" style="border-color:#D4622A;">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center flex-shrink-0 mt-0.5" style="background:#D4622A;">3</div>
+            <div>
+              <p class="font-sans font-bold text-near-black text-base mb-1">Non-Dual Building — Unity</p>
+              <p class="font-sans text-xs font-semibold text-ember uppercase tracking-widest mb-3" style="letter-spacing:0.1em;">You aren't building a community. You are the community.</p>
+              <p class="font-sans text-sm text-muted leading-relaxed">At this depth, you stop seeing "me, the brand manager" and "them, the consumers." There is only the work. Every newsletter you write, every feature you ship isn't a top-down mandate. It is the community using your hands to manifest what it needs next. The community is building you just as much as you're building it. A completely symbiotic organism.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Co-becoming callout -->
+      <div style="border-left:3px solid #D4622A;background:#FFF8F5;padding:20px 24px;">
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-2" style="letter-spacing:0.12em;">Co-Becoming</p>
+        <p class="font-sans text-sm leading-relaxed text-near-black">
+          Ecological mindfulness studies found that when people practice extreme mindfulness in a forest, they stop feeling like tourists looking at trees — and allow the natural world to write through them. Apply this to audience building: at the ultimate depth, you're not managing your community. <strong>You're breathing with it.</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE 3-SECOND MICRO-HABIT -->
+  <section id="practice" class="py-16 bg-white border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">The Daily Practice</p>
+      <h2 class="instrument font-normal text-near-black mb-4" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">The 3-Second Habit<br>Before Every Post</h2>
+      <p class="font-sans text-muted leading-relaxed mb-10">Before you hit post, send, or reply on anything — force yourself through three micro-steps. It takes three seconds. If adopted at scale across a team, it can fundamentally change the emotional temperature of your entire content operation.</p>
+
+      <!-- 3 steps -->
+      <div class="space-y-4 mb-12">
+        <div class="flex gap-5 items-start">
+          <div class="w-12 h-12 rounded-full bg-warm border-2 border-ember flex items-center justify-center flex-shrink-0">
+            <span class="font-sans font-black text-ember" style="font-size:1.1rem;">1</span>
+          </div>
+          <div class="pt-2">
+            <p class="font-sans font-semibold text-near-black mb-1">Stop looking at the analytics.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">Close the dashboard tab. Look only at the actual words on your screen. Read them out loud if it helps. Feel what they mean, not what they might do to your open rate.</p>
+          </div>
+        </div>
+        <div class="flex gap-5 items-start">
+          <div class="w-12 h-12 rounded-full bg-warm border-2 border-near-black flex items-center justify-center flex-shrink-0">
+            <span class="font-sans font-black text-near-black" style="font-size:1.1rem;">2</span>
+          </div>
+          <div class="pt-2">
+            <p class="font-sans font-semibold text-near-black mb-1">Viscerally realize there's a real breathing human on the other side.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">They're sitting somewhere specific right now. Maybe at a desk in Chicago. Maybe on a train in London. They have a cup of coffee. They have something weighing on them. They're about to read your words in their exact immediate moment.</p>
+          </div>
+        </div>
+        <div class="flex gap-5 items-start">
+          <div class="w-12 h-12 rounded-full bg-warm border-2 border-ember flex items-center justify-center flex-shrink-0">
+            <span class="font-sans font-black text-ember" style="font-size:1.1rem;">3</span>
+          </div>
+          <div class="pt-2">
+            <p class="font-sans font-semibold text-near-black mb-1">Ask the honest question.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">Does this message add depth and value to their specific moment? Or is it noise generated by your own future anxiety about quarterly goals? If you can't answer "depth and value" — don't send it.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orbis implementation accordion -->
+      <div class="border border-border-warm divide-y divide-border-warm" x-data="{ open: false }">
+        <div>
+          <button @click="open=!open" class="w-full flex items-start justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-medium text-sm text-near-black leading-snug">Orbis quick-start: how to implement presence-based content in your workflow</span>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0 mt-0.5" :class="open?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open" x-collapse class="border-t border-border-warm px-6 py-5">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="bg-warm p-5">
+                <div class="w-8 h-8 rounded-full bg-ember text-white font-bold text-sm flex items-center justify-center mb-3">1</div>
+                <p class="font-sans font-semibold text-sm text-near-black mb-2">Audit for Abstraction</p>
+                <p class="font-sans text-xs text-muted leading-relaxed">Review your last 10 pieces of content. Mark every sentence that references a future outcome, a metric, or an industry abstraction. What's left is your present-state baseline.</p>
+              </div>
+              <div class="bg-warm p-5">
+                <div class="w-8 h-8 rounded-full bg-near-black text-white font-bold text-sm flex items-center justify-center mb-3">2</div>
+                <p class="font-sans font-semibold text-sm text-near-black mb-2">Write One Sensory Scene</p>
+                <p class="font-sans text-xs text-muted leading-relaxed">Describe the exact moment your ideal community member experiences the problem you solve. No metrics. No industry language. One visceral, specific, sensory scene — under 80 words.</p>
+              </div>
+              <div class="bg-warm p-5">
+                <div class="w-8 h-8 rounded-full bg-near-black text-white font-bold text-sm flex items-center justify-center mb-3">3</div>
+                <p class="font-sans font-semibold text-sm text-near-black mb-2">Find Your First Principles</p>
+                <p class="font-sans text-xs text-muted leading-relaxed">Beneath every product benefit is a fundamental human need. Clarity. Belonging. Control. Safety. Find yours and anchor all content there — it becomes the stable gravity well your audience orbits.</p>
+              </div>
+              <div class="bg-warm p-5">
+                <div class="w-8 h-8 rounded-full bg-ember text-white font-bold text-sm flex items-center justify-center mb-3">4</div>
+                <p class="font-sans font-semibold text-sm text-near-black mb-2">Design Immediate Feedback Loops</p>
+                <p class="font-sans text-xs text-muted leading-relaxed">Replace ambiguous long-term metrics with immediate markers of success. A reply. A share. A DM. The brain evolved to process action-outcome signals — give it concrete ones.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-16 bg-warm border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">FAQ</p>
+      <h2 class="instrument font-normal text-near-black mb-10" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Common Questions</h2>
+      <div class="border border-border-warm divide-y divide-border-warm bg-white" x-data="{ open: null }">
+        <div>
+          <button @click="open===1?open=null:open=1" class="w-full flex items-start justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-medium text-sm text-near-black leading-snug">What does "the eternal now" actually mean for marketers?</span>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0 mt-0.5" :class="open===1?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open===1" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <p class="font-sans text-sm text-muted leading-relaxed">The eternal now is the neuroscientific and philosophical insight that the present moment is the only coordinate where reality is unmediated. Neuroscience confirms: the past is a memory your brain simulates right now, and the future is an anticipation your Default Mode Network simulates right now.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">For marketers, it means creating content from a state of genuine sensory presence — grounded in the concrete, specific, human reality of your audience's immediate experience — rather than from future-anxiety about metrics and quarterly targets.</p>
+            <div class="grid grid-cols-3 gap-3 mt-2">
+              <div class="bg-warm p-4 text-center"><p class="instrument font-normal text-ember" style="font-size:1.75rem;">Past</p><p class="font-sans text-xs text-muted mt-1">A memory your brain simulates right now</p></div>
+              <div class="bg-ember p-4 text-center"><p class="instrument font-normal text-white" style="font-size:1.75rem;">Now</p><p class="font-sans text-xs text-white mt-1 opacity-80">The only unmediated reality</p></div>
+              <div class="bg-warm p-4 text-center"><p class="instrument font-normal text-ember" style="font-size:1.75rem;">Future</p><p class="font-sans text-xs text-muted mt-1">An anticipation your DMN simulates right now</p></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button @click="open===2?open=null:open=2" class="w-full flex items-start justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-medium text-sm text-near-black leading-snug">If I can't track it in a dashboard, how do I know presence is actually driving ROI?</span>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0 mt-0.5" :class="open===2?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open===2" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <p class="font-sans text-sm text-muted leading-relaxed">You can measure it — but with different instruments. The ROI of deep presence shows up as friction reduction, not direct attribution. Look for these leading indicators:</p>
+            <div class="space-y-2">
+              <div class="flex items-start gap-3"><span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5">Reply Rate</span><p class="font-sans text-xs text-muted">Genuine replies (not emoji reactions) to content — the most direct signal that your audience felt something</p></div>
+              <div class="flex items-start gap-3"><span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5">Referral Velocity</span><p class="font-sans text-xs text-muted">Community members who become advocates reduce your CAC without any campaign spend</p></div>
+              <div class="flex items-start gap-3"><span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5">Churn Delta</span><p class="font-sans text-xs text-muted">Track cohorts before and after implementing presence-based content — retention shift is the clearest signal</p></div>
+              <div class="flex items-start gap-3"><span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5">Ask Directly</span><p class="font-sans text-xs text-muted">"Why do you keep coming back?" Open-ended survey responses from loyal members are the most honest data you'll ever collect</p></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button @click="open===3?open=null:open=3" class="w-full flex items-start justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-medium text-sm text-near-black leading-snug">Isn't this just a fancy way of saying "be authentic"?</span>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0 mt-0.5" :class="open===3?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open===3" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <p class="font-sans text-sm text-muted leading-relaxed">"Be authentic" is an outcome, not a technique. Micro presence is a specific neurobiological mechanism with clear mechanics: <strong class="text-near-black">sensory-grounded language bypasses the Default Mode Network's abstract filters and activates the brain's sensory processing regions directly</strong>.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">It's the difference between telling someone to "be confident" versus giving them a specific physical posture and breathing exercise. The mechanism behind what we label "authentic" is the Salience Network correctly detecting a real, present human rather than a future-simulating abstraction engine.</p>
+          </div>
+        </div>
+        <div>
+          <button @click="open===4?open=null:open=4" class="w-full flex items-start justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-medium text-sm text-near-black leading-snug">How do I practice this without ignoring my quarterly goals?</span>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0 mt-0.5" :class="open===4?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open===4" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <div class="bg-warm border-l-2 border-ember p-4">
+              <p class="font-sans font-semibold text-sm text-near-black">You don't ignore your goals. You remove the friction between you and them.</p>
+            </div>
+            <p class="font-sans text-sm text-muted leading-relaxed">The Stoic concept of <em>Prosoché</em> — focused attention on what is up to us — is the bridge. You're not ignoring future outcomes. You're directing your attention toward the present inputs you control: the quality of your next sentence, the depth of your next reply, the specificity of your next scene.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">Quarterly goals are the score. Presence is how you play. The jazz musician doesn't ignore the end of the song — they trust that complete immersion in the current note produces a better performance than constantly checking how many measures are left.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GLOSSARY -->
+  <section id="glossary" class="py-16 bg-white border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">Reference</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Key Terms &amp; Concepts</h2>
+      <p class="font-sans text-muted leading-relaxed mb-10">A quick-reference guide to the neuroscience and strategic frameworks in this article.</p>
+
+      <!-- Neural Networks -->
+      <div class="mb-8">
+        <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-4" style="letter-spacing:0.12em;">Neural Networks</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="bg-warm border border-border-warm p-4" style="border-top:3px solid #111110;">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.3rem;">DMN</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Default Mode Network</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Handles self-reflection and mental simulation. The "rumination engine" — active when you're stuck in future anxiety or past regret.</p>
+          </div>
+          <div class="bg-warm border border-border-warm p-4" style="border-top:3px solid #D4622A;">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.3rem;">SN</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Salience Network</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">The critical switch — detects salient moments, deactivates the DMN, and routes attention to present-moment engagement.</p>
+          </div>
+          <div class="bg-warm border border-border-warm p-4" style="border-top:3px solid #3B82F6;">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.3rem;">ECN</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Executive Control Network</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Manages goal-directed behavior. Activated by the SN in moments of genuine presence — the network that enables real-time community response.</p>
+          </div>
+          <div class="bg-warm border border-border-warm p-4" style="border-top:3px solid #8B5CF6;">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.3rem;">ACC</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Anterior Cingulate Cortex</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">A hub of the Salience Network. Integrates external and internal signals to decide which brain network should dominate at any moment.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- States & Frameworks -->
+      <div class="mb-8">
+        <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-4" style="letter-spacing:0.12em;">States &amp; Frameworks</p>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-warm border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">Flow State</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Csikszentmihalyi's Zone</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Requires merging of action and awareness, immediate feedback, and the temporary loss of self-consciousness. Achievable in community management through radical listening.</p>
+          </div>
+          <div class="bg-warm border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">Specious Present</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">The Extended Now</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">The window of conscious experience where reality is unmediated. Not a fixed duration — expands with presence and contracts with future-anxiety.</p>
+          </div>
+          <div class="bg-warm border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">Micro Presence</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Sensory-Grounded Creation</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">A tactical content strategy: drop abstract industry-speak, use sensory language to force your brain back into the present moment, and meet the audience in their immediate neurobiological experience.</p>
+          </div>
+          <div class="bg-warm border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">Radical Listening</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Observer Mode Engagement</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Reading community contributions to feel the subtext — the emotion behind the words — rather than scanning for promotional opportunities. Provides the immediate feedback that triggers mutual flow states.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cognitive Concepts -->
+      <div class="mb-8">
+        <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-4" style="letter-spacing:0.12em;">Cognitive Concepts</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div class="bg-warm border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">Abstraction Habituation</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Neuroplastic Rewiring</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">The process by which sustained abstract knowledge work trains the brain's default state toward future simulation, eroding the capacity for present-moment connection.</p>
+          </div>
+          <div class="bg-warm border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">Naive Realism</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Cognitive Bias</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">The belief that your subjective experience is the only objective reality. In digital communities, this creates polarization: the leader assumes the audience "should" see what they see.</p>
+          </div>
+          <div class="bg-warm border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">Non-Dual Awareness</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Boundary Dissolution</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">The collapse of the observer-observed distinction. For audience builders: the moment where "me the brand manager" and "them the community" dissolve into a single living organism.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Practice -->
+      <div>
+        <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-4" style="letter-spacing:0.12em;">Practice &amp; Application</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div class="bg-warm border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">EMM</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Environmental Model of Mindfulness</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Mindfulness is a natural cognitive baseline the environment either supports or undermines. Redesigning the workspace reduces abstraction load and rebuilds the architecture of presence.</p>
+          </div>
+          <div class="bg-warm border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">Prosoché</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Stoic Focused Attention</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Deliberate focus on what is "up to us" — the immediate quality of engagement and internal choices — rather than volatile external factors like algorithm changes or vanity metrics.</p>
+          </div>
+          <div class="bg-warm border border-border-warm p-4">
+            <p class="font-sans font-bold text-near-black text-sm">ACAM</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-0.5 mb-1">Advanced Concentrative Absorption Meditation</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Meditative states (jhānas) in which the DMN goes offline. The source framework for non-dual audience building's three-pillar model.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 bg-near-black reveal">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-4" style="color:rgba(255,255,255,0.4);letter-spacing:0.18em;">Orbis Does This Work For You</p>
+      <h2 class="instrument font-normal text-white mb-6" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;">
+        Ready to step out<br>of the cockpit?
+      </h2>
+      <p class="font-sans text-base leading-relaxed mb-4" style="color:rgba(255,255,255,0.6);">
+        Everything in this guide — first principles discovery, sensory-grounded content voice, community architecture, feedback loop design — built into a done-for-you audience building program.
+      </p>
+      <p class="font-sans text-sm leading-relaxed mb-10" style="color:rgba(255,255,255,0.4);">
+        You don't have to fly the plane anymore. Your audience has been in the eternal now all along, waiting for you to show up and meet them there.
+      </p>
+      <!-- What Orbis delivers -->
+      <div class="grid sm:grid-cols-3 gap-4 mb-10 text-left">
+        <div class="border p-5" style="border-color:rgba(255,255,255,0.12);">
+          <p class="font-sans font-semibold text-white text-sm mb-2">Brand Voice &amp; First Principles</p>
+          <p class="font-sans text-xs leading-relaxed" style="color:rgba(255,255,255,0.4);">Uncover the fundamental human need you're serving. Build a voice that creates stable gravity — not noise.</p>
+        </div>
+        <div class="border p-5" style="border-color:rgba(255,255,255,0.12);">
+          <p class="font-sans font-semibold text-white text-sm mb-2">Presence-Based Content Strategy</p>
+          <p class="font-sans text-xs leading-relaxed" style="color:rgba(255,255,255,0.4);">Sensory-grounded content calendars, community touchpoints, and micro presence frameworks implemented across every channel.</p>
+        </div>
+        <div class="border p-5" style="border-color:rgba(255,255,255,0.12);">
+          <p class="font-sans font-semibold text-white text-sm mb-2">Community Architecture</p>
+          <p class="font-sans text-xs leading-relaxed" style="color:rgba(255,255,255,0.4);">Design the cultural DNA of your community correctly from the start — so it becomes self-organizing and self-healing over time.</p>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}}))"
+                class="roygbiv-btn font-sans font-semibold text-sm text-white px-8 py-3">
+          Book a Free Strategy Call →
+        </button>
+        <a href="/concept-home-3.html#pricing"
+           class="font-sans font-semibold text-sm px-8 py-3 border transition-colors"
+           style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.25);">
+          See Our Packages
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-warm py-8 border-t border-border-warm">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+      <a href="/concept-home-3.html" class="font-sans text-sm text-near-black tracking-tight flex items-baseline gap-1.5">
+        <span class="font-bold">Orbis</span><span class="font-light text-muted">Marketing</span>
+      </a>
+      <p class="font-sans font-normal text-xs text-muted">© 2026 Orbis Marketing · Batavia · Geneva · St Charles · Chicago</p>
+    </div>
+  </footer>
+
+  <!-- CONTENT MODAL (Deep Dives) -->
+  <div x-show="modal.open"
+       x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+       class="fixed inset-0 z-[200] flex items-center justify-center p-4"
+       style="background:rgba(0,0,0,0.6);display:none;"
+       @click.self="closeModal()">
+    <div class="bg-white w-full relative" style="max-width:620px;max-height:90vh;overflow-y:auto;border-radius:2px;"
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+         @click.stop>
+      <div class="sticky top-0 bg-white border-b border-border-warm px-7 py-5 flex items-center justify-between z-10">
+        <h3 class="instrument font-normal text-near-black leading-tight pr-4" style="font-size:1.25rem;" x-text="modal.title"></h3>
+        <button @click="closeModal()" class="flex-shrink-0 w-8 h-8 border border-border-warm flex items-center justify-center text-muted hover:text-near-black transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="px-7 py-6 modal-content font-sans text-sm text-muted leading-relaxed space-y-3" x-html="modal.body"></div>
+    </div>
+  </div>
+
+  <!-- INQUIRY MODAL -->
+  <div x-data="inquiryModalData()"
+       @open-inquiry.window="openWith($event.detail.package)"
+       @keydown.escape.window="isOpen = false">
+    <div x-show="isOpen"
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[300] flex items-center justify-center p-4"
+         style="background:rgba(0,0,0,0.65);display:none;"
+         @click.self="isOpen = false">
+      <div class="bg-white w-full relative" style="max-width:560px;max-height:92vh;overflow-y:auto;" @click.stop>
+        <button @click="isOpen = false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black z-10">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <div style="padding:40px 36px 36px;">
+          <p class="font-sans text-xs font-semibold uppercase tracking-widest text-muted mb-2" style="letter-spacing:0.15em;">Let's talk</p>
+          <h3 class="instrument font-normal text-near-black leading-tight mb-6" style="font-size:1.75rem;">How can we help you build your audience?</h3>
+          <form name="inquiry" method="POST" netlify netlify-honeypot="bot-field" @submit.prevent="submit($el)">
+            <input type="hidden" name="form-name" value="inquiry">
+            <p class="hidden"><input name="bot-field"></p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+              <div>
+                <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Name <span style="color:#EF4444;">*</span></label>
+                <input type="text" name="name" required placeholder="Your name" class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none" style="border:1px solid #E5E2DC;padding:10px 12px;">
+              </div>
+              <div>
+                <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Company <span style="color:#EF4444;">*</span></label>
+                <input type="text" name="company" required placeholder="Your company" class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none" style="border:1px solid #E5E2DC;padding:10px 12px;">
+              </div>
+            </div>
+            <div style="margin-bottom:20px;">
+              <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Email <span style="color:#EF4444;">*</span></label>
+              <input type="email" name="email" required placeholder="you@example.com" class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none" style="border:1px solid #E5E2DC;padding:10px 12px;">
+            </div>
+            <div style="margin-bottom:20px;">
+              <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">I'm interested in <span style="color:#EF4444;">*</span></label>
+              <input type="hidden" name="package" :value="selected">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px;">
+                <template x-for="pkg in packages" :key="pkg.name">
+                  <button type="button" @click="selected=pkg.name;pkgError=false"
+                          :class="selected===pkg.name?'text-white':'bg-white text-near-black'"
+                          :style="selected===pkg.name?{backgroundColor:pkg.color,borderColor:pkg.color}:{border:'1px solid #E5E2DC'}"
+                          class="font-sans text-center transition-all duration-200" style="line-height:1.3;padding:8px 4px;border:1px solid #E5E2DC;">
+                    <span x-text="pkg.name" class="block font-semibold" style="font-size:0.72rem;"></span>
+                    <span x-show="pkg.price" x-text="pkg.price" class="block" style="font-size:0.6rem;opacity:0.75;margin-top:2px;"></span>
+                  </button>
+                </template>
+              </div>
+              <p x-show="pkgError" class="font-sans text-xs mt-2" style="color:#EF4444;">Please select a package.</p>
+            </div>
+            <div style="margin-bottom:24px;">
+              <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Message</label>
+              <textarea name="message" rows="4" placeholder="Tell us about your business and what you're hoping to achieve..." class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none resize-none" style="border:1px solid #E5E2DC;padding:10px 12px;"></textarea>
+            </div>
+            <button type="submit" x-show="!submitted"
+                    :style="{backgroundColor:selectedColor(),borderColor:selectedColor()}"
+                    class="w-full text-white font-sans font-semibold text-sm py-3 transition-all duration-300"
+                    style="border:2px solid transparent;">Send Message →</button>
+            <div x-show="submitted" class="text-center py-3">
+              <p class="font-sans font-semibold text-near-black">Got it — we'll be in touch shortly.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Reveal on scroll
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='none'; } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => { io.observe(el); });
+
+    /* ── Page-level data (modal system + mobile nav) ── */
+    function pageData() {
+      return {
+        mobileOpen: false,
+        modal: { open: false, title: '', body: '' },
+        openModal(title, body) { this.modal = { open: true, title, body }; document.body.style.overflow = 'hidden'; },
+        closeModal() { this.modal.open = false; document.body.style.overflow = ''; },
+        modals: {
+          abstraction: {
+            title: 'The Abstraction Habituation Model',
+            body: `<p>The Abstraction Habituation Model describes the neuroplastic mechanism by which sustained knowledge work — especially marketing — rewires the brain's default processing state toward abstraction.</p>
+<h4>The Delayed-Return Environment</h4>
+<p>For most of human history, brains evolved in <strong>immediate-return environments</strong>: forage for a berry, eat the berry. Action. Immediate biological feedback. No quarterly berry report.</p>
+<p>Modern knowledge work is the precise opposite. You write an email today that might impact a renewal rate six months from now. You are living in T+6 months constantly — and the brain adapts to this through use-dependent neuroplasticity.</p>
+<h4>The Three Conditions</h4>
+<table><thead><tr><th>Condition</th><th>What It Means</th><th>Brain Effect</th></tr></thead><tbody>
+<tr><td>High Abstraction Load</td><td>Manipulating symbols, data, and text with no physical feedback</td><td>Sensory processing circuits weaken through disuse</td></tr>
+<tr><td>Feedback Deprivation</td><td>Long gap between effort and measurable result</td><td>DMN hyper-activates to simulate future outcomes</td></tr>
+<tr><td>Closure Deprivation</td><td>Community is never "done" — the work has no natural endpoint</td><td>Brain hates open loops; defaults to chronic abstraction</td></tr>
+</tbody></table>
+<h4>The Flynn Effect Parallel</h4>
+<p>Philosopher James Flynn observed that modern minds have "donned scientific spectacles" — viewing the entire world through the lens of categorization and logic. Marketers have donned the spectacles of spreadsheets and algorithms. We've traded human connection for dashboards. <strong>The fix requires deliberately taking the spectacles off.</strong></p>
+<p class="note">Source: Architecture of Presence framework, Environmental Model of Mindfulness (Meaden, 2024)</p>`
+          },
+          specious: {
+            title: 'Micro Presence: Real Examples',
+            body: `<p>Micro presence is a specific content technique: use <strong>sensory-grounded language</strong> to bypass the Default Mode Network's abstract filters and activate the brain's sensory processing regions directly.</p>
+<p>Sensory language doesn't describe outcomes. It describes <em>the felt experience of being in the moment</em>. It forces both your brain and your reader's brain back into the present.</p>
+<h4>The Two Frequencies</h4>
+<div class="bad-box"><strong>Future Anxious</strong><br>"Our community is incredibly vibrant and engaged. Our metrics show unprecedented growth in member-to-member interactions this quarter."<br><span style="font-size:0.75rem;opacity:0.7;display:block;margin-top:6px;">Abstract. Generic. Could be from any brand. Your DMN wrote this while stressing about the quarterly review.</span></div>
+<div class="good-box"><strong>Micro Present</strong><br>"That moment at 2am, the blue light of your monitor stinging your eyes, when you post a highly specific coding question — and three people reply with the exact fix before you can close your laptop."<br><span style="font-size:0.75rem;opacity:0.7;display:block;margin-top:6px;">Specific. Sensory. Universal. Puts the reader in the room with a glowing monitor. They can feel the relief.</span></div>
+<h4>The Result</h4>
+<p>The micro present example creates <strong>irrational loyalty</strong>. People don't follow features. They follow brands that make them feel fundamentally <em>witnessed</em> in their present moment. That's not a soft outcome — it's the mechanism behind every community that grows through word-of-mouth rather than ad spend.</p>
+<h4>Try It Now</h4>
+<p>Take your next social post or email opening. Find the most abstract sentence in it. Replace it with: the exact physical moment your reader is experiencing the problem you solve. Add a specific time, a sensory detail, and one emotion. That's micro presence.</p>`
+          },
+          radical: {
+            title: 'Radical Listening & Flow States',
+            body: `<p>Flow state — Csikszentmihalyi's concept of being "in the zone" — requires three specific conditions: <strong>merging of action and awareness, immediate feedback,</strong> and the <strong>temporary loss of self-consciousness</strong>. These can be engineered in community management.</p>
+<h4>Observer Mode vs. Extraction Mode</h4>
+<p>Most community managers operate in extraction mode: scanning threads for promotional opportunities, parsing comments for keywords, waiting for their turn to add their link. This is the DMN at work — it's not listening. It's waiting.</p>
+<p>Radical listening uses a completely different cognitive pathway: the <strong>observer mode</strong>. When you read a community member's comment, you're not parsing text for keywords. You're trying to feel the subtext of their specific now.</p>
+<ul>
+<li>Why did they take the time to write this at all?</li>
+<li>Are they lonely? Frustrated? Looking for validation?</li>
+<li>What's the emotion underneath the words?</li>
+</ul>
+<h4>The Response That Changes Everything</h4>
+<p>When you respond to the <em>emotion underneath the text</em> rather than just the text itself, the response carries a completely different weight. It feels authentic because you aren't engaging with a user ID. You are two humans meeting in a shared digital moment.</p>
+<p>This provides the immediate feedback that triggers a flow state for <em>both of you</em>. And that mutual flow state is the neurobiological foundation of community loyalty.</p>
+<h4>Scaling Radical Listening</h4>
+<p>The same principle applies at the macro level of brand identity. Brands that constantly pivot their voice — chasing trending audio clips, changing strategy every six months — are living in severe future anxiety. They stand for absolutely nothing today because they're terrified of becoming irrelevant tomorrow.</p>
+<p>Present brands do the hard work of discovering their <strong>first principles</strong>: the fundamental underlying human need they're serving right now. That anchor creates stable gravity in a frantic world.</p>`
+          },
+          pillars: {
+            title: 'The Neuroscience Behind the Three Pillars',
+            body: `<p>The three-pillar model comes from the convergence of Zen audience building research and phenomenological studies on advanced meditation states — specifically the Buddhist jhāna states (Advanced Concentrative Absorption Meditation, ACAM).</p>
+<h4>The Meditative Parallel</h4>
+<p>As a meditator concentrates deeply on a single object, their brainwaves shift and the Default Mode Network goes almost entirely offline. At the deepest levels, they experience <strong>minimal phenomenal experience</strong> — a state neuroscientists call non-dual awareness, where the fundamental human illusion of duality (the distinction between "me the observer" and "the universe I'm observing") collapses completely.</p>
+<p>The three pillars map this meditative depth directly onto the community builder's daily reality:</p>
+<table><thead><tr><th>Pillar</th><th>Meditative Parallel</th><th>Community Reality</th></tr></thead><tbody>
+<tr><td><strong>Resonance</strong></td><td>Entering focused concentration — the DMN begins to quiet</td><td>You step off the stage. Marketing disappears. Only shared value remains.</td></tr>
+<tr><td><strong>Emergence</strong></td><td>Deep absorption — the self-referential boundary softens</td><td>Community DNA is set. The group begins to self-organize and self-heal.</td></tr>
+<tr><td><strong>Non-Dual</strong></td><td>Full jhāna — the observer-observed distinction collapses</td><td>You stop seeing "me" and "them." There is only the work. The community builds you.</td></tr>
+</tbody></table>
+<h4>Co-Becoming: The Ecological Model</h4>
+<p>Ecological mindfulness research provides a powerful analogy: when people practice extreme mindfulness in a forest, they stop feeling like tourists looking at trees. The natural world begins to write through them. Their actions become symbiotic with the forest.</p>
+<p>At the ultimate depth of non-dual audience building, the community is building you just as much as you're building it. Every newsletter you write, every feature you ship isn't a top-down mandate — it is <strong>the community using your hands to manifest what it needs next</strong>.</p>
+<p class="note">Source: Architecture of Presence framework; phenomenological studies on ACAM states; Environmental Model of Mindfulness</p>`
+          }
+        }
+      };
+    }
+
+    /* ── Audio Player ── */
+    function audioPlayer() {
+      return {
+        playing: false,
+        progress: 0,
+        currentTime: '0:00',
+        duration: '--:--',
+        bars: [12,20,16,30,24,42,34,50,44,58,52,66,60,72,64,78,70,62,74,68,80,76,58,82,70,74,66,78,60,84,76,70,80,64,88,72,68,82,60,76,70,84,62,78,66,58,72,80,68,74,60,64,76,82,70,66,58,72,78,68],
+        speed: 1,
+        speeds: [0.75, 1, 1.25, 1.5, 1.75, 2],
+        init() {
+          const a = this.$refs.audio;
+          a.addEventListener('timeupdate', () => {
+            this.progress = (a.currentTime / a.duration) * 100 || 0;
+            this.currentTime = this.fmt(a.currentTime);
+          });
+          a.addEventListener('loadedmetadata', () => { this.duration = this.fmt(a.duration); });
+          a.addEventListener('ended', () => { this.playing = false; this.progress = 0; this.currentTime = '0:00'; });
+        },
+        toggle() {
+          const a = this.$refs.audio;
+          if (this.playing) { a.pause(); this.playing = false; }
+          else { a.play(); this.playing = true; }
+        },
+        seek(e) {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const pct  = (e.clientX - rect.left) / rect.width;
+          const a = this.$refs.audio;
+          if (a.duration) { a.currentTime = pct * a.duration; }
+        },
+        skip(sec) {
+          const a = this.$refs.audio;
+          a.currentTime = Math.max(0, Math.min(a.duration || 0, a.currentTime + sec));
+        },
+        setSpeed(rate) { this.speed = rate; this.$refs.audio.playbackRate = rate; },
+        fmt(s) {
+          if (!isFinite(s)) return '--:--';
+          const m = Math.floor(s / 60);
+          const sec = Math.floor(s % 60);
+          return m + ':' + String(sec).padStart(2, '0');
+        }
+      };
+    }
+
+    /* ── Inquiry Modal ── */
+    function inquiryModalData() {
+      return {
+        isOpen: false,
+        selected: '',
+        pkgError: false,
+        submitted: false,
+        packages: [
+          { name: 'Orbit',    price: '$997/mo',  color: '#3B82F6' },
+          { name: 'Apogee',   price: '$1,997/mo', color: '#8B5CF6' },
+          { name: 'Zenith',   price: '$3,497/mo', color: '#D4622A' },
+          { name: 'Custom',   price: '',          color: '#111110' },
+        ],
+        openWith(pkg) { this.selected = pkg || ''; this.submitted = false; this.pkgError = false; this.isOpen = true; document.body.style.overflow = 'hidden'; },
+        selectedColor() {
+          const pkg = this.packages.find(p => p.name === this.selected);
+          return pkg ? pkg.color : '#111110';
+        },
+        submit(form) {
+          if (!this.selected) { this.pkgError = true; return; }
+          const data = new FormData(form.querySelector('form'));
+          fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(data).toString() })
+            .then(() => { this.submitted = true; document.body.style.overflow = ''; })
+            .catch(() => { this.submitted = true; document.body.style.overflow = ''; });
+        }
+      };
+    }
+
+    /* ── Slow-scroll (60 seconds) ── */
+    let _scrollTimer = null;
+    let _scrollActive = false;
+    function toggleSlowScroll() {
+      const btn   = document.getElementById('slow-scroll-btn');
+      const icon  = document.getElementById('scroll-icon');
+      const label = document.getElementById('scroll-label');
+      const svg   = document.getElementById('scroll-svg');
+      if (_scrollActive) {
+        _scrollActive = false;
+        if (_scrollTimer) { cancelAnimationFrame(_scrollTimer); _scrollTimer = null; }
+        icon.classList.add('scroll-arrow-bounce');
+        svg.style.transform = '';
+        label.textContent = 'Read';
+        btn.style.borderColor = '';
+        btn.style.color = '';
+        return;
+      }
+      _scrollActive = true;
+      icon.classList.remove('scroll-arrow-bounce');
+      svg.style.transform = 'rotate(180deg)';
+      label.textContent = 'Stop';
+      btn.style.borderColor = '#111110';
+      btn.style.color = '#111110';
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      const totalH   = document.body.scrollHeight - window.innerHeight;
+      const duration = 60000;
+      const pxPerMs  = totalH / duration;
+      let   last     = null;
+      function step(ts) {
+        if (!_scrollActive) return;
+        if (last === null) last = ts;
+        const delta = ts - last;
+        last = ts;
+        window.scrollBy({ top: pxPerMs * delta, behavior: 'instant' });
+        if (window.scrollY + window.innerHeight >= document.body.scrollHeight - 2) {
+          _scrollActive = false;
+          icon.classList.add('scroll-arrow-bounce');
+          svg.style.transform = '';
+          label.textContent = 'Read';
+          btn.style.borderColor = '';
+          btn.style.color = '';
+          return;
+        }
+        _scrollTimer = requestAnimationFrame(step);
+      }
+      _scrollTimer = requestAnimationFrame(step);
+      const stopScroll = () => {
+        if (!_scrollActive) return;
+        _scrollActive = false;
+        if (_scrollTimer) { cancelAnimationFrame(_scrollTimer); _scrollTimer = null; }
+        icon.classList.add('scroll-arrow-bounce');
+        svg.style.transform = '';
+        label.textContent = 'Read';
+        btn.style.borderColor = '';
+        btn.style.color = '';
+        window.removeEventListener('wheel', stopScroll);
+        window.removeEventListener('touchstart', stopScroll);
+        window.removeEventListener('keydown', stopScroll);
+      };
+      window.addEventListener('wheel', stopScroll, { once: true });
+      window.addEventListener('touchstart', stopScroll, { once: true });
+      window.addEventListener('keydown', stopScroll, { once: true });
+    }
+  </script>
+</body>
+</html>
