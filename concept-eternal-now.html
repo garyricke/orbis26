@@ -110,6 +110,20 @@
     .modal-content .good-box { border-left: 3px solid #22C55E; background: #F0FDF4; padding: 1rem; margin: 0.75rem 0; border-radius: 2px; }
     .modal-content .bad-box  { border-left: 3px solid #EF4444; background: #FEF2F2; padding: 1rem; margin: 0.75rem 0; border-radius: 2px; }
 
+    /* Explicit brand color overrides — ensures custom colors render even if Tailwind CDN
+       doesn't generate them (e.g. when file is large or config isn't picked up in time) */
+    .bg-near-black  { background-color: #111110 !important; }
+    .bg-ember       { background-color: #D4622A !important; }
+    .bg-warm        { background-color: #F8F6F3 !important; }
+    .bg-muted       { background-color: #6B6960 !important; }
+    .text-near-black{ color: #111110 !important; }
+    .text-ember     { color: #D4622A !important; }
+    .text-muted     { color: #6B6960 !important; }
+    .border-near-black   { border-color: #111110 !important; }
+    .border-ember        { border-color: #D4622A !important; }
+    .border-border-warm  { border-color: #E5E2DC !important; }
+    .divide-border-warm > * + * { border-color: #E5E2DC !important; }
+
     /* Inquiry modal */
     .roygbiv-btn-inquiry {
       animation: roygbiv-cycle 7s linear infinite;
