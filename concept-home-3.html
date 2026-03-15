@@ -129,6 +129,7 @@
         <a href="#pricing" class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Pricing</a>
         <a href="#clients" class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Clients</a>
         <a href="#about" class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">About</a>
+        <a href="#insights" class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Insights</a>
         <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry', {detail:{package:''}}))" class="roygbiv-btn font-sans font-semibold text-sm text-white px-5 py-1.5">Let's Talk</button>
       </div>
 
@@ -156,6 +157,7 @@
       <a href="#pricing" class="font-sans font-normal text-sm text-muted" @click="mobileOpen = false">Pricing</a>
       <a href="#clients" class="font-sans font-normal text-sm text-muted" @click="mobileOpen = false">Clients</a>
       <a href="#about" class="font-sans font-normal text-sm text-muted" @click="mobileOpen = false">About</a>
+      <a href="#insights" class="font-sans font-normal text-sm text-muted" @click="mobileOpen = false">Insights</a>
       <button class="roygbiv-btn font-sans font-semibold text-sm text-white px-5 py-1.5 self-start" @click="mobileOpen = false; $nextTick(() => window.dispatchEvent(new CustomEvent('open-inquiry', {detail:{package:''}})))">Let's Talk</button>
     </div>
   </nav>
@@ -1315,7 +1317,7 @@
   <!-- ============================================================
        INSIGHTS: ARTICLES
   ============================================================ -->
-  <section class="bg-white py-24 border-t border-warm reveal">
+  <section id="insights" class="bg-white py-24 border-t border-warm reveal">
     <div class="max-w-5xl mx-auto px-6">
       <p class="font-sans font-semibold text-xs text-ember uppercase tracking-widest mb-10">From Orbis</p>
 
