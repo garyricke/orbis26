@@ -960,15 +960,15 @@
   <!-- INQUIRY MODAL -->
   <div x-data="inquiryModalData()"
        @open-inquiry.window="openWith($event.detail.package)"
-       @keydown.escape.window="isOpen = false">
+       @keydown.escape.window="close()">
     <div x-show="isOpen"
          x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
          x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
          class="fixed inset-0 z-[300] flex items-center justify-center p-4"
          style="background:rgba(0,0,0,0.65);display:none;"
-         @click.self="isOpen = false">
+         @click.self="close()">
       <div class="bg-white w-full relative" style="max-width:560px;max-height:92vh;overflow-y:auto;" @click.stop>
-        <button @click="isOpen = false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black z-10">
+        <button @click="close()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black z-10">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
         <div style="padding:40px 36px 36px;">
@@ -1158,6 +1158,7 @@
         selected: '',
         pkgError: false,
         submitted: false,
+        close() { this.isOpen = false; document.body.style.overflow = ''; },
         packages: [
           { name: 'Bootcamp',      price: '$0–$750/mo',  color: '#EF4444' },
           { name: 'Local',         price: '$1,500',       color: '#F97316' },
