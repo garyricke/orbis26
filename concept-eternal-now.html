@@ -977,6 +977,7 @@
           <form name="inquiry" method="POST" netlify netlify-honeypot="bot-field" @submit.prevent="submit($el)">
             <input type="hidden" name="form-name" value="inquiry">
             <p class="hidden"><input name="bot-field"></p>
+            <p class="font-sans text-xs text-muted mb-4"><span style="color:#EF4444;">*</span> Required fields</p>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
               <div>
                 <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Name <span style="color:#EF4444;">*</span></label>
@@ -992,7 +993,7 @@
               <input type="email" name="email" required placeholder="you@example.com" class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none" style="border:1px solid #E5E2DC;padding:10px 12px;">
             </div>
             <div style="margin-bottom:20px;">
-              <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">I'm interested in <span style="color:#EF4444;">*</span></label>
+              <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Select a package <span style="color:#EF4444;">*</span></label>
               <input type="hidden" name="package" :value="selected">
               <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px;">
                 <template x-for="pkg in packages" :key="pkg.name">
@@ -1158,10 +1159,14 @@
         pkgError: false,
         submitted: false,
         packages: [
-          { name: 'Orbit',    price: '$997/mo',  color: '#3B82F6' },
-          { name: 'Apogee',   price: '$1,997/mo', color: '#8B5CF6' },
-          { name: 'Zenith',   price: '$3,497/mo', color: '#D4622A' },
-          { name: 'Custom',   price: '',          color: '#111110' },
+          { name: 'Bootcamp',      price: '$0–$750/mo',  color: '#EF4444' },
+          { name: 'Local',         price: '$1,500',       color: '#F97316' },
+          { name: 'Blast',         price: '$2,500',       color: '#EAB308' },
+          { name: 'Simple Custom', price: '$5,000',       color: '#22C55E' },
+          { name: 'Premium',       price: '$7,500–$10k',  color: '#06B6D4' },
+          { name: 'Ultimate',      price: '$25,000/yr',   color: '#3B82F6' },
+          { name: 'Not sure',      price: '',             color: '#6366F1' },
+          { name: 'Other',         price: '',             color: '#8B5CF6' },
         ],
         openWith(pkg) { this.selected = pkg || ''; this.submitted = false; this.pkgError = false; this.isOpen = true; document.body.style.overflow = 'hidden'; },
         selectedColor() {
