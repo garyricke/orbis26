@@ -2118,6 +2118,7 @@
             const vid = this.tabs[ti].videos.find(v => v.id === hash);
             if (vid) {
               this.activeTab = ti;
+              document.getElementById('stories')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
               this.$nextTick(() => this.openModal(vid));
               return;
             }
