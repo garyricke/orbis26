@@ -2158,10 +2158,10 @@
         openModal(vid) {
           this.stopAuto();
           this.modal = { open: true, url: vid.url, title: vid.title, desc: vid.desc || '' };
-          this.$nextTick(() => {
+          setTimeout(() => {
             const v = this.$refs.modalVideo;
-            if (v) { v.src = vid.url; v.play().catch(() => {}); }
-          });
+            if (v) { v.src = vid.url; v.load(); v.play().catch(() => {}); }
+          }, 80);
         },
 
         closeModal() {
