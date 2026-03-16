@@ -141,6 +141,7 @@
         <a href="#production"   class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Production</a>
         <a href="#distribution" class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Distribution</a>
         <a href="#funnel"       class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Marketing</a>
+        <a href="#discovery"    class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Discovery</a>
         <a href="#faq"          class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">FAQ</a>
         <button id="slow-scroll-btn" onclick="toggleSlowScroll()" title="Slow-read: scrolls the full page in 60 seconds"
                 class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border-warm text-muted hover:border-near-black hover:text-near-black transition-all">
@@ -164,6 +165,7 @@
       <a href="#production"   class="font-sans text-sm text-muted" @click="mobileOpen=false">Production</a>
       <a href="#distribution" class="font-sans text-sm text-muted" @click="mobileOpen=false">Distribution</a>
       <a href="#funnel"       class="font-sans text-sm text-muted" @click="mobileOpen=false">Marketing</a>
+      <a href="#discovery"    class="font-sans text-sm text-muted" @click="mobileOpen=false">Discovery</a>
       <a href="#faq"          class="font-sans text-sm text-muted" @click="mobileOpen=false">FAQ</a>
       <button class="roygbiv-btn font-sans font-semibold text-sm text-white px-5 py-1.5 self-start"
               @click="mobileOpen=false; $nextTick(()=>window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}})))">Let's Talk</button>
@@ -235,6 +237,7 @@
       <a href="#distribution" class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Distribution</a>
       <a href="#dtoc"         class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">D2C Sales</a>
       <a href="#funnel"       class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Marketing Funnel</a>
+      <a href="#discovery"    class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Discovery</a>
       <a href="#grassroots"   class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Grassroots</a>
       <a href="#faq"          class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">FAQ</a>
       <a href="#glossary"     class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Glossary</a>
@@ -900,7 +903,239 @@
     </div>
   </section>
 
-  <!-- SECTION 6: GRASSROOTS -->
+  <!-- SECTION 6: ORGANIC DISCOVERY -->
+  <section id="discovery" class="py-16 bg-white border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">Breaking Through</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Organic Discovery Beyond Your Personal Network</h2>
+      <p class="font-sans text-muted leading-relaxed mb-8">The email list and social funnel get you to launch. This is the work that gets you to year two — and to readers who have never heard your name.</p>
+
+      <!-- The network ceiling -->
+      <div class="bg-near-black px-8 py-10 mb-10">
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-4" style="color:rgba(255,255,255,0.4);letter-spacing:0.18em;">The Core Problem</p>
+        <p class="instrument font-normal text-white mb-4" style="font-size:1.9rem;line-height:1.2;">You have phenomenal conversion and virtually zero awareness.</p>
+        <p class="font-sans text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">Most debut authors launch to friends, family, colleagues, and community — and those readers genuinely love the book. But once that inner circle finishes reviewing, the pipeline goes silent. The Amazon algorithm, Goodreads recommendation engine, and genre reader communities have never been told the book exists. Readers who <em>would</em> love it are searching for it right now and finding someone else. This is an awareness problem, not a quality problem.</p>
+      </div>
+
+      <!-- The personal network ceiling warning -->
+      <div style="border-left:3px solid #D4622A;background:#FFF8F5;padding:20px 24px;margin-bottom:40px;">
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-2" style="letter-spacing:0.12em;">The Network Ceiling Warning</p>
+        <p class="font-sans text-sm leading-relaxed text-near-black">Early reviews from friends and colleagues are visible as such to both readers and algorithms — phrases like "in all fairness, the author is a friend" or "I wouldn't be biased because he's my neighbor" signal personal-network reviews rather than organic discovery. They count toward your review total but don't carry the same algorithmic weight as verified purchases from cold readers. Plan for this: the personal network ceiling is real, and crossing it requires deliberate paid and organic discovery tactics.</p>
+      </div>
+
+      <!-- 1. Amazon Ads -->
+      <div class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-full bg-ember text-white font-bold text-sm flex items-center justify-center flex-shrink-0">1</div>
+          <h3 class="font-sans font-bold text-near-black" style="font-size:1.05rem;">Amazon Advertising — Comp Author Targeting</h3>
+        </div>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-5">Amazon Ads are the highest-ROI paid discovery channel for indie authors because they intercept readers at the exact moment of purchase intent. The most effective targeting strategy: run Sponsored Product ads against the books and author pages of your comparable authors — the writers whose readers are your most likely buyers.</p>
+        <div class="border border-border-warm p-5 mb-4">
+          <p class="font-sans font-semibold text-sm text-near-black mb-3">How Comp Author Targeting Works</p>
+          <div class="space-y-2">
+            <div class="flex items-start gap-3">
+              <span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5 w-5">1.</span>
+              <p class="font-sans text-xs text-muted">Identify 8–12 authors whose readership overlaps yours — same subgenre, similar pace, comparable protagonist type</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5 w-5">2.</span>
+              <p class="font-sans text-xs text-muted">Enter their names and individual book ASINs as manual product targets in your Amazon Ads campaign</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5 w-5">3.</span>
+              <p class="font-sans text-xs text-muted">Your book appears as a sponsored recommendation on their product pages — reaching readers already primed to buy in your genre</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5 w-5">4.</span>
+              <p class="font-sans text-xs text-muted">Layer in keyword targeting: the specific search terms readers type — "female CIA agent thriller," "domestic conspiracy series," "political espionage novel"</p>
+            </div>
+          </div>
+        </div>
+        <div class="border border-border-warm overflow-hidden">
+          <div class="px-5 py-3 border-b border-border-warm bg-warm">
+            <p class="font-sans font-semibold text-sm text-near-black">Amazon Ads Campaign Types</p>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="w-full font-sans text-xs" style="border-collapse:collapse;min-width:420px;">
+              <thead>
+                <tr class="bg-near-black text-white">
+                  <th class="text-left px-4 py-3 font-semibold uppercase tracking-wide" style="letter-spacing:0.08em;">Type</th>
+                  <th class="text-left px-4 py-3 font-semibold uppercase tracking-wide" style="letter-spacing:0.08em;">What It Does</th>
+                  <th class="text-left px-4 py-3 font-semibold uppercase tracking-wide hidden md:table-cell" style="letter-spacing:0.08em;">Best For</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t border-border-warm">
+                  <td class="px-4 py-3 font-semibold text-near-black">Sponsored Products</td>
+                  <td class="px-4 py-3 text-muted">Appears in search results and on product pages</td>
+                  <td class="px-4 py-3 text-muted hidden md:table-cell">Comp author targeting; highest direct sales volume</td>
+                </tr>
+                <tr class="border-t border-border-warm bg-warm">
+                  <td class="px-4 py-3 font-semibold text-near-black">Lockscreen Ads</td>
+                  <td class="px-4 py-3 text-muted">Appears on Kindle device lock screens</td>
+                  <td class="px-4 py-3 text-muted hidden md:table-cell">Brand awareness with active Kindle readers</td>
+                </tr>
+                <tr class="border-t border-border-warm">
+                  <td class="px-4 py-3 font-semibold text-near-black">Auto Targeting</td>
+                  <td class="px-4 py-3 text-muted">Amazon selects targets based on your book's metadata</td>
+                  <td class="px-4 py-3 text-muted hidden md:table-cell">Keyword discovery — mine for manual campaign terms</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Amazon Author Central -->
+      <div class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-full bg-near-black text-white font-bold text-sm flex items-center justify-center flex-shrink-0">2</div>
+          <h3 class="font-sans font-bold text-near-black" style="font-size:1.05rem;">Amazon Author Central — Free and Overlooked</h3>
+        </div>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-4">Amazon Author Central (authorcentral.amazon.com) is a separate dashboard from KDP — free to set up — that controls your author page across all Amazon marketplaces. Most indie authors either skip it or fill it in minimally. It directly affects discoverability.</p>
+        <div class="grid sm:grid-cols-2 gap-3">
+          <div class="bg-warm border border-border-warm p-4">
+            <p class="font-sans font-bold text-xs uppercase tracking-wide text-ember mb-2" style="letter-spacing:0.1em;">What to complete</p>
+            <ul class="font-sans text-xs text-muted space-y-1.5">
+              <li>→ Full author bio optimized with genre keywords</li>
+              <li>→ Professional author photo</li>
+              <li>→ "From the Author" section for each book</li>
+              <li>→ Editorial reviews from any press coverage</li>
+              <li>→ Linked blog or newsletter RSS feed</li>
+              <li>→ All books claimed and linked under one profile</li>
+            </ul>
+          </div>
+          <div class="bg-warm border border-border-warm p-4">
+            <p class="font-sans font-bold text-xs uppercase tracking-wide text-ember mb-2" style="letter-spacing:0.1em;">Why it matters</p>
+            <ul class="font-sans text-xs text-muted space-y-1.5">
+              <li>→ An empty author page signals an inactive or amateur author</li>
+              <li>→ Editorial reviews display prominently on the book page above customer reviews</li>
+              <li>→ A complete profile increases the probability of Amazon recommending your other books to buyers</li>
+              <li>→ Series books linked under one author page benefit from shared authority signals</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Goodreads -->
+      <div class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-full bg-near-black text-white font-bold text-sm flex items-center justify-center flex-shrink-0">3</div>
+          <h3 class="font-sans font-bold text-near-black" style="font-size:1.05rem;">Goodreads — The Genre Reader's Discovery Engine</h3>
+        </div>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-5">Goodreads still drives meaningful discovery for genre fiction — particularly thriller, fantasy, and romance readers who actively track their TBR (to-be-read) lists and follow genre recommendations. An author page here is not optional.</p>
+        <div class="border border-border-warm divide-y divide-border-warm" x-data="{ open: null }">
+          <div>
+            <button @click="open==='grclaim'?open=null:open='grclaim'" class="w-full flex items-center justify-between px-6 py-4 text-left">
+              <span class="font-sans font-semibold text-sm text-near-black">Claim and Complete Your Author Profile</span>
+              <svg class="w-4 h-4 text-muted transition-transform" :class="open==='grclaim'?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div x-show="open==='grclaim'" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+              <p class="font-sans text-sm text-muted leading-relaxed">Apply for a Goodreads Author Program account — this gives you a verified author badge, the ability to edit your bio and photo, post blog entries, add your books to "listopia" lists, and engage directly in reader Q&As. An unclaimed profile looks abandoned. A complete one signals an active, engaged author.</p>
+            </div>
+          </div>
+          <div>
+            <button @click="open==='grgive'?open=null:open='grgive'" class="w-full flex items-center justify-between px-6 py-4 text-left">
+              <span class="font-sans font-semibold text-sm text-near-black">Goodreads Giveaways — What They Actually Do</span>
+              <svg class="w-4 h-4 text-muted transition-transform" :class="open==='grgive'?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div x-show="open==='grgive'" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+              <p class="font-sans text-sm text-muted leading-relaxed">Goodreads Giveaways (now digital, via Amazon) expose your book to readers who enter — and every person who enters automatically adds the book to their "Want to Read" shelf. This is the primary benefit: wishlist volume, which increases the probability that the book appears in genre-recommendation feeds.</p>
+              <p class="font-sans text-sm text-muted leading-relaxed">Be honest about limitations: giveaway winners are not obligated to review the book. The benefit is awareness and wishlist placement — not a guaranteed path to reviews or algorithmic recommendations. Budget $119 for the standard Kindle giveaway package and treat it as a discovery tool, not a review-generation tool.</p>
+            </div>
+          </div>
+          <div>
+            <button @click="open==='grengage'?open=null:open='grengage'" class="w-full flex items-center justify-between px-6 py-4 text-left">
+              <span class="font-sans font-semibold text-sm text-near-black">Review Engagement — What Authors Can and Cannot Do</span>
+              <svg class="w-4 h-4 text-muted transition-transform" :class="open==='grengage'?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div x-show="open==='grengage'" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+              <p class="font-sans text-sm text-muted leading-relaxed">Authors <strong class="text-near-black">can</strong>: thank reviewers publicly, respond to questions in reviews, engage in reading groups discussing their genre, and participate in author Q&As. Authors <strong class="text-near-black">cannot</strong>: ask friends to rate or review books they haven't read — Goodreads actively removes reviews flagged as non-reader activity. The goal is genuine presence, not manufactured ratings.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Back Matter + Series Read-Through -->
+      <div class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-full bg-ember text-white font-bold text-sm flex items-center justify-center flex-shrink-0">4</div>
+          <h3 class="font-sans font-bold text-near-black" style="font-size:1.05rem;">Back Matter Optimization — The Midnight Tactic</h3>
+        </div>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-5">Thriller readers are binge readers. When they finish Book 1 at midnight and love it, they will buy Book 2 immediately — if you make it frictionless. The back matter of your book is the most valuable marketing real estate you own, and most authors waste it.</p>
+        <div class="border border-border-warm overflow-hidden mb-5">
+          <div class="px-5 py-3 border-b border-border-warm bg-warm">
+            <p class="font-sans font-semibold text-sm text-near-black">Optimal Back Matter Order</p>
+            <p class="font-sans text-xs text-muted mt-0.5">The last page of your book to the last page of your file</p>
+          </div>
+          <div class="divide-y divide-border-warm">
+            <div class="flex items-start gap-4 px-5 py-4">
+              <span class="font-sans font-bold text-xs text-ember flex-shrink-0 w-8 mt-0.5">1st</span>
+              <div>
+                <p class="font-sans font-semibold text-sm text-near-black">Chapter 1 of Book 2</p>
+                <p class="font-sans text-xs text-muted mt-0.5">The single most effective read-through tactic. A gripping opening chapter placed immediately after the final page of Book 1 — before anything else. Ends with a direct purchase link. A reader emotionally invested at midnight will tap "Buy Now" without hesitation.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 px-5 py-4">
+              <span class="font-sans font-bold text-xs text-ember flex-shrink-0 w-8 mt-0.5">2nd</span>
+              <div>
+                <p class="font-sans font-semibold text-sm text-near-black">Reader Magnet Offer</p>
+                <p class="font-sans text-xs text-muted mt-0.5">Offer an exclusive short story or bonus chapter in exchange for their email. This converts a buyer into an owned subscriber — the only reader relationship Amazon cannot take from you.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 px-5 py-4">
+              <span class="font-sans font-bold text-xs text-ember flex-shrink-0 w-8 mt-0.5">3rd</span>
+              <div>
+                <p class="font-sans font-semibold text-sm text-near-black">Review Request</p>
+                <p class="font-sans text-xs text-muted mt-0.5">A short, gracious ask for an honest Amazon or Goodreads review with a direct link. Readers who loved the book just need to be asked — most don't think to review unless prompted immediately after finishing.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 px-5 py-4">
+              <span class="font-sans font-bold text-xs text-ember flex-shrink-0 w-8 mt-0.5">4th</span>
+              <div>
+                <p class="font-sans font-semibold text-sm text-near-black">Also By + Author Note</p>
+                <p class="font-sans text-xs text-muted mt-0.5">Full series listing with linked ASINs, then a brief personal author note. This is where "About the Author" lives — last, not second.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="border-left:2px solid #D4622A;background:#FFF8F5;padding:12px 16px;">
+          <p class="font-sans text-xs text-near-black"><strong>On "automated email sequences for Book 1 buyers":</strong> You cannot email people who bought your book on Amazon — Amazon owns that data and does not share it with authors. The back matter reader magnet is how you convert those anonymous buyers into subscribers you actually own. Once they're on your list, automated sequences work as intended.</p>
+        </div>
+      </div>
+
+      <!-- 5. Author identity architecture -->
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-full bg-near-black text-white font-bold text-sm flex items-center justify-center flex-shrink-0">5</div>
+          <h3 class="font-sans font-bold text-near-black" style="font-size:1.05rem;">Author Identity Architecture — Stop Fragmenting Your Audience</h3>
+        </div>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-5">Many authors have creative lives that span multiple disciplines — designer, painter, consultant, podcaster, novelist. The common mistake: operating each identity as a separate brand with no connective tissue. Every person in your professional and creative network is a potential reader who may have no idea you wrote a book.</p>
+        <div class="grid sm:grid-cols-2 gap-3">
+          <div class="bg-warm border border-border-warm p-4">
+            <p class="font-sans font-bold text-xs uppercase tracking-wide text-muted mb-3" style="letter-spacing:0.1em;">The fragmented identity problem</p>
+            <ul class="font-sans text-xs text-muted space-y-1.5">
+              <li>→ Art website with no mention of your books</li>
+              <li>→ LinkedIn profile focused on consulting work</li>
+              <li>→ Social media branded around one creative identity</li>
+              <li>→ Speaking engagements that never cross-sell your writing</li>
+            </ul>
+          </div>
+          <div class="bg-warm border border-border-warm p-4">
+            <p class="font-sans font-bold text-xs uppercase tracking-wide text-ember mb-3" style="letter-spacing:0.1em;">The unified architecture fix</p>
+            <ul class="font-sans text-xs text-muted space-y-1.5">
+              <li>→ One author website as the canonical hub linking all identities</li>
+              <li>→ Email signature with book link across all professional contexts</li>
+              <li>→ Bio in every context ends with "…and author of [Series Name]"</li>
+              <li>→ Social profiles cross-reference: "Also: thriller novelist" in every bio</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: GRASSROOTS -->
   <section id="grassroots" class="py-16 bg-warm border-b border-border-warm reveal">
     <div class="max-w-3xl mx-auto px-6">
       <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">Grassroots Marketing</p>
