@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You Wrote the Book. Now Own the Business. — Orbis Marketing</title>
+  <meta name="description" content="Self-publishing in 2026 means 70% royalties, full IP ownership, and weeks to market. Here's the complete guide: production, distribution, D2C sales, and book marketing.">
+  <link rel="canonical" href="https://orbismarketing.com/self-publishing-guide">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" href="/favicon-orbis2026.png">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "You Wrote the Book. Now Own the Business.",
+        "description": "The self-publisher's complete guide to lean production, Amazon KDP, IngramSpark, direct-to-consumer sales, and grassroots marketing in 2026.",
+        "author": { "@type": "Person", "name": "Gary Ricke", "url": "https://orbismarketing.com/about" },
+        "publisher": { "@type": "Organization", "name": "Orbis Marketing", "url": "https://orbismarketing.com" },
+        "datePublished": "2026-03",
+        "url": "https://orbismarketing.com/self-publishing-guide"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much does self-publishing actually cost upfront?",
+            "acceptedAnswer": { "@type": "Answer", "text": "A professional self-published book can be produced for $300–$1,500. Core expenses: manuscript assessment ($150–$300), premade cover ($75–$400), formatting software ($0–$199 one-time), professional copyedit ($300–$600), and ISBNs ($125 each via Bowker). Skip expensive developmental editing by using algorithmic tools and beta readers first." }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need an ISBN and where do I get one?",
+            "acceptedAnswer": { "@type": "Answer", "text": "You need an author-owned ISBN for physical retail distribution via IngramSpark. Purchase from Bowker — the U.S. ISBN agency — at $125 each or $295 for 10. Amazon's free KDP ISBN locks you to Amazon as publisher-of-record. Owning your own ISBN means you control the metadata permanently." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can a self-published book get into physical bookstores?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes, through IngramSpark configured with a 55% trade discount and set to returnable ('Yes — Destroy'). These are non-negotiable requirements for independent bookstores. Approach local stores in person with a professional sell sheet: your ISBN, genre-specific blurb, retail price, and proof of Ingram availability." }
+          },
+          {
+            "@type": "Question",
+            "name": "What is a reader magnet and do I actually need one?",
+            "acceptedAnswer": { "@type": "Answer", "text": "A reader magnet is a free, high-value piece of content — a prequel novella, exclusive short story, or companion guide — exchanged for the visitor's email address. It converts cold social media traffic into an owned email list. Authors with 1,000 engaged subscribers consistently outperform authors with 50,000 social followers on launch-week sales. It is the highest-ROI marketing action available to a debut author." }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://orbismarketing.com" },
+          { "@type": "ListItem", "position": 2, "name": "Insights", "item": "https://orbismarketing.com/insights" },
+          { "@type": "ListItem", "position": 3, "name": "Self-Publishing Guide", "item": "https://orbismarketing.com/self-publishing-guide" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'warm':        '#F8F6F3',
+            'near-black':  '#111110',
+            'muted':       '#6B6960',
+            'border-warm': '#E5E2DC',
+            'ember':       '#D4622A',
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    * { -webkit-font-smoothing: antialiased; }
+    body { font-family: 'Inter', sans-serif; background: #FFFFFF; color: #111110; }
+    .instrument { font-family: 'Instrument Serif', serif; }
+
+    .roygbiv-btn { animation: roygbiv-cycle 7s linear infinite; border-radius: 9999px; border: none; cursor: pointer; }
+    .roygbiv-btn:hover { animation-play-state: paused; }
+    @keyframes roygbiv-cycle {
+      0%    { background-color: #EF4444; }
+      14.3% { background-color: #F97316; }
+      28.6% { background-color: #EAB308; }
+      42.9% { background-color: #22C55E; }
+      57.1% { background-color: #06B6D4; }
+      71.4% { background-color: #3B82F6; }
+      85.7% { background-color: #8B5CF6; }
+      100%  { background-color: #EF4444; }
+    }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+
+    @keyframes bounceDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+    .scroll-arrow-bounce { animation: bounceDown 1.4s ease-in-out infinite; }
+
+    /* Softened corners — panels, cards, accordions, table wrappers */
+    .border.border-border-warm { border-radius: 8px; }
+
+    /* Brand color overrides — Tailwind CDN custom colors not reliably generated */
+    .bg-near-black        { background-color: #111110 !important; }
+    .bg-ember             { background-color: #D4622A !important; }
+    .bg-warm              { background-color: #F8F6F3 !important; }
+    .bg-muted             { background-color: #6B6960 !important; }
+    .text-near-black      { color: #111110 !important; }
+    .text-ember           { color: #D4622A !important; }
+    .text-muted           { color: #6B6960 !important; }
+    .border-near-black    { border-color: #111110 !important; }
+    .border-ember         { border-color: #D4622A !important; }
+    .border-border-warm   { border-color: #E5E2DC !important; }
+    .divide-border-warm > * + * { border-color: #E5E2DC !important; }
+  </style>
+</head>
+<body x-data="pageData()" @keydown.escape.window="closeModal()">
+
+  <!-- NAV -->
+  <nav class="fixed top-0 left-0 right-0 z-50 h-14 bg-white/95 backdrop-blur-sm border-b border-border-warm flex items-center">
+    <div class="w-full max-w-6xl mx-auto px-6 flex items-center justify-between h-full">
+      <a href="/concept-home-3.html" class="font-sans text-lg text-near-black tracking-tight flex items-baseline gap-1.5">
+        <span class="font-bold">Orbis</span><span class="font-light text-muted">Marketing</span>
+      </a>
+      <div class="hidden md:flex items-center gap-7">
+        <a href="#traditional"  class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Publishing Math</a>
+        <a href="#production"   class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Production</a>
+        <a href="#distribution" class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Distribution</a>
+        <a href="#funnel"       class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Marketing</a>
+        <a href="#faq"          class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">FAQ</a>
+        <button id="slow-scroll-btn" onclick="toggleSlowScroll()" title="Slow-read: scrolls the full page in 60 seconds"
+                class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border-warm text-muted hover:border-near-black hover:text-near-black transition-all">
+          <span id="scroll-icon" class="scroll-arrow-bounce flex items-center">
+            <svg id="scroll-svg" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </span>
+          <span id="scroll-label" class="font-sans font-bold text-[10px] uppercase tracking-widest">Read</span>
+        </button>
+        <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}}))"
+                class="roygbiv-btn font-sans font-semibold text-sm text-white px-5 py-1.5">Let's Talk</button>
+      </div>
+      <button class="md:hidden flex flex-col gap-1.5 p-1" @click="mobileOpen = !mobileOpen" aria-label="Menu">
+        <span class="block w-5 h-px bg-near-black transition-all" :class="mobileOpen ? 'rotate-45 translate-y-2' : ''"></span>
+        <span class="block w-5 h-px bg-near-black transition-all" :class="mobileOpen ? 'opacity-0' : ''"></span>
+        <span class="block w-5 h-px bg-near-black transition-all" :class="mobileOpen ? '-rotate-45 -translate-y-2' : ''"></span>
+      </button>
+    </div>
+    <div x-show="mobileOpen" x-cloak style="display:none"
+         class="absolute top-14 left-0 right-0 bg-warm border-b border-border-warm px-6 py-5 flex flex-col gap-4 md:hidden">
+      <a href="#traditional"  class="font-sans text-sm text-muted" @click="mobileOpen=false">Publishing Math</a>
+      <a href="#production"   class="font-sans text-sm text-muted" @click="mobileOpen=false">Production</a>
+      <a href="#distribution" class="font-sans text-sm text-muted" @click="mobileOpen=false">Distribution</a>
+      <a href="#funnel"       class="font-sans text-sm text-muted" @click="mobileOpen=false">Marketing</a>
+      <a href="#faq"          class="font-sans text-sm text-muted" @click="mobileOpen=false">FAQ</a>
+      <button class="roygbiv-btn font-sans font-semibold text-sm text-white px-5 py-1.5 self-start"
+              @click="mobileOpen=false; $nextTick(()=>window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}})))">Let's Talk</button>
+    </div>
+  </nav>
+  <div class="h-14"></div>
+
+  <!-- HERO -->
+  <section class="bg-warm border-b border-border-warm">
+    <div class="max-w-3xl mx-auto px-6 py-16 md:py-20">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 font-sans text-xs text-muted mb-6">
+        <a href="/concept-home-3.html" class="hover:text-near-black transition-colors">Home</a>
+        <span>›</span>
+        <a href="/concept-home-3.html#insights" class="hover:text-near-black transition-colors">Insights</a>
+        <span>›</span>
+        <span class="text-near-black">Self-Publishing Guide</span>
+      </nav>
+      <!-- Badge -->
+      <div class="flex items-center gap-2 mb-5">
+        <span class="font-sans text-xs font-semibold uppercase tracking-widest text-ember" style="letter-spacing:0.15em;">2026 Publishing Guide</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-ember animate-pulse"></span>
+        <span class="font-sans text-xs text-muted">Indie Author Strategy</span>
+      </div>
+      <!-- H1 -->
+      <h1 class="instrument font-normal text-near-black mb-5" style="font-size:clamp(2.4rem,5vw,3.75rem);line-height:1.08;">
+        You Wrote the Book.<br>Now Own the Business.
+      </h1>
+      <p class="font-sans text-muted leading-relaxed mb-8" style="font-size:1.05rem;">
+        The self-publisher's complete guide to lean production, distribution, and monetization — and why the traditional publishing model is increasingly a bad deal for most authors.
+      </p>
+      <!-- Author -->
+      <div class="flex items-center gap-3 pb-8 mb-8 border-b border-border-warm">
+        <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_96/v1772897787/profile-gary-ricke-bw-black-bkgrd-29aug2025_cw61aw.jpg"
+             alt="Gary Ricke" style="width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:center top;">
+        <div>
+          <p class="font-sans font-semibold text-sm text-near-black leading-none">Gary Ricke</p>
+          <p class="font-sans text-xs text-muted mt-0.5">Founder &amp; Digital Strategist · <time datetime="2026-03">March 2026</time></p>
+        </div>
+        <span class="ml-auto font-sans text-xs text-muted">14 min read</span>
+      </div>
+      <!-- Quick Answer Capsule -->
+      <div style="border-left:3px solid #D4622A;background:#FFF8F5;padding:20px 24px;margin-bottom:28px;">
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-2" style="letter-spacing:0.12em;">Quick Answer</p>
+        <p class="font-sans text-sm leading-relaxed text-near-black">
+          <strong>Self-publishing in 2026</strong> means 70% royalties on ebooks, full ownership of your intellectual property, and market access in 4–8 weeks. Traditional publishing pays authors less than $1.00 per $14.99 paperback and takes 18–36 months to reach shelves. For most authors — especially genre fiction — the financial case for independence is <em>mathematically overwhelming</em>.
+        </p>
+      </div>
+      <!-- Stats -->
+      <div class="flex flex-wrap gap-3 mb-10">
+        <span class="font-sans text-xs font-semibold text-white rounded-full px-3 py-1.5" style="background:#D4622A;">70% KDP ebook royalty</span>
+        <span class="font-sans text-xs font-semibold text-white rounded-full px-3 py-1.5 bg-near-black">$6.16B market by 2033</span>
+        <span class="font-sans text-xs font-semibold text-white rounded-full px-3 py-1.5" style="background:#D4622A;">4–8 weeks to market</span>
+      </div>
+      <div class="overflow-hidden border border-border-warm">
+        <img src="generated_imgs/generated-2026-03-16T00-19-26-723Z-9iovgb.png"
+             alt="Self-publishing in 2026 — a hardcover book with royalty chart, manuscript, storefront, and earnings icons"
+             class="w-full" loading="eager" decoding="async" />
+      </div>
+    </div>
+  </section>
+
+  <!-- JUMP NAV -->
+  <div class="bg-white border-b border-border-warm sticky top-14 z-40">
+    <div class="max-w-3xl mx-auto px-6 py-3 flex items-center gap-2 overflow-x-auto" style="scrollbar-width:none;">
+      <a href="#traditional"  class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Publishing Math</a>
+      <a href="#production"   class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Lean Production</a>
+      <a href="#distribution" class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Distribution</a>
+      <a href="#dtoc"         class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">D2C Sales</a>
+      <a href="#funnel"       class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Marketing Funnel</a>
+      <a href="#grassroots"   class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Grassroots</a>
+      <a href="#faq"          class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">FAQ</a>
+      <a href="#glossary"     class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Glossary</a>
+      <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}}))"
+              class="ml-auto flex-shrink-0 font-sans text-xs font-semibold text-white whitespace-nowrap px-3 py-1.5 rounded-full"
+              style="background:#D4622A;">Launch Your Book with Orbis →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 1: TRADITIONAL vs SELF-PUB -->
+  <section id="traditional" class="py-16 bg-white border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">The Financial Reality</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">The Case Against Waiting for a Publisher</h2>
+      <p class="font-sans text-muted leading-relaxed mb-8">Traditional publishing was once the only path to literary legitimacy. The economics have shifted decisively. Here is what the data actually says about where the money goes.</p>
+
+      <!-- Big stat -->
+      <div class="bg-near-black text-center px-8 py-12 mb-8">
+        <p class="instrument font-normal text-white" style="font-size:4rem;line-height:1;">70%</p>
+        <p class="font-sans text-sm mt-2" style="color:rgba(255,255,255,0.65);">of traditionally published books never earn out their advance — meaning the author never sees a single royalty dollar beyond their initial payment</p>
+      </div>
+
+      <p class="font-sans text-muted leading-relaxed mb-5">When a traditionally published paperback retails for $14.99, the publisher retains 85–92% of the cover price. After a literary agent's mandatory 15% commission, a 15% royalty rate degrades to 12.75% net — putting author earnings at <strong class="text-near-black">less than $1.00 per copy sold</strong>. A debut advance of $5,000–$50,000 sounds promising until you realize most authors never earn beyond it.</p>
+
+      <p class="font-sans text-muted leading-relaxed mb-10">Traditional publishing also now expects authors to fund most of their own marketing — blog tours, publicists, digital advertising — while surrendering creative control, rights, and 18–36 months to navigate agent querying, editorial acquisition, and retail production pipelines.</p>
+
+      <!-- Comparison table -->
+      <div class="border border-border-warm overflow-hidden mb-10">
+        <div class="px-5 py-3 border-b border-border-warm bg-warm">
+          <p class="font-sans font-semibold text-sm text-near-black">Publishing Model Comparison</p>
+          <p class="font-sans text-xs text-muted mt-0.5">Key financial and structural metrics across three paths</p>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="w-full font-sans text-sm" style="border-collapse:collapse;min-width:580px;">
+            <thead>
+              <tr class="bg-near-black text-white">
+                <th class="text-left px-4 py-3 font-semibold text-xs uppercase tracking-wide" style="letter-spacing:0.08em;">Metric</th>
+                <th class="text-left px-4 py-3 font-semibold text-xs uppercase tracking-wide" style="letter-spacing:0.08em;">Traditional</th>
+                <th class="text-left px-4 py-3 font-semibold text-xs uppercase tracking-wide" style="letter-spacing:0.08em;">KDP / Retail</th>
+                <th class="text-left px-4 py-3 font-semibold text-xs uppercase tracking-wide" style="letter-spacing:0.08em;">Direct-to-Consumer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-t border-border-warm">
+                <td class="px-4 py-3 font-semibold text-xs text-near-black">Ebook Royalty</td>
+                <td class="px-4 py-3 text-sm text-muted">~21% (after agent)</td>
+                <td class="px-4 py-3 font-semibold text-sm text-ember">70%</td>
+                <td class="px-4 py-3 font-semibold text-sm text-ember">90–95%</td>
+              </tr>
+              <tr class="border-t border-border-warm bg-warm">
+                <td class="px-4 py-3 font-semibold text-xs text-near-black">Print Royalty</td>
+                <td class="px-4 py-3 text-sm text-muted">&lt;12.75%</td>
+                <td class="px-4 py-3 text-sm text-near-black">60% minus print cost</td>
+                <td class="px-4 py-3 text-sm text-near-black">Price minus print + ship</td>
+              </tr>
+              <tr class="border-t border-border-warm">
+                <td class="px-4 py-3 font-semibold text-xs text-near-black">IP Ownership</td>
+                <td class="px-4 py-3 text-sm text-muted">Publisher-controlled</td>
+                <td class="px-4 py-3 font-semibold text-sm text-ember">100% Author</td>
+                <td class="px-4 py-3 font-semibold text-sm text-ember">100% Author</td>
+              </tr>
+              <tr class="border-t border-border-warm bg-warm">
+                <td class="px-4 py-3 font-semibold text-xs text-near-black">Time to Market</td>
+                <td class="px-4 py-3 text-sm text-muted">18–36 months</td>
+                <td class="px-4 py-3 font-semibold text-sm text-ember">4–8 weeks</td>
+                <td class="px-4 py-3 font-semibold text-sm text-ember">Immediate</td>
+              </tr>
+              <tr class="border-t border-border-warm">
+                <td class="px-4 py-3 font-semibold text-xs text-near-black">Customer Data</td>
+                <td class="px-4 py-3 text-sm text-muted">Publisher / Retailer</td>
+                <td class="px-4 py-3 text-sm text-muted">Amazon owns it</td>
+                <td class="px-4 py-3 font-semibold text-sm text-ember">100% Author</td>
+              </tr>
+              <tr class="border-t border-border-warm bg-warm">
+                <td class="px-4 py-3 font-semibold text-xs text-near-black">Creative Control</td>
+                <td class="px-4 py-3 text-sm text-muted">Publisher has final say</td>
+                <td class="px-4 py-3 font-semibold text-sm text-ember">Full control</td>
+                <td class="px-4 py-3 font-semibold text-sm text-ember">Full control</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Side-by-side profit -->
+      <div class="border border-border-warm p-6 mb-6">
+        <p class="font-sans font-semibold text-sm text-near-black mb-1">Same 6,000 Copies. Vastly Different Outcomes.</p>
+        <p class="font-sans text-xs text-muted mb-6">$14.99 print book · 6,000 copies sold</p>
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-2" style="letter-spacing:0.1em;">Traditional</p>
+            <p class="instrument font-normal" style="font-size:2.5rem;color:#6B6960;line-height:1;">$8,940</p>
+            <p class="font-sans text-xs text-muted mt-1">Author net earnings</p>
+          </div>
+          <div>
+            <p class="font-sans text-xs font-bold uppercase tracking-widest text-ember mb-2" style="letter-spacing:0.1em;">Self-Published</p>
+            <p class="instrument font-normal text-near-black" style="font-size:2.5rem;line-height:1;">$35,700</p>
+            <p class="font-sans text-xs text-muted mt-1">Author net earnings</p>
+          </div>
+        </div>
+      </div>
+      <p class="font-sans text-xs text-muted italic">Note: Traditional publishing retains advantages for literary fiction targeting mainstream awards and prestige review coverage. For genre fiction, narrative non-fiction, and most commercial categories, the independent path is structurally superior.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 2: LEAN PRODUCTION -->
+  <section id="production" class="py-16 bg-warm border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">Lean Production</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Edit, Design, and Format Without Blowing Your Budget</h2>
+      <p class="font-sans text-muted leading-relaxed mb-10">Lean production means professional quality at minimum overhead. A poorly formatted book with an amateur cover will fail in the digital marketplace regardless of the underlying writing. Here is the strategic allocation.</p>
+
+      <!-- Editing -->
+      <div class="mb-10">
+        <h3 class="font-sans font-bold text-near-black mb-3" style="font-size:1.05rem;">Step 1 — Editing Strategy</h3>
+
+        <!-- Claude Code as editor callout -->
+        <div class="border border-near-black bg-near-black mb-5" style="border-radius:8px;overflow:hidden;">
+          <div class="px-6 py-4 border-b" style="border-color:rgba(255,255,255,0.1);">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="font-sans font-bold text-xs uppercase tracking-widest text-ember" style="letter-spacing:0.15em;">New Option</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-ember animate-pulse"></span>
+            </div>
+            <p class="font-sans font-semibold text-sm text-white">Use Claude Code as Your Editor</p>
+          </div>
+          <div class="px-6 py-5 space-y-3">
+            <p class="font-sans text-xs leading-relaxed" style="color:rgba(255,255,255,0.7);">Claude Code can read your manuscript files directly (.txt, .md, or any plain-text format) and provide line-by-line editing, developmental feedback, and consistency checks in a single iterative conversation — replacing both the algorithmic tool pass and much of the beta reader stage.</p>
+            <p class="font-sans text-xs font-semibold uppercase tracking-wide mb-2" style="color:rgba(255,255,255,0.4);letter-spacing:0.1em;">What Claude Code can do as your editor:</p>
+            <div class="grid grid-cols-2 gap-2">
+              <div class="space-y-1.5">
+                <div class="flex items-start gap-2"><svg class="w-3 h-3 flex-shrink-0 mt-0.5" style="color:#D4622A;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><p class="font-sans text-xs" style="color:rgba(255,255,255,0.65);">Grammar, passive voice, repetition</p></div>
+                <div class="flex items-start gap-2"><svg class="w-3 h-3 flex-shrink-0 mt-0.5" style="color:#D4622A;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><p class="font-sans text-xs" style="color:rgba(255,255,255,0.65);">Pacing and scene-by-scene tension</p></div>
+                <div class="flex items-start gap-2"><svg class="w-3 h-3 flex-shrink-0 mt-0.5" style="color:#D4622A;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><p class="font-sans text-xs" style="color:rgba(255,255,255,0.65);">Character arc consistency</p></div>
+              </div>
+              <div class="space-y-1.5">
+                <div class="flex items-start gap-2"><svg class="w-3 h-3 flex-shrink-0 mt-0.5" style="color:#D4622A;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><p class="font-sans text-xs" style="color:rgba(255,255,255,0.65);">Continuity errors (names, timelines, details)</p></div>
+                <div class="flex items-start gap-2"><svg class="w-3 h-3 flex-shrink-0 mt-0.5" style="color:#D4622A;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><p class="font-sans text-xs" style="color:rgba(255,255,255,0.65);">Dialogue authenticity and voice</p></div>
+                <div class="flex items-start gap-2"><svg class="w-3 h-3 flex-shrink-0 mt-0.5" style="color:#D4622A;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><p class="font-sans text-xs" style="color:rgba(255,255,255,0.65);">Prose clarity and sentence variety</p></div>
+              </div>
+            </div>
+            <p class="font-sans text-xs italic" style="color:rgba(255,255,255,0.4);">Workflow: Save each chapter as a .txt or .md file → open Claude Code → paste or point to the file → ask for a specific pass (developmental, line edit, or proofread). Work chapter by chapter to stay within context limits.</p>
+          </div>
+        </div>
+
+        <p class="font-sans text-xs text-muted mb-4">Or use the traditional staged approach — each step filters the manuscript before spending money on the next:</p>
+        <div class="space-y-3">
+          <div class="bg-white border border-border-warm p-5 flex gap-4">
+            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-ember text-white font-bold text-sm flex items-center justify-center">1</div>
+            <div>
+              <p class="font-sans font-semibold text-sm text-near-black mb-1">Algorithmic Pass — ProWritingAid or Grammarly</p>
+              <p class="font-sans text-xs text-muted leading-relaxed">Clean grammar, flag passive voice, and identify repetition before any human reads the text. Maximizes the value of every professional editing hour.</p>
+            </div>
+          </div>
+          <div class="bg-white border border-border-warm p-5 flex gap-4">
+            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-near-black text-white font-bold text-sm flex items-center justify-center">2</div>
+            <div>
+              <p class="font-sans font-semibold text-sm text-near-black mb-1">Beta Readers & Critique Partners</p>
+              <p class="font-sans text-xs text-muted leading-relaxed">Genre-savvy beta readers provide developmental feedback on pacing, character arcs, and narrative tension at zero financial cost. Replaces a $2,000–$5,000 developmental edit.</p>
+            </div>
+          </div>
+          <div class="bg-white border border-border-warm p-5 flex gap-4">
+            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-near-black text-white font-bold text-sm flex items-center justify-center">3</div>
+            <div>
+              <p class="font-sans font-semibold text-sm text-near-black mb-1">Manuscript Assessment — Not a Full Developmental Edit</p>
+              <p class="font-sans text-xs text-muted leading-relaxed">A comprehensive editorial letter on structural issues at a fraction of the cost. Use it to execute major revisions yourself before the final polish pass.</p>
+            </div>
+          </div>
+          <div class="bg-white border border-border-warm p-5 flex gap-4">
+            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-ember text-white font-bold text-sm flex items-center justify-center">4</div>
+            <div>
+              <p class="font-sans font-semibold text-sm text-near-black mb-1">Professional Copyedit / Proofread — Non-Negotiable</p>
+              <p class="font-sans text-xs text-muted leading-relaxed">Reserve financial resources for one meticulous copyedit via Reedsy. Mechanical errors destroy reader trust and retail reviews at launch, where they matter most.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cover Design -->
+      <div class="mb-10">
+        <h3 class="font-sans font-bold text-near-black mb-2" style="font-size:1.05rem;">Step 2 — Cover Design</h3>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-5">The cover is your primary marketing asset. It must communicate genre instantly at thumbnail size on a mobile screen. Typography must be genre-accurate with high contrast and legibility at minimal resolutions.</p>
+        <div class="grid sm:grid-cols-2 gap-3 mb-6">
+          <div class="bg-white border border-border-warm p-4" style="border-top:3px solid #D4622A;">
+            <p class="font-sans font-bold text-sm text-near-black mb-1">Premade Covers</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Professionally designed at a fraction of custom commissions. Best budget option when pre-existing artwork fits your genre's visual language.</p>
+            <p class="font-sans text-xs font-semibold text-ember mt-2">$75–$250</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4" style="border-top:3px solid #6B6960;">
+            <p class="font-sans font-bold text-sm text-near-black mb-1">DIY with Canva Pro</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Genre-specific templates in-browser. Requires visual acumen and solid genre knowledge. High execution risk for authors without design experience.</p>
+            <p class="font-sans text-xs font-semibold text-muted mt-2">$13/mo</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4" style="border-top:3px solid #111110;">
+            <p class="font-sans font-bold text-sm text-near-black mb-1">University Portfolio Students</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Local graphic design students seeking portfolio pieces. High-quality custom artwork at affordable rates for both parties.</p>
+            <p class="font-sans text-xs font-semibold text-near-black mt-2">Negotiable</p>
+          </div>
+
+          <!-- AI Generation card -->
+          <div class="border border-near-black p-4" style="border-top:3px solid #D4622A;background:#111110;">
+            <div class="flex items-center gap-2 mb-2">
+              <p class="font-sans font-bold text-sm text-white">AI-Generated — Claude Code + Nano Banana</p>
+              <span class="font-sans font-bold text-[9px] uppercase tracking-widest text-ember" style="letter-spacing:0.15em;">New</span>
+            </div>
+            <p class="font-sans text-xs leading-relaxed mb-2" style="color:rgba(255,255,255,0.65);">Generate professional front cover artwork directly inside Claude Code using the Nano Banana image tool. Describe your genre, mood, palette, and typography style — iterate in conversation until the image fits your vision.</p>
+            <p class="font-sans text-xs leading-relaxed mb-3" style="color:rgba(255,255,255,0.65);">At <strong class="text-white">4K resolution with 2:3 aspect ratio</strong>, the output (~2,730 × 4,096px) exceeds Amazon KDP's ebook cover requirement and can be uploaded directly. For print, the generated artwork becomes the front panel — you still need to assemble the full wrap (spine + back) in KDP Cover Creator or Canva using their trim-size template.</p>
+            <p class="font-sans text-xs font-semibold text-ember">Free (included with Claude Code)</p>
+          </div>
+        </div>
+
+        <!-- Amazon file spec box -->
+        <div class="border border-border-warm overflow-hidden">
+          <div class="px-5 py-3 border-b border-border-warm bg-warm">
+            <p class="font-sans font-semibold text-sm text-near-black">Amazon KDP Cover File Requirements</p>
+            <p class="font-sans text-xs text-muted mt-0.5">What Amazon actually needs — by format</p>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="w-full font-sans text-xs" style="border-collapse:collapse;min-width:500px;">
+              <thead>
+                <tr class="bg-near-black text-white">
+                  <th class="text-left px-4 py-3 font-semibold uppercase tracking-wide" style="letter-spacing:0.08em;">Spec</th>
+                  <th class="text-left px-4 py-3 font-semibold uppercase tracking-wide" style="letter-spacing:0.08em;">Ebook Cover</th>
+                  <th class="text-left px-4 py-3 font-semibold uppercase tracking-wide" style="letter-spacing:0.08em;">Print Cover (Full Wrap)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t border-border-warm">
+                  <td class="px-4 py-3 font-semibold text-near-black">File format</td>
+                  <td class="px-4 py-3 text-muted">JPEG or TIFF</td>
+                  <td class="px-4 py-3 text-muted">PDF (press-ready)</td>
+                </tr>
+                <tr class="border-t border-border-warm bg-warm">
+                  <td class="px-4 py-3 font-semibold text-near-black">Minimum size</td>
+                  <td class="px-4 py-3 text-muted">1,000 × 625 px</td>
+                  <td class="px-4 py-3 text-muted">Trim size + bleed on all edges</td>
+                </tr>
+                <tr class="border-t border-border-warm">
+                  <td class="px-4 py-3 font-semibold text-near-black">Recommended size</td>
+                  <td class="px-4 py-3 font-semibold text-near-black">1,600 × 2,560 px (height/width ratio 1.6:1)</td>
+                  <td class="px-4 py-3 text-muted">Depends on trim size + page count</td>
+                </tr>
+                <tr class="border-t border-border-warm bg-warm">
+                  <td class="px-4 py-3 font-semibold text-near-black">Resolution</td>
+                  <td class="px-4 py-3 text-muted">72 DPI minimum (size matters more)</td>
+                  <td class="px-4 py-3 font-semibold text-near-black">300 DPI — non-negotiable</td>
+                </tr>
+                <tr class="border-t border-border-warm">
+                  <td class="px-4 py-3 font-semibold text-near-black">Color mode</td>
+                  <td class="px-4 py-3 text-muted">RGB</td>
+                  <td class="px-4 py-3 text-muted">RGB (KDP converts to CMYK at print)</td>
+                </tr>
+                <tr class="border-t border-border-warm bg-warm">
+                  <td class="px-4 py-3 font-semibold text-near-black">Bleed</td>
+                  <td class="px-4 py-3 text-muted">None required</td>
+                  <td class="px-4 py-3 text-muted">0.125" on all outer edges</td>
+                </tr>
+                <tr class="border-t border-border-warm">
+                  <td class="px-4 py-3 font-semibold text-near-black">Spine</td>
+                  <td class="px-4 py-3 text-muted">Not included</td>
+                  <td class="px-4 py-3 text-muted">Width = page count × paper thickness (use KDP's template calculator)</td>
+                </tr>
+                <tr class="border-t border-border-warm bg-warm">
+                  <td class="px-4 py-3 font-semibold text-near-black">Nano Banana output</td>
+                  <td class="px-4 py-3 font-semibold text-ember">✓ Upload-ready at 4K / 2:3</td>
+                  <td class="px-4 py-3 text-muted">Front art only — assemble wrap in KDP Cover Creator or Canva</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formatting Table -->
+      <div>
+        <h3 class="font-sans font-bold text-near-black mb-2" style="font-size:1.05rem;">Step 3 — Interior Formatting</h3>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-5">Never upload a Word document or PDF to an ebook platform. PDF "print replica" ebooks are supported on fewer than 10% of e-reading devices and break user-controlled typography. Use purpose-built formatting software.</p>
+        <div class="border border-border-warm overflow-hidden">
+          <div class="px-5 py-3 border-b border-border-warm bg-white">
+            <p class="font-sans font-semibold text-sm text-near-black">Formatting Software Comparison</p>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="w-full font-sans text-xs" style="border-collapse:collapse;min-width:480px;">
+              <thead>
+                <tr class="bg-near-black text-white">
+                  <th class="text-left px-4 py-3 font-semibold uppercase tracking-wide" style="letter-spacing:0.08em;">Tool</th>
+                  <th class="text-left px-4 py-3 font-semibold uppercase tracking-wide" style="letter-spacing:0.08em;">Platform</th>
+                  <th class="text-left px-4 py-3 font-semibold uppercase tracking-wide" style="letter-spacing:0.08em;">Price</th>
+                  <th class="text-left px-4 py-3 font-semibold uppercase tracking-wide hidden md:table-cell" style="letter-spacing:0.08em;">Best For</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t border-border-warm">
+                  <td class="px-4 py-3 font-semibold text-near-black">Vellum</td>
+                  <td class="px-4 py-3 text-muted">Mac only</td>
+                  <td class="px-4 py-3 font-semibold text-ember">$199 one-time</td>
+                  <td class="px-4 py-3 text-muted hidden md:table-cell">Premium authors; industry-leading aesthetics, 24 trim sizes</td>
+                </tr>
+                <tr class="border-t border-border-warm bg-warm">
+                  <td class="px-4 py-3 font-semibold text-near-black">Atticus</td>
+                  <td class="px-4 py-3 text-muted">Win / Mac / Linux</td>
+                  <td class="px-4 py-3 font-semibold text-ember">$147 one-time</td>
+                  <td class="px-4 py-3 text-muted hidden md:table-cell">Cross-platform users needing Vellum-level output</td>
+                </tr>
+                <tr class="border-t border-border-warm">
+                  <td class="px-4 py-3 font-semibold text-near-black">Scrivener</td>
+                  <td class="px-4 py-3 text-muted">Win / Mac</td>
+                  <td class="px-4 py-3 font-semibold text-ember">$49 one-time</td>
+                  <td class="px-4 py-3 text-muted hidden md:table-cell">Heavy drafters wanting writing + export in one tool</td>
+                </tr>
+                <tr class="border-t border-border-warm bg-warm">
+                  <td class="px-4 py-3 font-semibold text-near-black">Reedsy Editor</td>
+                  <td class="px-4 py-3 text-muted">Web</td>
+                  <td class="px-4 py-3 font-semibold text-ember">Free</td>
+                  <td class="px-4 py-3 text-muted hidden md:table-cell">Zero-budget beginners needing basic EPUB output</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: DISTRIBUTION -->
+  <section id="distribution" class="py-16 bg-white border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">Distribution Logistics</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Amazon KDP + IngramSpark: The Two-Platform Stack</h2>
+      <p class="font-sans text-muted leading-relaxed mb-10">Distribution requires two platforms: Amazon KDP for digital and direct-to-home physical sales; IngramSpark for physical bookstore and library access. Each has specific, non-negotiable rules.</p>
+
+      <!-- KDP -->
+      <div class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-full bg-ember text-white font-bold text-sm flex items-center justify-center flex-shrink-0">1</div>
+          <h3 class="font-sans font-bold text-near-black" style="font-size:1.05rem;">Amazon Kindle Direct Publishing (KDP)</h3>
+        </div>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-5">Amazon commands 65–70% of the digital ebook market. KDP is mandatory as your primary distribution hub. The royalty structure is bifurcated: ebooks priced $2.99–$9.99 earn <strong class="text-near-black">70%</strong>; outside that window, the rate drops to 35%.</p>
+        <div class="border border-border-warm p-5">
+          <p class="font-sans font-semibold text-sm text-near-black mb-4">Print Royalty Example — 200-page 6×9 Paperback at $14.99</p>
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div class="bg-warm p-3">
+              <p class="font-sans font-bold text-near-black" style="font-size:1.2rem;">$14.99</p>
+              <p class="font-sans text-xs text-muted mt-1">Retail price</p>
+            </div>
+            <div class="bg-warm p-3">
+              <p class="font-sans font-bold text-muted" style="font-size:1.2rem;">$3.65</p>
+              <p class="font-sans text-xs text-muted mt-1">Print cost (avg)</p>
+            </div>
+            <div class="bg-warm p-3">
+              <p class="font-sans font-bold text-ember" style="font-size:1.2rem;">$6.71</p>
+              <p class="font-sans text-xs text-muted mt-1">Author net per copy</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IngramSpark -->
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-full bg-near-black text-white font-bold text-sm flex items-center justify-center flex-shrink-0">2</div>
+          <h3 class="font-sans font-bold text-near-black" style="font-size:1.05rem;">IngramSpark — Physical Retail & Library Access</h3>
+        </div>
+        <p class="font-sans text-sm text-muted leading-relaxed mb-5">Amazon's "Expanded Distribution" is systematically rejected by independent bookstores due to competitive conflicts and restrictive returnability policies. IngramSpark — the self-publishing division of the world's largest book distributor — is the only path to 40,000+ global retailers, libraries, and educational institutions.</p>
+
+        <div class="border border-border-warm divide-y divide-border-warm" x-data="{ open: null }">
+          <div>
+            <button @click="open==='discount'?open=null:open='discount'" class="w-full flex items-center justify-between px-6 py-4 text-left">
+              <span class="font-sans font-semibold text-sm text-near-black">The 55% Trade Discount — Non-Negotiable</span>
+              <svg class="w-4 h-4 text-muted transition-transform" :class="open==='discount'?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div x-show="open==='discount'" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+              <p class="font-sans text-sm text-muted leading-relaxed">Bookstores expect a 55% trade discount — the industry standard. On a $20.00 book, the store pays $9.00. The remaining $9.00 must cover your IngramSpark print cost (~$3.85 for a standard paperback) plus your author royalty. You cannot negotiate this rate lower — retailers will not stock books that don't meet it.</p>
+            </div>
+          </div>
+          <div>
+            <button @click="open==='returnable'?open=null:open='returnable'" class="w-full flex items-center justify-between px-6 py-4 text-left">
+              <span class="font-sans font-semibold text-sm text-near-black">Returnability: Choose "Yes — Destroy"</span>
+              <svg class="w-4 h-4 text-muted transition-transform" :class="open==='returnable'?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div x-show="open==='returnable'" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+              <p class="font-sans text-sm text-muted leading-relaxed">Bookstores universally refuse non-returnable inventory. Set returnability to <strong class="text-near-black">"Yes — Destroy"</strong> in your IngramSpark dashboard. If unsold books are returned, you absorb the original print cost — but the physical copies are pulped at Ingram's facility rather than shipped back to you at prohibitive shipping rates. This is the calculated cost of physical retail access.</p>
+            </div>
+          </div>
+          <div>
+            <button @click="open==='isbn'?open=null:open='isbn'" class="w-full flex items-center justify-between px-6 py-4 text-left">
+              <span class="font-sans font-semibold text-sm text-near-black">ISBN & Barcode Requirements</span>
+              <svg class="w-4 h-4 text-muted transition-transform" :class="open==='isbn'?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div x-show="open==='isbn'" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+              <p class="font-sans text-sm text-muted leading-relaxed">Physical retail books require an author-owned ISBN with the retail price embedded in the barcode. Failing to embed the price causes the book to scan as "unpriced" at point-of-sale — creating immediate friction at checkout. Purchase from Bowker ($125 each, $295 for 10). Never use the free Amazon KDP ISBN for IngramSpark titles — it locks your publisher-of-record to Amazon permanently.</p>
+            </div>
+          </div>
+          <div>
+            <button @click="open==='pitchkit'?open=null:open='pitchkit'" class="w-full flex items-center justify-between px-6 py-4 text-left">
+              <span class="font-sans font-semibold text-sm text-near-black">Approaching Bookstores: The Sell Sheet</span>
+              <svg class="w-4 h-4 text-muted transition-transform" :class="open==='pitchkit'?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div x-show="open==='pitchkit'" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+              <p class="font-sans text-sm text-muted leading-relaxed">When approaching an independent bookstore, arrive with a professional one-page sell sheet: the book's ISBN, a compelling genre-specific blurb, the retail price, and proof that the book can be ordered seamlessly through IngramSpark at 55% discount, fully returnable. Bring a physical copy. Independent bookstores actively champion local authors — but only those who present as publishing professionals.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: D2C -->
+  <section id="dtoc" class="py-16 bg-warm border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">Direct-to-Consumer</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Sell Direct. Keep 70–95%.</h2>
+      <p class="font-sans text-muted leading-relaxed mb-8">The most significant strategic evolution in indie publishing is moving away from exclusive reliance on algorithmic retail marketplaces toward an author-owned D2C storefront — where you control the sale, the customer data, and the full revenue.</p>
+
+      <div class="bg-near-black text-center px-8 py-10 mb-8">
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-3" style="color:rgba(255,255,255,0.5);letter-spacing:0.15em;">The Critical Advantage</p>
+        <p class="instrument font-normal text-white mb-3" style="font-size:2rem;line-height:1.2;">Relying entirely on Amazon means Amazon owns your customer data.</p>
+        <p class="font-sans text-sm" style="color:rgba(255,255,255,0.6);">A D2C hub captures the audience directly — keeping them inside a closed, author-owned funnel. Algorithm changes, ad cost spikes, and platform volatility cannot touch your email list.</p>
+      </div>
+
+      <!-- Platform table -->
+      <div class="border border-border-warm overflow-hidden mb-8">
+        <div class="px-5 py-3 border-b border-border-warm bg-white">
+          <p class="font-sans font-semibold text-sm text-near-black">D2C Platform Options</p>
+          <p class="font-sans text-xs text-muted mt-0.5">All function as Merchant of Record — handling VAT, payments, and digital file delivery automatically</p>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="w-full font-sans text-xs" style="border-collapse:collapse;min-width:420px;">
+            <thead>
+              <tr class="bg-near-black text-white">
+                <th class="text-left px-4 py-3 font-semibold uppercase tracking-wide" style="letter-spacing:0.08em;">Platform</th>
+                <th class="text-left px-4 py-3 font-semibold uppercase tracking-wide" style="letter-spacing:0.08em;">Fee</th>
+                <th class="text-left px-4 py-3 font-semibold uppercase tracking-wide hidden md:table-cell" style="letter-spacing:0.08em;">Best For</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-t border-border-warm">
+                <td class="px-4 py-3 font-semibold text-near-black">Payhip</td>
+                <td class="px-4 py-3 text-muted">5% + processing</td>
+                <td class="px-4 py-3 text-muted hidden md:table-cell">Beginners; zero monthly cost; built-in affiliate tools</td>
+              </tr>
+              <tr class="border-t border-border-warm bg-white">
+                <td class="px-4 py-3 font-semibold text-near-black">Lemon Squeezy</td>
+                <td class="px-4 py-3 text-muted">Varies by plan</td>
+                <td class="px-4 py-3 text-muted hidden md:table-cell">Polished checkout experience, strict global tax compliance</td>
+              </tr>
+              <tr class="border-t border-border-warm">
+                <td class="px-4 py-3 font-semibold text-near-black">Gumroad</td>
+                <td class="px-4 py-3 text-muted">10% + processing</td>
+                <td class="px-4 py-3 text-muted hidden md:table-cell">Platform-driven discovery; native creator community features</td>
+              </tr>
+              <tr class="border-t border-border-warm bg-white">
+                <td class="px-4 py-3 font-semibold text-near-black">Shopify</td>
+                <td class="px-4 py-3 text-muted">Monthly + processing</td>
+                <td class="px-4 py-3 text-muted hidden md:table-cell">Established authors with full catalogs, merch, and bundles</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Orbis angle callout -->
+      <div style="border-left:3px solid #D4622A;background:#FFF8F5;padding:20px 24px;">
+        <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-2" style="letter-spacing:0.12em;">Where Orbis Comes In</p>
+        <p class="font-sans text-sm leading-relaxed text-near-black">Your D2C hub needs a landing page that converts — not a static sales page. Orbis builds author landing pages engineered to capture email addresses, communicate your book's value proposition clearly, and integrate seamlessly with platforms like Payhip or Gumroad. We also manage the email list launch blast to your warm audience and produce the social promo content that drives discovery to your page.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: MARKETING FUNNEL -->
+  <section id="funnel" class="py-16 bg-white border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">The Author Marketing Funnel</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Stacked Visibility: From Discovery to Sale</h2>
+      <p class="font-sans text-muted leading-relaxed mb-10">Directing traffic to a page and expecting cold conversions is a broken strategy for debut authors. Effective book marketing in 2026 layers organic content for awareness, a reader magnet for lead capture, and an automated email sequence for conversion.</p>
+
+      <div class="space-y-4 mb-10">
+        <!-- Stage 1 -->
+        <div class="border border-border-warm overflow-hidden">
+          <div class="bg-near-black px-6 py-4 flex items-center gap-3">
+            <span class="font-sans font-bold text-xs uppercase tracking-widest" style="color:rgba(255,255,255,0.5);">Stage 1</span>
+            <span class="font-sans font-semibold text-sm text-white">Top of Funnel — Organic Discovery</span>
+          </div>
+          <div class="px-6 py-5 space-y-3">
+            <p class="font-sans text-sm text-muted leading-relaxed">Short-form video — YouTube Shorts, Instagram Reels, BookTok — is the highest-ROI, lowest-cost discovery mechanism available to indie authors. The <strong class="text-near-black">80/20 content rule:</strong> 80% community-building (reading vlogs, world-building discussions, character aesthetics, author Q&A); 20% direct promotion.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">Start this content during the editing phase — 3–6 months before launch. Algorithms need time to identify and aggregate your target audience before you ask them to buy anything.</p>
+            <div class="grid grid-cols-3 gap-2">
+              <div class="bg-warm p-3 text-center">
+                <p class="font-sans font-bold text-xs text-near-black">BookTok</p>
+                <p class="font-sans text-[10px] text-muted mt-1">Highest genre-fiction discovery rate</p>
+              </div>
+              <div class="bg-warm p-3 text-center">
+                <p class="font-sans font-bold text-xs text-near-black">YouTube Shorts</p>
+                <p class="font-sans text-[10px] text-muted mt-1">Longer shelf-life than TikTok posts</p>
+              </div>
+              <div class="bg-warm p-3 text-center">
+                <p class="font-sans font-bold text-xs text-near-black">Instagram Reels</p>
+                <p class="font-sans text-[10px] text-muted mt-1">Cover reveals and aesthetic content</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 2 -->
+        <div class="border border-border-warm overflow-hidden">
+          <div class="px-6 py-4 flex items-center gap-3" style="background:#D4622A;">
+            <span class="font-sans font-bold text-xs uppercase tracking-widest" style="color:rgba(255,255,255,0.7);">Stage 2</span>
+            <span class="font-sans font-semibold text-sm text-white">Middle of Funnel — The Reader Magnet</span>
+          </div>
+          <div class="px-6 py-5 space-y-3">
+            <p class="font-sans text-sm text-muted leading-relaxed">When a social media visitor lands on your author website, don't ask them to buy immediately. The friction is too high for an unknown debut. Instead, offer a <strong class="text-near-black">Reader Magnet</strong> — high-value free content exchanged exclusively for their email address.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">Effective reader magnets for fiction: prequel novella, exclusive short story set in your world, character artwork or map. For non-fiction: the key chapter, a checklist version of your framework, a resource toolkit.</p>
+            <div style="border-left:2px solid #D4622A;background:#FFF8F5;padding:12px 16px;">
+              <p class="font-sans text-xs text-near-black"><strong>The core principle:</strong> In an era of volatile algorithms, your owned email list is the only marketing asset that cannot be taken from you. Authors with 1,000 engaged subscribers consistently outperform authors with 50,000 social followers on launch week.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 3 -->
+        <div class="border border-border-warm overflow-hidden">
+          <div class="bg-near-black px-6 py-4 flex items-center gap-3">
+            <span class="font-sans font-bold text-xs uppercase tracking-widest" style="color:rgba(255,255,255,0.5);">Stage 3</span>
+            <span class="font-sans font-semibold text-sm text-white">Bottom of Funnel — The Nurture Sequence</span>
+          </div>
+          <div class="px-6 py-5">
+            <p class="font-sans text-sm text-muted leading-relaxed mb-5">A 5-email automated sequence runs after the reader magnet is delivered. By the time the subscriber receives the purchase link, a parasocial relationship is established — dramatically inflating conversion rates.</p>
+            <div class="space-y-2">
+              <div class="flex items-start gap-3">
+                <span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5 w-14">Email 1</span>
+                <p class="font-sans text-xs text-muted">Welcome + immediate reader magnet delivery</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5 w-14">Email 2</span>
+                <p class="font-sans text-xs text-muted">Your origin story — the vulnerable "why I wrote this book" narrative</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5 w-14">Email 3</span>
+                <p class="font-sans text-xs text-muted">Low-friction recommendation of your primary book with a direct purchase link</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5 w-14">Email 4</span>
+                <p class="font-sans text-xs text-muted">Social proof — early ARC reviews, reader testimonials, media coverage</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="font-sans text-xs font-bold text-ember flex-shrink-0 mt-0.5 w-14">Email 5</span>
+                <p class="font-sans text-xs text-muted">Engagement question — boosts inbox deliverability and surfaces reader interests for future content</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Catalog Multiplier -->
+      <div class="border border-border-warm p-6">
+        <p class="font-sans font-semibold text-sm text-near-black mb-2">The Catalog Multiplier</p>
+        <p class="font-sans text-sm text-muted leading-relaxed">Authors with 10+ published books are exponentially more likely to earn full-time income because a single email subscriber can generate sequential purchases across an entire series. Your first book builds the list. Every book after that monetizes it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: GRASSROOTS -->
+  <section id="grassroots" class="py-16 bg-warm border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">Grassroots Marketing</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Build a Loyal Founding Audience in Your Own Backyard</h2>
+      <p class="font-sans text-muted leading-relaxed mb-10">Local readers convert at exceptionally high rates. Physical presence — bookstores, libraries, writer networks — builds foundational loyalty that digital funnels alone cannot replicate. Bridge physical and digital by placing QR codes on bookmarks and cards that point directly to your reader magnet landing page.</p>
+
+      <div class="grid sm:grid-cols-2 gap-4 mb-8">
+        <!-- Bookstores -->
+        <div class="bg-white border border-border-warm p-5">
+          <p class="font-sans font-bold text-xs uppercase tracking-wide text-ember mb-3" style="letter-spacing:0.12em;">Independent Bookstores</p>
+          <p class="font-sans text-sm text-muted leading-relaxed mb-3">Independent bookstores actively champion local authors. They are far more accessible than chain retailers and have a vested interest in community storytelling. Approach them in person — after your IngramSpark distribution is confirmed.</p>
+          <p class="font-sans text-xs font-semibold text-near-black mb-1">What to bring:</p>
+          <ul class="font-sans text-xs text-muted space-y-1">
+            <li>→ One-page sell sheet with ISBN + genre blurb + retail price</li>
+            <li>→ A physical copy of the finished book</li>
+            <li>→ Confirmation of Ingram catalog availability</li>
+            <li>→ Proposed wholesale terms (55% discount, fully returnable)</li>
+          </ul>
+        </div>
+
+        <!-- Libraries -->
+        <div class="bg-white border border-border-warm p-5">
+          <p class="font-sans font-bold text-xs uppercase tracking-wide text-ember mb-3" style="letter-spacing:0.12em;">Public Libraries</p>
+          <p class="font-sans text-sm text-muted leading-relaxed mb-3">Libraries are high-trust discovery engines exposing your work to voracious readers at zero cost to them. Many maintain dedicated Local Author collections with a simple submission process: a form and one physical copy.</p>
+          <p class="font-sans text-xs font-semibold text-near-black mb-1">Opportunities:</p>
+          <ul class="font-sans text-xs text-muted space-y-1">
+            <li>→ Local Author collection submission</li>
+            <li>→ Author events, readings, and Founders Room programs</li>
+            <li>→ Friends of the Library book sale donations</li>
+            <li>→ Indie Author Project statewide digital circulation</li>
+          </ul>
+        </div>
+
+        <!-- Writer Networks -->
+        <div class="bg-white border border-border-warm p-5">
+          <p class="font-sans font-bold text-xs uppercase tracking-wide text-ember mb-3" style="letter-spacing:0.12em;">Writer Networks & Reading Series</p>
+          <p class="font-sans text-sm text-muted leading-relaxed mb-3">Local literary organizations serve simultaneously as editorial support and direct marketing channels. Members who critique your manuscript become your earliest advocates and launch-week reviewers on Amazon and Goodreads.</p>
+          <p class="font-sans text-xs font-semibold text-near-black mb-1">Why early reviews matter:</p>
+          <p class="font-sans text-xs text-muted">Amazon's algorithm weights books with 15+ reviews significantly higher in discovery. Early ARC readers from your writing community are the fastest path to that velocity.</p>
+        </div>
+
+        <!-- QR Bridge -->
+        <div class="bg-white border border-border-warm p-5">
+          <p class="font-sans font-bold text-xs uppercase tracking-wide text-ember mb-3" style="letter-spacing:0.12em;">Physical → Digital Bridge</p>
+          <p class="font-sans text-sm text-muted leading-relaxed mb-3">Every in-person touchpoint should feed your digital funnel. Print premium bookmarks or cards with a QR code pointing directly to your reader magnet offer — not a generic homepage. That friction difference matters.</p>
+          <p class="font-sans text-xs font-semibold text-near-black mb-1">The conversion path:</p>
+          <p class="font-sans text-xs text-muted">QR → Landing page → Reader magnet → Email list → Nurture sequence → Book purchase. Every physical event is the top of your funnel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-16 bg-white border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">FAQ</p>
+      <h2 class="instrument font-normal text-near-black mb-10" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Common Questions</h2>
+      <div class="border border-border-warm divide-y divide-border-warm" x-data="{ open: null }">
+        <div>
+          <button @click="open===1?open=null:open=1" class="w-full flex items-start justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-medium text-sm text-near-black leading-snug">How much does self-publishing actually cost upfront?</span>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0 mt-0.5" :class="open===1?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open===1" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <p class="font-sans text-sm text-muted leading-relaxed">A professional self-published book can be produced for <strong class="text-near-black">$300–$1,500</strong> depending on your editorial choices:</p>
+            <div class="space-y-2">
+              <div class="flex items-start gap-3"><span class="font-sans text-xs font-bold text-ember flex-shrink-0 w-36">Manuscript assessment</span><p class="font-sans text-xs text-muted">$150–$300</p></div>
+              <div class="flex items-start gap-3"><span class="font-sans text-xs font-bold text-ember flex-shrink-0 w-36">Cover design</span><p class="font-sans text-xs text-muted">$75–$400 premade, or free with Canva Pro</p></div>
+              <div class="flex items-start gap-3"><span class="font-sans text-xs font-bold text-ember flex-shrink-0 w-36">Formatting software</span><p class="font-sans text-xs text-muted">$0–$199 one-time purchase</p></div>
+              <div class="flex items-start gap-3"><span class="font-sans text-xs font-bold text-ember flex-shrink-0 w-36">Copyedit / proofread</span><p class="font-sans text-xs text-muted">$300–$600 — the highest-leverage spend</p></div>
+              <div class="flex items-start gap-3"><span class="font-sans text-xs font-bold text-ember flex-shrink-0 w-36">ISBNs (Bowker)</span><p class="font-sans text-xs text-muted">$125 each or $295 for 10</p></div>
+            </div>
+            <p class="font-sans text-sm text-muted leading-relaxed">Eliminate the expensive developmental edit by using algorithmic tools and beta readers first. Reserve professional spend exclusively for the copyedit stage where precision matters most.</p>
+          </div>
+        </div>
+        <div>
+          <button @click="open===2?open=null:open=2" class="w-full flex items-start justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-medium text-sm text-near-black leading-snug">Do I need an ISBN and where do I get one?</span>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0 mt-0.5" :class="open===2?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open===2" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <p class="font-sans text-sm text-muted leading-relaxed">You need an author-owned ISBN for physical retail distribution through IngramSpark. Amazon KDP provides a free ISBN for print books — but it locks your book's publisher-of-record to Amazon, which cannot be changed retroactively.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">Purchase your own from <strong class="text-near-black">Bowker</strong> (the U.S. ISBN agency): $125 for one, $295 for 10. Owning your ISBN means you are permanently listed as the publisher across every retailer and library catalog that stocks the book.</p>
+          </div>
+        </div>
+        <div>
+          <button @click="open===3?open=null:open=3" class="w-full flex items-start justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-medium text-sm text-near-black leading-snug">Can my self-published book actually get into physical bookstores?</span>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0 mt-0.5" :class="open===3?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open===3" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <p class="font-sans text-sm text-muted leading-relaxed">Yes — through IngramSpark, configured with a 55% trade discount and marked returnable ("Yes — Destroy"). These are the non-negotiable business requirements for independent bookstores. Without both, your book will not be stocked.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">Independent bookstores are your primary target — far more accessible than chain retailers and genuinely motivated to support local and emerging authors. Arrive in person with a professional sell sheet after your Ingram distribution is live.</p>
+          </div>
+        </div>
+        <div>
+          <button @click="open===4?open=null:open=4" class="w-full flex items-start justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-medium text-sm text-near-black leading-snug">What is a reader magnet and do I actually need one?</span>
+            <svg class="w-4 h-4 text-muted transition-transform flex-shrink-0 mt-0.5" :class="open===4?'rotate-180':''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open===4" x-collapse class="border-t border-border-warm px-6 py-5 space-y-3">
+            <div class="bg-warm border-l-2 border-ember p-4">
+              <p class="font-sans font-semibold text-sm text-near-black">Yes. It is the single highest-ROI marketing action available to a debut author.</p>
+            </div>
+            <p class="font-sans text-sm text-muted leading-relaxed">A reader magnet is a free, high-value piece of content — a prequel novella, exclusive short story, or companion guide — exchanged for the visitor's email address. It converts cold social traffic into a warm, owned list you control permanently regardless of what any algorithm does.</p>
+            <p class="font-sans text-sm text-muted leading-relaxed">Authors with 1,000 engaged email subscribers consistently outperform authors with 50,000 social followers on launch-week sales. The email list is your most resilient marketing asset.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GLOSSARY -->
+  <section id="glossary" class="py-16 bg-warm border-b border-border-warm reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">Reference</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">Key Terms</h2>
+      <p class="font-sans text-muted leading-relaxed mb-10">A quick-reference guide to the terminology in this article.</p>
+
+      <div class="mb-8">
+        <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-4" style="letter-spacing:0.12em;">Publishing & Distribution</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div class="bg-white border border-border-warm p-4" style="border-top:3px solid #D4622A;">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.3rem;">KDP</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Kindle Direct Publishing</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Amazon's self-publishing platform. Commands 65–70% of the ebook market. Mandatory primary hub for indie authors.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4" style="border-top:3px solid #111110;">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.3rem;">POD</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Print on Demand</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Books are printed only when an order is placed. Eliminates inventory risk and upfront print run costs entirely.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4" style="border-top:3px solid #6B6960;">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.3rem;">ISBN</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">International Standard Book Number</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">The universal barcode identifier for books. Author-owned ISBNs via Bowker are essential for retail distribution beyond Amazon.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.3rem;">EPUB</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Electronic Publication</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">The industry-standard ebook format. Reflowable — text adapts to any screen size. Required by all major ebook retailers.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.3rem;">ARC</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Advance Review Copy</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">A pre-publication copy sent to reviewers. Essential for building Amazon review velocity before launch day — the algorithm rewards books that debut with 15+ reviews.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.3rem;">MoR</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Merchant of Record</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">A platform (e.g., Payhip, Gumroad) that handles VAT collection, payment processing, and global tax compliance on behalf of the seller.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="font-sans text-xs font-bold uppercase tracking-widest text-muted mb-4" style="letter-spacing:0.12em;">Marketing & Business</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.3rem;">D2C</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Direct-to-Consumer</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Selling directly from the author's own platform, retaining 70–95% of revenue and full ownership of customer data.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.3rem;">AEO</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Answer Engine Optimization</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Structuring your author website content so AI search tools extract and cite it directly — critical for discoverability in 2026.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.3rem;">CAGR</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Compound Annual Growth Rate</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Self-publishing's CAGR is 16.7% — the growth rate projecting the sector from $1.85B (2024) to $6.16B by 2033.</p>
+          </div>
+          <div class="bg-white border border-border-warm p-4">
+            <p class="font-sans font-black text-near-black mb-1" style="font-size:1.3rem;">ROI</p>
+            <p class="font-sans text-xs font-semibold text-muted mb-1">Return on Investment</p>
+            <p class="font-sans text-xs text-muted leading-relaxed">Net profit relative to cost. D2C self-publishing typically produces the highest ROI of any publishing path due to minimal platform fees.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 bg-near-black reveal">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest mb-4" style="color:rgba(255,255,255,0.4);letter-spacing:0.18em;">Orbis Launches Books.</p>
+      <h2 class="instrument font-normal text-white mb-6" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;">
+        You wrote it.<br>Let us launch it.
+      </h2>
+      <p class="font-sans text-base leading-relaxed mb-10" style="color:rgba(255,255,255,0.6);">
+        We build your author landing page, design your email launch sequence, blast to your existing audience, and create the promo content that gets your book in front of the right readers — so you can focus on writing the next one.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+        <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}}))"
+                class="roygbiv-btn font-sans font-semibold text-sm text-white px-8 py-3">
+          Book a Free Strategy Call →
+        </button>
+        <a href="/concept-home-3.html#pricing"
+           class="font-sans font-semibold text-sm px-8 py-3 border transition-colors"
+           style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.25);">
+          See Our Packages
+        </a>
+      </div>
+      <div class="grid grid-cols-3 gap-4 max-w-lg mx-auto">
+        <div>
+          <p class="font-sans font-bold text-white text-sm">Landing Page</p>
+          <p class="font-sans text-xs mt-1" style="color:rgba(255,255,255,0.5);">Author D2C hub built to convert</p>
+        </div>
+        <div>
+          <p class="font-sans font-bold text-white text-sm">Email Launch</p>
+          <p class="font-sans text-xs mt-1" style="color:rgba(255,255,255,0.5);">Blast to your warm audience at launch</p>
+        </div>
+        <div>
+          <p class="font-sans font-bold text-white text-sm">Promo Content</p>
+          <p class="font-sans text-xs mt-1" style="color:rgba(255,255,255,0.5);">Social assets that drive discovery</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-warm py-8 border-t border-border-warm">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+      <a href="/concept-home-3.html" class="font-sans text-sm text-near-black tracking-tight flex items-baseline gap-1.5">
+        <span class="font-bold">Orbis</span><span class="font-light text-muted">Marketing</span>
+      </a>
+      <p class="font-sans font-normal text-xs text-muted">© 2026 Orbis Marketing · Batavia · Geneva · St Charles · Chicago</p>
+    </div>
+  </footer>
+
+  <!-- INQUIRY MODAL -->
+  <div x-data="inquiryModalData()"
+       @open-inquiry.window="openWith($event.detail.package)"
+       @keydown.escape.window="close()">
+    <div x-show="isOpen"
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[300] flex items-center justify-center p-4"
+         style="background:rgba(0,0,0,0.65);display:none;"
+         @click.self="close()">
+      <div class="bg-white w-full relative" style="max-width:560px;max-height:92vh;overflow-y:auto;" @click.stop>
+        <button @click="close()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted hover:text-near-black z-10">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <div style="padding:40px 36px 36px;">
+          <p class="font-sans text-xs font-semibold uppercase tracking-widest text-muted mb-2" style="letter-spacing:0.15em;">Let's talk</p>
+          <h3 class="instrument font-normal text-near-black leading-tight mb-6" style="font-size:1.75rem;">How can we help you grow your audience?</h3>
+          <form name="inquiry" method="POST" netlify netlify-honeypot="bot-field" @submit.prevent="submit($el)">
+            <input type="hidden" name="form-name" value="inquiry">
+            <p class="hidden"><input name="bot-field"></p>
+            <p class="font-sans text-xs text-muted mb-4"><span style="color:#EF4444;">*</span> Required fields</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+              <div>
+                <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Name <span style="color:#EF4444;">*</span></label>
+                <input type="text" name="name" required placeholder="Your name" class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none" style="border:1px solid #E5E2DC;padding:10px 12px;">
+              </div>
+              <div>
+                <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Company <span style="color:#EF4444;">*</span></label>
+                <input type="text" name="company" required placeholder="Your company" class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none" style="border:1px solid #E5E2DC;padding:10px 12px;">
+              </div>
+            </div>
+            <div style="margin-bottom:20px;">
+              <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Email <span style="color:#EF4444;">*</span></label>
+              <input type="email" name="email" required placeholder="you@example.com" class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none" style="border:1px solid #E5E2DC;padding:10px 12px;">
+            </div>
+            <div style="margin-bottom:20px;">
+              <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Select a package <span style="color:#EF4444;">*</span></label>
+              <input type="hidden" name="package" :value="selected">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px;">
+                <template x-for="pkg in packages" :key="pkg.name">
+                  <button type="button" @click="selected=pkg.name;pkgError=false"
+                          :class="selected===pkg.name?'text-white':'bg-white text-near-black'"
+                          :style="selected===pkg.name?{backgroundColor:pkg.color,borderColor:pkg.color}:{border:'1px solid #E5E2DC'}"
+                          class="font-sans text-center transition-all duration-200" style="line-height:1.3;padding:8px 4px;border:1px solid #E5E2DC;">
+                    <span x-text="pkg.name" class="block font-semibold" style="font-size:0.72rem;"></span>
+                    <span x-show="pkg.price" x-text="pkg.price" class="block" style="font-size:0.6rem;opacity:0.75;margin-top:2px;"></span>
+                  </button>
+                </template>
+              </div>
+              <p x-show="pkgError" class="font-sans text-xs mt-2" style="color:#EF4444;">Please select a package.</p>
+            </div>
+            <div style="margin-bottom:24px;">
+              <label class="font-sans text-xs font-semibold text-near-black uppercase tracking-wide" style="letter-spacing:0.1em;">Message</label>
+              <textarea name="message" rows="4" placeholder="Tell us about your book and what you're hoping to achieve..." class="mt-1 w-full font-sans text-sm text-near-black placeholder-muted focus:outline-none resize-none" style="border:1px solid #E5E2DC;padding:10px 12px;"></textarea>
+            </div>
+            <button type="submit" x-show="!submitted"
+                    :style="{backgroundColor:selectedColor(),borderColor:selectedColor()}"
+                    class="w-full text-white font-sans font-semibold text-sm py-3 transition-all duration-300"
+                    style="border:2px solid transparent;">Send Message →</button>
+            <div x-show="submitted" class="text-center py-3">
+              <p class="font-sans font-semibold text-near-black">Got it — we'll be in touch shortly.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Reveal on scroll
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='none'; } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => { io.observe(el); });
+
+    /* ── Slow scroll ── */
+    let _scrolling = false, _scrollRaf = null;
+    function toggleSlowScroll() { _scrolling ? stopSlowScroll() : startSlowScroll(); }
+    function startSlowScroll() {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      _scrolling = true; updateScrollBtn(true);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        const totalPx = document.documentElement.scrollHeight - window.innerHeight;
+        const pxPerMs = totalPx / 60000;
+        let lastTime = performance.now();
+        function step(now) {
+          if (!_scrolling) return;
+          const delta = now - lastTime; lastTime = now;
+          const nextY = window.scrollY + pxPerMs * delta;
+          const maxY  = document.documentElement.scrollHeight - window.innerHeight;
+          if (nextY >= maxY) { window.scrollTo({ top: maxY, behavior: 'instant' }); _scrolling = false; updateScrollBtn(false); return; }
+          window.scrollTo({ top: nextY, behavior: 'instant' });
+          _scrollRaf = requestAnimationFrame(step);
+        }
+        _scrollRaf = requestAnimationFrame(step);
+      }));
+    }
+    function stopSlowScroll() {
+      _scrolling = false;
+      if (_scrollRaf) { cancelAnimationFrame(_scrollRaf); _scrollRaf = null; }
+      updateScrollBtn(false);
+    }
+    function updateScrollBtn(active) {
+      const btn = document.getElementById('slow-scroll-btn');
+      const icon = document.getElementById('scroll-icon');
+      const svg = document.getElementById('scroll-svg');
+      const label = document.getElementById('scroll-label');
+      if (!btn) return;
+      if (active) {
+        btn.style.cssText = 'border-color:#D4622A;color:#D4622A;';
+        icon.classList.remove('scroll-arrow-bounce');
+        svg.setAttribute('fill', 'currentColor'); svg.setAttribute('stroke', 'none');
+        svg.innerHTML = '<rect x="7" y="7" width="10" height="10" rx="2"/>';
+        label.textContent = 'Stop';
+      } else {
+        btn.style.cssText = '';
+        icon.classList.add('scroll-arrow-bounce');
+        svg.setAttribute('fill', 'none'); svg.setAttribute('stroke', 'currentColor');
+        svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>';
+        label.textContent = 'Read';
+      }
+    }
+    window.addEventListener('wheel',     () => { if (_scrolling) stopSlowScroll(); }, { passive: true });
+    window.addEventListener('touchmove', () => { if (_scrolling) stopSlowScroll(); }, { passive: true });
+    window.addEventListener('keydown',   (e) => { if (_scrolling && ['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(e.key)) stopSlowScroll(); });
+
+    /* ── Page data ── */
+    function pageData() {
+      return {
+        mobileOpen: false,
+        modal: { open: false, title: '', body: '' },
+        openModal(title, body) { this.modal = { open: true, title, body }; document.body.style.overflow = 'hidden'; },
+        closeModal() { this.modal.open = false; document.body.style.overflow = ''; },
+      };
+    }
+
+    /* ── Inquiry modal ── */
+    function inquiryModalData() {
+      return {
+        isOpen: false, submitted: false, selected: '', pkgError: false,
+        packages: [
+          { name: 'Bootcamp',      price: '$0–$750/mo',  color: '#EF4444' },
+          { name: 'Local',         price: '$1,500',       color: '#F97316' },
+          { name: 'Blast',         price: '$2,500',       color: '#EAB308' },
+          { name: 'Simple Custom', price: '$5,000',       color: '#22C55E' },
+          { name: 'Premium',       price: '$7,500–$10k',  color: '#06B6D4' },
+          { name: 'Ultimate',      price: '$25,000/yr',   color: '#3B82F6' },
+          { name: 'Not sure',      price: '',             color: '#6366F1' },
+          { name: 'Other',         price: '',             color: '#8B5CF6' },
+        ],
+        selectedColor() { const p = this.packages.find(p => p.name === this.selected); return p ? p.color : '#111110'; },
+        openWith(pkg) { this.selected = pkg || ''; this.submitted = false; this.pkgError = false; this.isOpen = true; document.body.style.overflow = 'hidden'; },
+        close() { this.isOpen = false; document.body.style.overflow = ''; },
+        submit(form) {
+          if (!this.selected) { this.pkgError = true; return; }
+          this.pkgError = false;
+          const data = new FormData(form);
+          fetch('/', { method: 'POST', body: data }).then(() => { this.submitted = true; }).catch(() => { this.submitted = true; });
+        }
+      };
+    }
+  </script>
+</body>
+</html>
