@@ -97,6 +97,15 @@
       100%  { background-color: #EF4444; }
     }
 
+    .wbar { animation: wbar-anim 1.2s ease-in-out infinite; }
+    .wbar:nth-child(5n+1) { animation-delay: 0s; }
+    .wbar:nth-child(5n+2) { animation-delay: 0.15s; }
+    .wbar:nth-child(5n+3) { animation-delay: 0.3s; }
+    .wbar:nth-child(5n+4) { animation-delay: 0.45s; }
+    .wbar:nth-child(5n+5) { animation-delay: 0.6s; }
+    @keyframes wbar-anim { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
+    @keyframes pulseRing { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(2.4); opacity: 0; } }
+
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
 
     @keyframes bounceDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
@@ -220,6 +229,7 @@
   <!-- JUMP NAV -->
   <div class="bg-white border-b border-border-warm sticky top-14 z-40">
     <div class="max-w-3xl mx-auto px-6 py-3 flex items-center gap-2 overflow-x-auto" style="scrollbar-width:none;">
+      <a href="#audio-overview" class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Listen</a>
       <a href="#traditional"  class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Publishing Math</a>
       <a href="#production"   class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Lean Production</a>
       <a href="#distribution" class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Distribution</a>
@@ -233,6 +243,112 @@
               style="background:#D4622A;">Launch Your Book with Orbis →</button>
     </div>
   </div>
+
+  <!-- AUDIO PLAYER -->
+  <section id="audio-overview" class="bg-warm border-b border-border-warm py-12 reveal">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-muted mb-2" style="letter-spacing:0.15em;">Audio Overview</p>
+      <h2 class="instrument font-normal text-near-black mb-6" style="font-size:1.6rem;">Build an Independent Media Enterprise in 2026</h2>
+
+      <div x-data="audioPlayer()" x-init="init()"
+           class="relative bg-white border overflow-hidden transition-all duration-700"
+           :class="playing ? 'border-ember' : 'border-border-warm'"
+           style="border-radius:12px;">
+
+        <!-- Header row -->
+        <div class="relative flex items-start gap-4 p-6 pb-4">
+          <div class="flex-shrink-0 w-11 h-11 flex items-center justify-center" style="background:#111110;border-radius:2px;">
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3a9 9 0 100 18A9 9 0 0012 3zM9.5 8.5l6 3.5-6 3.5V8.5z"/></svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="font-sans font-bold text-[10px] uppercase tracking-widest text-ember" style="letter-spacing:0.15em;">Audio Overview</span>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-border-warm font-sans font-semibold text-[10px] text-muted">
+                <span class="w-1.5 h-1.5 rounded-full" style="background:#D4622A;" :class="playing ? 'animate-pulse' : ''"></span>
+                <span x-text="playing ? 'NOW PLAYING' : 'LISTEN'"></span>
+              </span>
+            </div>
+            <p class="font-sans font-bold text-near-black text-base leading-tight">Build an Independent Media Enterprise in 2026</p>
+            <p class="font-sans text-xs text-muted mt-0.5">A narrated breakdown of the self-publishing playbook &nbsp;·&nbsp; <span x-text="duration" class="tabular-nums font-medium text-near-black"></span></p>
+          </div>
+        </div>
+
+        <!-- Waveform -->
+        <div class="relative mx-6 mb-2 cursor-pointer select-none group" style="height:72px;" @click="seek($event)" x-ref="waveContainer">
+          <div class="absolute inset-0 flex items-end gap-px">
+            <template x-for="(h, i) in bars" :key="'bg'+i">
+              <div :class="playing ? 'wbar' : ''" :style="{ flex: '1', height: h+'%', background: '#E5E2DC', borderRadius: '1px', transformOrigin: 'bottom' }"></div>
+            </template>
+          </div>
+          <div class="absolute inset-0 flex items-end gap-px pointer-events-none" :style="`clip-path: inset(0 ${100 - progress}% 0 0 round 1px)`">
+            <template x-for="(h, i) in bars" :key="'fg'+i">
+              <div :style="{ flex: '1', height: h+'%', background: '#D4622A', borderRadius: '1px', transformOrigin: 'bottom' }"></div>
+            </template>
+          </div>
+          <div class="absolute top-0 bottom-0 pointer-events-none" style="width:2px;background:#D4622A;" :style="`left:${progress}%`" x-show="progress > 0"></div>
+          <div class="absolute inset-x-0 -bottom-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            <span class="font-sans text-[10px] text-muted">Click to seek</span>
+          </div>
+        </div>
+
+        <!-- Controls row -->
+        <div class="flex items-center justify-between gap-4 px-6 pt-6 pb-4">
+          <button @click="skip(-15)" class="flex flex-col items-center gap-0.5 text-muted hover:text-near-black transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+            <span class="font-sans font-bold text-[9px] tracking-wide">15s</span>
+          </button>
+
+          <div class="relative flex-shrink-0">
+            <div x-show="playing" class="absolute inset-0 rounded-full pointer-events-none" style="background:rgba(212,98,42,0.2);animation:pulseRing 1.6s ease-out infinite;"></div>
+            <div x-show="playing" class="absolute inset-0 rounded-full pointer-events-none" style="background:rgba(212,98,42,0.1);animation:pulseRing 1.6s ease-out infinite 0.5s;"></div>
+            <button @click="toggle()"
+                    class="relative w-14 h-14 rounded-full flex items-center justify-center transition-all duration-200 shadow-sm"
+                    :class="playing ? 'scale-105' : ''"
+                    :style="playing ? 'background:#D4622A;' : 'background:#111110;'">
+              <svg x-show="!playing" class="w-6 h-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <svg x-show="playing"  class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+          </div>
+
+          <button @click="skip(15)" class="flex flex-col items-center gap-0.5 text-muted hover:text-near-black transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 13c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6v4l5-5-5-5v4c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8h-2z"/></svg>
+            <span class="font-sans font-bold text-[9px] tracking-wide">15s</span>
+          </button>
+
+          <div class="ml-auto tabular-nums font-sans text-xs flex items-center gap-1">
+            <span class="font-semibold text-near-black" x-text="currentTime"></span>
+            <span class="text-muted">/</span>
+            <span class="text-muted" x-text="duration"></span>
+          </div>
+        </div>
+
+        <!-- Speed selector -->
+        <div class="flex items-center gap-2 px-6 pb-5">
+          <span class="font-sans font-bold text-[10px] uppercase tracking-widest text-muted flex-shrink-0">Speed</span>
+          <div class="flex items-center gap-1">
+            <template x-for="s in speeds" :key="s">
+              <button @click="setSpeed(s)"
+                      class="font-sans font-bold tabular-nums text-xs px-2.5 py-1 rounded-full transition-all"
+                      :class="speed === s ? 'text-white' : 'text-muted hover:text-near-black border border-border-warm'"
+                      :style="speed === s ? 'background:#D4622A;' : ''"
+                      x-text="s + 'x'">
+              </button>
+            </template>
+          </div>
+        </div>
+
+        <!-- Thin progress bar -->
+        <div class="relative mx-6 mb-5 h-1 rounded-full cursor-pointer overflow-hidden" style="background:#E5E2DC;" @click="seek($event)">
+          <div class="absolute left-0 top-0 h-full rounded-full transition-none" style="background:#D4622A;" :style="`width:${progress}%`"></div>
+        </div>
+
+        <!-- Audio element -->
+        <audio x-ref="audio" preload="metadata"
+               src="https://res.cloudinary.com/dsbllwpbh/video/upload/v1773623693/Build_an_independent_media_enterprise_in_2026-descript_gvu54k.mp3">
+        </audio>
+      </div>
+    </div>
+  </section>
 
   <!-- SECTION 1: TRADITIONAL vs SELF-PUB -->
   <section id="traditional" class="py-16 bg-white border-b border-border-warm reveal">
@@ -1142,6 +1258,50 @@
     window.addEventListener('wheel',     () => { if (_scrolling) stopSlowScroll(); }, { passive: true });
     window.addEventListener('touchmove', () => { if (_scrolling) stopSlowScroll(); }, { passive: true });
     window.addEventListener('keydown',   (e) => { if (_scrolling && ['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(e.key)) stopSlowScroll(); });
+
+    /* ── Audio Player ── */
+    function audioPlayer() {
+      return {
+        playing: false,
+        progress: 0,
+        currentTime: '0:00',
+        duration: '--:--',
+        bars: [12,20,16,30,24,42,34,50,44,58,52,66,60,72,68,76,82,80,86,84,90,88,94,92,90,95,92,88,90,86,88,82,86,80,82,74,78,68,72,62,66,56,60,48,52,40,44,32,36,24,28,20,24,16,20,12,16,10,14,8],
+        speed: 1,
+        speeds: [0.75, 1, 1.25, 1.5, 1.75, 2],
+        init() {
+          const a = this.$refs.audio;
+          a.addEventListener('timeupdate', () => {
+            this.progress = (a.currentTime / a.duration) * 100 || 0;
+            this.currentTime = this.fmt(a.currentTime);
+          });
+          a.addEventListener('loadedmetadata', () => { this.duration = this.fmt(a.duration); });
+          a.addEventListener('ended', () => { this.playing = false; this.progress = 0; this.currentTime = '0:00'; });
+        },
+        toggle() {
+          const a = this.$refs.audio;
+          if (this.playing) { a.pause(); } else { a.play().catch(() => {}); }
+          this.playing = !this.playing;
+        },
+        seek(e) {
+          const a = this.$refs.audio;
+          if (!a.duration) return;
+          const rect = e.currentTarget.getBoundingClientRect();
+          const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+          a.currentTime = pct * a.duration;
+        },
+        skip(sec) {
+          const a = this.$refs.audio;
+          a.currentTime = Math.max(0, Math.min(a.duration || 0, a.currentTime + sec));
+        },
+        setSpeed(rate) { this.speed = rate; this.$refs.audio.playbackRate = rate; },
+        fmt(s) {
+          if (!s || isNaN(s)) return '0:00';
+          const m = Math.floor(s / 60);
+          return `${m}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+        }
+      };
+    }
 
     /* ── Page data ── */
     function pageData() {
