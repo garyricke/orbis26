@@ -112,6 +112,7 @@
         <a href="#technical"  class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Technical</a>
         <a href="#faq"        class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">FAQ</a>
         <a href="#glossary"   class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Glossary</a>
+        <a href="#checklist"  class="font-sans font-normal text-sm text-muted hover:text-near-black transition-colors">Checklist</a>
         <button id="slow-scroll-btn" onclick="toggleSlowScroll()" title="Slow-read: scrolls the full page in 60 seconds"
                 class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border-warm text-muted hover:border-near-black hover:text-near-black transition-all">
           <span id="scroll-icon" class="scroll-arrow-bounce flex items-center">
@@ -135,6 +136,7 @@
       <a href="#technical"  class="font-sans text-sm text-muted" @click="mobileOpen=false">Technical</a>
       <a href="#faq"        class="font-sans text-sm text-muted" @click="mobileOpen=false">FAQ</a>
       <a href="#glossary"   class="font-sans text-sm text-muted" @click="mobileOpen=false">Glossary</a>
+      <a href="#checklist"  class="font-sans text-sm text-muted" @click="mobileOpen=false">Checklist</a>
       <button class="roygbiv-btn font-sans font-semibold text-sm text-white px-5 py-1.5 self-start"
               @click="mobileOpen=false; $nextTick(()=>window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}})))">Let's Talk</button>
     </div>
@@ -207,6 +209,7 @@
       <a href="#analytics"      class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Analytics</a>
       <a href="#faq"            class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">FAQ</a>
       <a href="#glossary"       class="font-sans text-xs font-semibold text-muted hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-border-warm transition-colors">Glossary</a>
+      <a href="#checklist"      class="font-sans text-xs font-semibold text-ember hover:text-near-black whitespace-nowrap px-3 py-1.5 rounded-full border border-ember transition-colors">Checklist</a>
       <button onclick="window.dispatchEvent(new CustomEvent('open-inquiry',{detail:{package:''}}))"
               class="ml-auto flex-shrink-0 font-sans text-xs font-semibold text-white whitespace-nowrap px-3 py-1.5 rounded-full"
               style="background:#D4622A;">Get Orbis to Do This →</button>
@@ -1031,6 +1034,75 @@
     </div>
   </section>
 
+  <!-- AEO CHECKLIST -->
+  <section id="checklist" class="py-16 bg-warm border-b border-border-warm reveal"
+           x-data="checklistData()">
+    <div class="max-w-3xl mx-auto px-6">
+
+      <!-- Header -->
+      <p class="font-sans text-xs font-semibold uppercase tracking-widest text-ember mb-3" style="letter-spacing:0.15em;">Your Action Plan</p>
+      <h2 class="instrument font-normal text-near-black mb-3" style="font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.15;">AEO Optimization Checklist</h2>
+      <p class="font-sans text-sm text-muted leading-relaxed mb-8 max-w-xl">40 concrete actions to make your website visible in AI-powered search. Check items off as you complete them — your progress is saved while you're on this page.</p>
+
+      <!-- Progress bar -->
+      <div class="mb-10 bg-white border border-border-warm p-5" style="border-radius:8px;">
+        <div class="flex items-center justify-between mb-3">
+          <p class="font-sans font-semibold text-sm text-near-black">Overall Progress</p>
+          <p class="font-sans font-semibold text-sm text-ember" x-text="doneCount + ' / ' + total + ' completed'"></p>
+        </div>
+        <div class="w-full bg-border-warm h-2 rounded-full overflow-hidden">
+          <div class="h-2 rounded-full transition-all duration-500" style="background:#D4622A;" :style="{ width: pct + '%' }"></div>
+        </div>
+        <p class="font-sans text-xs text-muted mt-2" x-show="pct === 0">Start checking off items below to track your progress.</p>
+        <p class="font-sans text-xs text-muted mt-2" x-show="pct > 0 && pct < 50" x-text="'Good start \u2014 ' + pct + '% done. Keep going.'"></p>
+        <p class="font-sans text-xs text-muted mt-2" x-show="pct >= 50 && pct < 100" x-text="pct + '% complete \u2014 you\'re well ahead of most sites out there.'"></p>
+        <p class="font-sans text-xs font-semibold text-ember mt-2" x-show="pct === 100">All 40 items complete. Your site is AEO-optimized.</p>
+      </div>
+
+      <!-- Categories -->
+      <template x-for="cat in cats" :key="cat">
+        <div class="mb-8">
+          <!-- Category header -->
+          <div class="flex items-center justify-between mb-3">
+            <p class="font-sans text-xs font-bold uppercase tracking-widest text-near-black" style="letter-spacing:0.12em;" x-text="cat"></p>
+            <p class="font-sans text-xs text-muted" x-text="catDone(cat) + ' / ' + catItems(cat).length"></p>
+          </div>
+
+          <!-- Items -->
+          <div class="space-y-2">
+            <template x-for="item in catItems(cat)" :key="item.id">
+              <label class="flex items-start gap-3 bg-white border border-border-warm px-4 py-3.5 cursor-pointer group transition-colors"
+                     :class="item.done ? 'bg-white' : 'hover:border-ember'"
+                     style="border-radius:6px;">
+                <!-- Custom checkbox -->
+                <div class="flex-shrink-0 mt-0.5 w-5 h-5 border-2 flex items-center justify-center transition-colors"
+                     :class="item.done ? 'bg-near-black border-near-black' : 'border-border-warm group-hover:border-ember'"
+                     style="border-radius:4px;">
+                  <svg x-show="item.done" class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <input type="checkbox" x-model="item.done" class="sr-only">
+                </div>
+                <!-- Text -->
+                <span class="font-sans text-sm leading-snug transition-colors"
+                      :class="item.done ? 'text-muted line-through' : 'text-near-black'"
+                      x-text="item.text"></span>
+              </label>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- Bottom note -->
+      <div class="mt-4 border-t border-border-warm pt-8">
+        <p class="font-sans text-xs text-muted leading-relaxed">
+          <strong class="text-near-black">Not sure where to start?</strong> The highest-ROI items for most small businesses are: FAQPage schema (#11), Answer Capsules (#16–20), and a complete Google Business Profile (#26). These three alone put you ahead of 80% of your competitors in AI search.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="py-24 bg-near-black reveal">
     <div class="max-w-3xl mx-auto px-6 text-center">
@@ -1361,6 +1433,63 @@
           const m = Math.floor(s / 60);
           return `${m}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
         }
+      };
+    }
+
+    function checklistData() {
+      return {
+        items: [
+          { id:1,  cat:'Technical Foundation',      text:'Core Web Vitals pass: LCP < 2.5s, CLS < 0.1, INP < 200ms', done:false },
+          { id:2,  cat:'Technical Foundation',      text:'Semantic HTML structure \u2014 proper H1\u2192H2\u2192H3 hierarchy on every page', done:false },
+          { id:3,  cat:'Technical Foundation',      text:'XML sitemap submitted to Google Search Console and Bing Webmaster Tools', done:false },
+          { id:4,  cat:'Technical Foundation',      text:'robots.txt does NOT block AI crawlers (GPTBot, ClaudeBot, Google-Extended)', done:false },
+          { id:5,  cat:'Technical Foundation',      text:'HTTPS on every page \u2014 no mixed-content warnings', done:false },
+          { id:6,  cat:'Technical Foundation',      text:'Lean DOM \u2014 minimal JavaScript render-blocking; AI crawlers have limited context budgets', done:false },
+          { id:7,  cat:'AI Crawler Access',         text:'Create /llms.txt at your root \u2014 plain-text summary of your site for LLMs', done:false },
+          { id:8,  cat:'AI Crawler Access',         text:'Verify Cloudflare / WAF / CDN settings are not rate-limiting AI user-agents', done:false },
+          { id:9,  cat:'AI Crawler Access',         text:'No aggressive bot-blocking rules that accidentally block legitimate AI indexers', done:false },
+          { id:10, cat:'Structured Data',           text:'Organization schema: name, url, logo, contactPoint, sameAs (LinkedIn, GBP, Wikipedia)', done:false },
+          { id:11, cat:'Structured Data',           text:'FAQPage schema on every page with Q&A content (biggest AEO lift)', done:false },
+          { id:12, cat:'Structured Data',           text:'Article / BlogPosting schema: author, datePublished, dateModified, headline', done:false },
+          { id:13, cat:'Structured Data',           text:'BreadcrumbList schema for navigation clarity', done:false },
+          { id:14, cat:'Structured Data',           text:'LocalBusiness schema with address, hours, geo coordinates (if applicable)', done:false },
+          { id:15, cat:'Structured Data',           text:'Validate all schema at validator.schema.org \u2014 zero errors, zero warnings', done:false },
+          { id:16, cat:'Answer Capsules',           text:'Add a 40\u201380 word direct-answer paragraph immediately beneath each H2 heading', done:false },
+          { id:17, cat:'Answer Capsules',           text:'Open each capsule with the exact question phrasing ("X is\u2026" or "To do X, you\u2026")', done:false },
+          { id:18, cat:'Answer Capsules',           text:'Use plain declarative prose \u2014 no jargon, no hedging, no marketing-speak', done:false },
+          { id:19, cat:'Answer Capsules',           text:'Cover "What is X?", "How does X work?", "Why does X matter?" for every core topic', done:false },
+          { id:20, cat:'Answer Capsules',           text:'Use numbered lists and bullet points \u2014 AI extractors prefer scannable structure', done:false },
+          { id:21, cat:'Author Identity & E-E-A-T', text:'Create a real author profile page: photo, bio, credentials, contact', done:false },
+          { id:22, cat:'Author Identity & E-E-A-T', text:'Add bylines to all articles with a clickable link to the author profile', done:false },
+          { id:23, cat:'Author Identity & E-E-A-T', text:'Add sameAs links to LinkedIn, industry publications, and any Wikipedia entry', done:false },
+          { id:24, cat:'Author Identity & E-E-A-T', text:'Display first-person Experience signals ("When we tested this\u2026", "Our clients report\u2026")', done:false },
+          { id:25, cat:'Author Identity & E-E-A-T', text:'Include named credentials, years of experience, and verifiable client outcomes', done:false },
+          { id:26, cat:'Entity Building',           text:'Claim and fully complete your Google Business Profile', done:false },
+          { id:27, cat:'Entity Building',           text:'Secure press mentions in at least 2\u20133 industry publications (these are AI citation anchors)', done:false },
+          { id:28, cat:'Entity Building',           text:'Get listed in relevant directories: Crunchbase, industry associations, Chamber of Commerce', done:false },
+          { id:29, cat:'Entity Building',           text:'Consistent NAP (Name, Address, Phone) across every platform and citation', done:false },
+          { id:30, cat:'Entity Building',           text:'Wikipedia presence \u2014 only if your brand meets notability standards (editorial policy only)', done:false },
+          { id:31, cat:'Content Freshness',         text:'Publish a short (400+ word), structured FAQ post at least once per week', done:false },
+          { id:32, cat:'Content Freshness',         text:'Refresh top pages with new data and statistics at least quarterly', done:false },
+          { id:33, cat:'Content Freshness',         text:'Add a visible "Last updated" date on every article', done:false },
+          { id:34, cat:'Content Freshness',         text:'Update dateModified in Article schema every time a page is substantively changed', done:false },
+          { id:35, cat:'Content Freshness',         text:'Audit and remove outdated statistics (stale data hurts citation trustworthiness)', done:false },
+          { id:36, cat:'GEO / LLM Visibility',     text:'Manually query ChatGPT, Gemini, Claude, and Perplexity for your brand and top topics', done:false },
+          { id:37, cat:'GEO / LLM Visibility',     text:'Track Share of Model monthly \u2014 run 50+ query variations, count your citation rate', done:false },
+          { id:38, cat:'GEO / LLM Visibility',     text:'Monitor brand sentiment in AI responses \u2014 flag inaccurate or missing information', done:false },
+          { id:39, cat:'GEO / LLM Visibility',     text:'Build topical authority clusters \u2014 not individual pages, but interconnected topic hubs', done:false },
+          { id:40, cat:'GEO / LLM Visibility',     text:'Publish original research, proprietary data, or named frameworks \u2014 LLMs prefer citeable, unique claims', done:false }
+        ],
+        get doneCount() { return this.items.filter(i => i.done).length; },
+        get total()     { return this.items.length; },
+        get pct()       { return Math.round((this.doneCount / this.total) * 100); },
+        get cats() {
+          const seen = [], out = [];
+          this.items.forEach(i => { if (!seen.includes(i.cat)) { seen.push(i.cat); out.push(i.cat); } });
+          return out;
+        },
+        catItems(cat) { return this.items.filter(i => i.cat === cat); },
+        catDone(cat)  { return this.items.filter(i => i.cat === cat && i.done).length; }
       };
     }
 
